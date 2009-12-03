@@ -12,10 +12,14 @@
 #
 ##############################################################################
 
-import sys, os, shutil
+import logging
+import os
+import shutil
+import sys
+
 import zc.buildout
 import zc.recipe.egg
-import logging
+import ZEO
 
 join = os.path.join
 
@@ -60,17 +64,6 @@ class Recipe:
         options = self.options
         location = options['location']
 
-        # evil hack alert!
-        # hopefully place ZODB in sys.path
-        orig_sys_path = tuple(sys.path)
-        sys.path[0:0] = self.ws_locations
-        try:
-            # if we can import ZEO, assume the depenencies (zdaemon, ZConfig,
-            # etc...) are also present on 'path'
-            import ZEO
-        except ImportError:
-            raise AssertionError(zodb_import_msg)
-
         if os.path.exists(location):
             shutil.rmtree(location)
 
@@ -112,10 +105,6 @@ class Recipe:
             # clean up
             shutil.rmtree(location)
             raise
-
-        # end evil hack and restore sys.path to it's glorious days
-        del sys.path[0:len(self.ws_locations)]
-        assert tuple(sys.path) == orig_sys_path
 
         return location
 
@@ -372,43 +361,11 @@ class Recipe:
             # XXX FIXME for Zope 2.12
             location = self.options['location']
 
-            zope2_location = self.options.get('zope2-location', None)
-
-            if zope2_location is not None:
-                software_home = join(zope2_location, 'lib', 'python')
-            else:
-                software_home = None
-
             arguments = {'PYTHON': self.options['executable'],
-                         'SOFTWARE_HOME': software_home,
                          'zodb3_home': self.zodb3_home,
-                         'ZOPE_HOME': zope2_location,
                          'INSTANCE_HOME': location,
                          'PYTHONPATH': os.path.pathsep.join(self.ws_locations),
                          'PACKAGE': 'zeo'}
-
-            if zope2_location is not None:
-                # zeoservice.py
-                # requires zope2_location due to the nt_svcutils package
-                zeo_filename = '%s_service' % self.name
-                zeo_service = open(join(curdir, 'zeoservice.py.in')).read()
-                zeo_file = os.path.join(self.options['bin-directory'],
-                                        '%s.py' % zeo_filename)
-                self._write_file(zeo_file, zeo_service % arguments)
-
-                initialization = """
-                import os; os.environ['PYTHONPATH'] = %r
-                """.strip() % os.path.pathsep.join(self.ws_locations)
-
-                zc.buildout.easy_install.scripts(
-                    [(zeo_filename, zeo_filename, 'main')],
-                    self.zodb_ws,
-                    self.options['executable'],
-                    self.options['bin-directory'],
-                    extra_paths = self.ws_locations,
-                    initialization = initialization,
-                    )
-
 
             # runzeo.bat
             runzeo_filename = '%s_runzeo.bat' % self.name
@@ -428,11 +385,6 @@ class Recipe:
         os.chmod(path, 0755)
         logger.warning('Changed mode for %s to 755' % path)
 
-
-zodb_import_msg = """
-Unable to import ZEO. Please, either add the ZODB3 egg to the 'eggs' entry or
-set zope2-location
-""".strip()
 
 # the template used to build a regular file storage entry for zeo.conf
 file_storage_template = """
