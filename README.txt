@@ -1,14 +1,14 @@
-plone.recipe.zope2zeoserver
-===========================
+plone.recipe.zeoserver
+======================
 
-This recipe creates and configures a Zope 2 ZEO server in parts. It also
+This recipe creates and configures a ZEO server in parts. It also
 installs a control script, which is like zeoctl, in the bin/ directory.
 The name of the control script is the the name of the part in buildout.
 
 You can use it with a part like this::
 
   [zeoserver]
-  recipe = plone.recipe.zope2zeoserver
+  recipe = plone.recipe.zeoserver
   zeo-address = 8100
 
 Options

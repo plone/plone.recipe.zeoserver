@@ -5,20 +5,15 @@ Grabs the doctests in /tests
 __docformat__ = 'restructuredtext'
 
 import unittest
-import doctest
 import sys
 import re
 import os
-import shutil
-import popen2
-import StringIO
 
 from zope.testing import doctest, renormalizing
 import zc.buildout.testing, zc.buildout.easy_install
 
 current_dir = os.path.abspath(os.path.dirname(__file__))
 recipe_location = current_dir
-zope_location = os.path.join(current_dir, 'zope2')
 
 for i in range(5):
     recipe_location = os.path.split(recipe_location)[0]
@@ -66,4 +61,3 @@ def test_suite():
 
 if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')
-

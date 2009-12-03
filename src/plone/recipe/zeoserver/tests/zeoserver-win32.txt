@@ -1,6 +1,6 @@
-===========================
-plone.recipe.zope2zeoserver
-===========================
+======================
+plone.recipe.zeoserver
+======================
 
 These tests are specific to win32. They make sure runzeo.bat and
 zeoservice.py are created properly. 
@@ -20,8 +20,8 @@ plone.recipe.zope2instance::
     ...     %(recipe_location)s 
     ...
     ... [zeo]
-    ... recipe = plone.recipe.zope2zeoserver
-    ... zope2-location = %(recipe_location)s/src/plone/recipe/zope2zeoserver/tests/zope2
+    ... recipe = plone.recipe.zeoserver
+    ... zope2-location = %(recipe_location)s/src/plone/recipe/zeoserver/tests/zope2
     ... 
     ... ''' % globals()
     >>> write('buildout.cfg', simplest) 

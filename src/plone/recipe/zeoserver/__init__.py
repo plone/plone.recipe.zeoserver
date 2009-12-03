@@ -264,13 +264,13 @@ class Recipe:
         if self.zeo_conf is None:
             self.zeo_conf = os.path.join(location, 'etc', 'zeo.conf')
 
-        _, ws = self.egg.working_set(['plone.recipe.zope2zeoserver'])
+        _, ws = self.egg.working_set(['plone.recipe.zeoserver'])
 
         initialization = """
         import os; os.environ['PYTHONPATH'] = %r
         """.strip() % os.path.pathsep.join(self.ws_locations)
         zc.buildout.easy_install.scripts(
-            [(self.name, 'plone.recipe.zope2zeoserver.ctl', 'main')],
+            [(self.name, 'plone.recipe.zeoserver.ctl', 'main')],
             ws, options['executable'], options['bin-directory'],
             initialization = initialization,
             arguments = ('\n        ["-C", %r]'
@@ -340,7 +340,7 @@ class Recipe:
                                "sys.argv[1:], 'S:W1')[0]; storage = "
                                "opts and opts[0][1] or '1'")
             zc.buildout.easy_install.scripts(
-                [('zeopack', 'plone.recipe.zope2zeoserver.pack', 'main')],
+                [('zeopack', 'plone.recipe.zeoserver.pack', 'main')],
                 self.zodb_ws, options['executable'], options['bin-directory'],
                 initialization=arguments_info,
                 arguments=', '.join(arg_list),

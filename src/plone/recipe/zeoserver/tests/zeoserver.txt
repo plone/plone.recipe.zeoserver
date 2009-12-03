@@ -1,9 +1,8 @@
-===========================
-plone.recipe.zope2zeoserver
-===========================
+======================
+plone.recipe.zeoserver
+======================
 
-
-This is the doctest for plone.recipe.zope2instance. It ensures the template
+This is the doctest for plone.recipe.zeoserver. It ensures the template
 works fine. It is based on zc.buildout testing module::
 
     >>> from zc.buildout.testing import *
@@ -11,7 +10,7 @@ works fine. It is based on zc.buildout testing module::
     >>> import sys, os
 
 Let's create a minimum buildout that uses the current
-plone.recipe.zope2instance::
+plone.recipe.zeoserver::
 
     >>> simplest = '''
     ... [buildout]
@@ -21,7 +20,7 @@ plone.recipe.zope2instance::
     ... index = http://pypi.python.org/simple
     ...
     ... [zeo]
-    ... recipe = plone.recipe.zope2zeoserver
+    ... recipe = plone.recipe.zeoserver
     ... ''' % globals()
     >>> write('buildout.cfg', simplest)
 
@@ -96,7 +95,7 @@ to use `rotatezlogs`::
     ...     %(recipe_location)s
     ...
     ... [zeo]
-    ... recipe = plone.recipe.zope2zeoserver
+    ... recipe = plone.recipe.zeoserver
     ... zeo-log-custom =
     ...     %%import iw.rotatezlogs
     ...     <rotatelogfile>
@@ -153,7 +152,7 @@ being the localhost address 127.0.0.1:
     ...     %(recipe_location)s
     ...
     ... [zeo]
-    ... recipe = plone.recipe.zope2zeoserver
+    ... recipe = plone.recipe.zeoserver
     ... zeo-address = 8001
     ...
     ... ''' % globals())
@@ -184,7 +183,7 @@ When a host:port combination is provided, the recipe must split it correctly::
     ...     %(recipe_location)s
     ...
     ... [zeo]
-    ... recipe = plone.recipe.zope2zeoserver
+    ... recipe = plone.recipe.zeoserver
     ... zeo-address = 192.168.0.11:8001
     ...
     ... ''' % globals())
@@ -216,7 +215,7 @@ to a Unix socket file::
     ...     %(recipe_location)s
     ...
     ... [zeo]
-    ... recipe = plone.recipe.zope2zeoserver
+    ... recipe = plone.recipe.zeoserver
     ... zeo-address = /path/to/zeo.socket
     ...
     ... ''' % globals())
@@ -251,7 +250,7 @@ The recipe supports the generation of scripts with relative paths.
     ...     %(recipe_location)s
     ...
     ... [zeo]
-    ... recipe = plone.recipe.zope2zeoserver
+    ... recipe = plone.recipe.zeoserver
     ... zeo-address = /path/to/zeo.socket
     ... ''' % globals())
     >>> print system(join('bin', 'buildout')),
@@ -262,4 +261,3 @@ Our generated script now has a reference to the relative path.
 
     >>> open(join('bin', 'zeo')).read()
     '...base = os.path.dirname(os.path.abspath(os.path.realpath(__file__)))...'
-
