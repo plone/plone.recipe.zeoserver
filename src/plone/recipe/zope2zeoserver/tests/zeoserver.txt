@@ -1,0 +1,265 @@
+===========================
+plone.recipe.zope2zeoserver
+===========================
+
+
+This is the doctest for plone.recipe.zope2instance. It ensures the template
+works fine. It is based on zc.buildout testing module::
+
+    >>> from zc.buildout.testing import *
+    >>> from os.path import join
+    >>> import sys, os
+
+Let's create a minimum buildout that uses the current
+plone.recipe.zope2instance::
+
+    >>> simplest = '''
+    ... [buildout]
+    ... parts = zeo
+    ... develop =
+    ...     %(recipe_location)s
+    ... index = http://pypi.python.org/simple
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zope2zeoserver
+    ... ''' % globals()
+    >>> write('buildout.cfg', simplest)
+
+Let's run it::
+
+    >>> print system(join('bin', 'buildout')),
+    Develop: '...'
+    ...
+    Installing zeo.
+    ...
+    Generated script '...zeo'.
+    Generated script '...zeopack'.
+    ...
+
+We should have a basic zeo.conf::
+
+    >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
+    >>> print open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
+    %define INSTANCE /sample-buildout/parts/zeo
+    <BLANKLINE>
+    <zeo>
+      address 8100
+      read-only false
+      invalidation-queue-size 100
+      pid-filename /sample-buildout/var/zeo.pid
+    </zeo>
+    <BLANKLINE>
+    <filestorage 1>
+      path /sample-buildout/var/filestorage/Data.fs
+    </filestorage>
+    <BLANKLINE>
+    <eventlog>
+      level info
+      <logfile>
+        path /sample-buildout/var/log/zeo.log
+        format %(asctime)s %(message)s
+      </logfile>
+    </eventlog>
+    <BLANKLINE>
+    <runner>
+      program $INSTANCE/bin/runzeo
+      socket-name /sample-buildout/var/zeo.zdsock
+      daemon true
+      forever false
+      backoff-limit 10
+      exit-codes 0, 2
+      directory $INSTANCE
+      default-to-interactive true
+    <BLANKLINE>
+    <BLANKLINE>
+      # This logfile should match the one in the zeo.conf file.
+      # It is used by zdctl's logtail command, zdrun/zdctl doesn't write it.
+      logfile /sample-buildout/var/log/zeo.log
+    </runner>
+    <BLANKLINE>
+    <BLANKLINE>
+    <BLANKLINE>
+
+Custom Zeo log
+==============
+
+`zeo-log-custom` is a new option that allows you to create
+a custom zeo log section. For example, let's say you want
+to use `rotatezlogs`::
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... index = http://pypi.python.org/simple
+    ... develop =
+    ...     %(recipe_location)s
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zope2zeoserver
+    ... zeo-log-custom =
+    ...     %%import iw.rotatezlogs
+    ...     <rotatelogfile>
+    ...         path %(sample_buildout)s/var/log/zeo.log
+    ...         max-bytes 1MB
+    ...         backup-count 5
+    ...     </rotatelogfile>
+    ...
+    ... ''' % globals())
+
+Let's run it::
+
+    >>> print system(join('bin', 'buildout')),
+    Develop: '...'
+    Uninstalling zeo.
+    Installing zeo...
+
+We should have a zeo.conf with a rotatezlog::
+
+    >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
+    >>> print open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
+     %define INSTANCE ...
+    ...
+    <eventlog>
+      level info
+      %import iw.rotatezlogs
+      <rotatelogfile>
+        path ...zeo.log
+        max-bytes 1MB
+        backup-count 5
+      </rotatelogfile>
+    </eventlog>
+    ...
+    <BLANKLINE>
+
+Custom Zeopack
+==============
+
+The generated zeopack script has to identify the ZEO server address from
+the `zeo-address` parameter in the zeo buildout section. This parameter
+may be just a port, a host and port combination, or a filesystem path to
+a Unix file socket. The generated script must contain correct values in
+either case.
+
+When just a port is given, the `zeopack` script will assume the host
+being the localhost address 127.0.0.1:
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... index = http://pypi.python.org/simple
+    ... develop =
+    ...     %(recipe_location)s
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zope2zeoserver
+    ... zeo-address = 8001
+    ...
+    ... ''' % globals())
+    >>> print system(join('bin', 'buildout')),
+    Develop: '...'
+    Uninstalling zeo.
+    Installing zeo...
+
+Now check the values for `host`, `port` and `unix`::
+
+    >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
+    >>> zeopack = open(zeopack_path, 'r').read()
+    >>> 'host = "127.0.0.1"' in zeopack
+    True
+    >>> 'port = "8001"' in zeopack
+    True
+    >>> 'unix = None' in zeopack
+    True
+
+When a host:port combination is provided, the recipe must split it correctly::
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... index = http://pypi.python.org/simple
+    ... develop =
+    ...     %(recipe_location)s
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zope2zeoserver
+    ... zeo-address = 192.168.0.11:8001
+    ...
+    ... ''' % globals())
+    >>> print system(join('bin', 'buildout')),
+    Develop: '...'
+    Uninstalling zeo.
+    Installing zeo...
+
+Now check the values for `host`, `port` and `unix`::
+
+    >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
+    >>> zeopack = open(zeopack_path, 'r').read()
+    >>> 'host = "192.168.0.11"' in zeopack
+    True
+    >>> 'port = "8001"' in zeopack
+    True
+    >>> 'unix = None' in zeopack
+    True
+
+If the `zeo-address`-parameter is a string it is assumed to be the path
+to a Unix socket file::
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... index = http://pypi.python.org/simple
+    ... develop =
+    ...     %(recipe_location)s
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zope2zeoserver
+    ... zeo-address = /path/to/zeo.socket
+    ...
+    ... ''' % globals())
+    >>> print system(join('bin', 'buildout')),
+    Develop: '...'
+    Uninstalling zeo.
+    Installing zeo...
+
+Now check the values for `host`, `port` and `unix`::
+
+    >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
+    >>> zeopack = open(zeopack_path, 'r').read()
+    >>> 'host = None' in zeopack
+    True
+    >>> 'port = None' in zeopack
+    True
+    >>> 'unix = "/path/to/zeo.socket"' in zeopack
+    True
+
+Relative paths in scripts
+=========================
+
+The recipe supports the generation of scripts with relative paths.
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... relative-paths = true
+    ... parts = zeo
+    ... index = http://pypi.python.org/simple
+    ... develop =
+    ...     %(recipe_location)s
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zope2zeoserver
+    ... zeo-address = /path/to/zeo.socket
+    ... ''' % globals())
+    >>> print system(join('bin', 'buildout')),
+    Develop: '...'
+    ...
+
+Our generated script now has a reference to the relative path.
+
+    >>> open(join('bin', 'zeo')).read()
+    '...base = os.path.dirname(os.path.abspath(os.path.realpath(__file__)))...'
+

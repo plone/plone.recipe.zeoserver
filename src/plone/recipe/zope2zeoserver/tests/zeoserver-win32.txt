@@ -1,0 +1,110 @@
+===========================
+plone.recipe.zope2zeoserver
+===========================
+
+These tests are specific to win32. They make sure runzeo.bat and
+zeoservice.py are created properly. 
+
+::
+    >>> from zc.buildout.testing import * 
+    >>> from os.path import join
+    >>> import sys, os
+
+Let's create a minimum buildout that uses the current 
+plone.recipe.zope2instance::
+
+    >>> simplest = '''
+    ... [buildout]
+    ... parts = zeo
+    ... develop = 
+    ...     %(recipe_location)s 
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zope2zeoserver
+    ... zope2-location = %(recipe_location)s/src/plone/recipe/zope2zeoserver/tests/zope2
+    ... 
+    ... ''' % globals()
+    >>> write('buildout.cfg', simplest) 
+
+Let's run it::
+
+    >>> print system(join('bin', 'buildout')),
+    Develop: '...'
+    ...
+    Generated script '.../bin/zeo'.
+    Generated script '.../bin/zeopack'.
+    ...
+    Changed mode for ... to 755
+
+We should have a basic zeo.conf::
+
+    >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
+    >>> print open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
+    %define INSTANCE /sample-buildout/parts/zeo
+    <BLANKLINE>
+    <zeo>
+      address 8100
+      read-only false
+      invalidation-queue-size 100
+      pid-filename /sample-buildout/var/zeo.pid
+    </zeo>
+    <BLANKLINE>
+    <filestorage 1>
+      path /sample-buildout/var/filestorage/Data.fs
+    </filestorage>
+    <BLANKLINE>
+    <eventlog>
+      level info
+      <logfile>
+        path /sample-buildout/var/log/zeo.log
+        format %(message)s
+      </logfile>
+    </eventlog>
+    <BLANKLINE>
+    <runner>
+      program $INSTANCE/bin/runzeo
+      socket-name /sample-buildout/var/zeo.zdsock
+      daemon true
+      forever false
+      backoff-limit 10
+      exit-codes 0, 2
+      directory $INSTANCE
+      default-to-interactive true
+    <BLANKLINE>
+    <BLANKLINE>
+      # This logfile should match the one in the zeo.conf file.
+      # It is used by zdctl's logtail command, zdrun/zdctl doesn't write it.
+      logfile /sample-buildout/var/log/zeo.log
+    </runner>
+
+And some win32 specific scripts::
+
+    >>> ls(join(sample_buildout, 'bin')) 
+    -  ...
+    -  runzeo.bat
+    ...
+    -  zeoservice-script.py
+    -  zeoservice.exe
+    -  zeoservice.py
+
+Let's check the files we got. 
+
+First of all, the batch script::
+
+    >>> print open(join(sample_buildout, 'bin', 'runzeo.bat')).read()
+    @rem zeo instance start script
+    ...
+    @set RUNZEO=%ZODB3_HOME%/ZEO/runzeo.py
+    "%PYTHON%" "%RUNZEO%" -C "%CONFIG_FILE%" %1 %2 %3 %4 %5 %6 %7 %8 %9
+
+And the service script::
+
+    >>> print open(join(sample_buildout, 'bin', 'zeoservice.py')).read()
+    #...
+    ...
+    def main():
+        import win32serviceutil
+        win32serviceutil.HandleCommandLine(InstanceService)
+    if __name__ == '__main__':
+        main()
+
