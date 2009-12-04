@@ -1,7 +1,7 @@
 Change History
 ==============
 
-1.0a2 - Unreleased
+1.0a2 - 2009-12-03
 ------------------
 
 * Set up logging configuration that is needed by ZODB.blob.
