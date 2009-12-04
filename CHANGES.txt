@@ -4,6 +4,13 @@ Change History
 1.0a2 - Unreleased
 ------------------
 
+* Set up logging configuration that is needed by ZODB.blob.
+  [davisagli]
+
+* Set shared_blob_dir to True when initializing the ClientStorage used
+  by the pack script, since it will be using the same blob directory
+  as the ZEO server.
+  [davisagli]
 
 1.0a1 - 2009-12-03
 ------------------
