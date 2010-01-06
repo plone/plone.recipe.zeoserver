@@ -165,6 +165,7 @@ class Recipe:
                 os.makedirs(socket_dir)
 
             z_log_name = os.path.sep.join(('var', 'log', self.name + '.log',))
+            zeo_log_level = options.get('zeo-log-level', 'info')
             zeo_log_custom = options.get('zeo-log-custom', None)
 
             # if zeo-log is given, we use it to set the runner
@@ -226,6 +227,7 @@ class Recipe:
                 pid_file = pid_file,
                 zeo_conf_additional = zeo_conf_additional,
                 monitor_address = monitor_address,
+                zeo_log_level = zeo_log_level,
                 )
 
         zeo_conf_path = os.path.join(location, 'etc', 'zeo.conf')
@@ -433,7 +435,7 @@ zeo_conf_template = """\
 %(storage)s
 
 <eventlog>
-  level info
+  level %(zeo_log_level)s
   %(z_log)s
 </eventlog>
 

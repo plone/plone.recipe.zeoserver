@@ -131,6 +131,45 @@ We should have a zeo.conf with a rotatezlog::
     ...
     <BLANKLINE>
 
+ZEO log level
+=============
+
+Using `zeo-log-level` option, it is possible to set the ZEO log level.
+By default the log level will be `info`.  Let's change the log level
+as `error`::
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... index = http://pypi.python.org/simple
+    ... develop =
+    ...     %(recipe_location)s
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zeoserver
+    ... zeo-log-level = error
+    ...
+    ... ''' % globals())
+
+Let's run it::
+
+    >>> print system(join('bin', 'buildout')),
+    Develop: '...'
+    Uninstalling zeo.
+    Installing zeo...
+
+We should have a zeo.conf with a log level set to `error`::
+
+    >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
+    >>> print open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
+     %define INSTANCE ...
+    ...
+    <eventlog>
+      level error
+    ...
+    <BLANKLINE>
+
 Custom Zeopack
 ==============
 

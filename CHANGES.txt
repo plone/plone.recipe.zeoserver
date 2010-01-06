@@ -4,6 +4,8 @@ Change History
 1.0a3 - unreleased
 ------------------
 
+- Added support for setting ZEO log level.
+  [baijum]
 
 1.0a2 - 2009-12-03
 ------------------
