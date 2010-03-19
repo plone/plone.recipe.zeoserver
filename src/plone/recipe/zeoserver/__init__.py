@@ -330,12 +330,16 @@ class Recipe:
             arguments_info += ("import getopt; opts = getopt.getopt("
                                "sys.argv[1:], 'S:W1')[0]; storage = "
                                "opts and opts[0][1] or '1'")
+            # Make sure the recipe itself and its dependencies are on the path
+            extra_paths = [ws.by_key[options['recipe']].location]
+            extra_paths.append(ws.by_key['zc.buildout'].location)
+            extra_paths.append(ws.by_key['zc.recipe.egg'].location)
             zc.buildout.easy_install.scripts(
                 [('zeopack', 'plone.recipe.zeoserver.pack', 'main')],
                 self.zodb_ws, options['executable'], options['bin-directory'],
                 initialization=arguments_info,
                 arguments=', '.join(arg_list),
-                relative_paths=self._relative_paths,
+                relative_paths=self._relative_paths, extra_paths=extra_paths
                 )
 
         # The backup script, pointing to repozo.py

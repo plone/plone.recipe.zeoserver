@@ -4,6 +4,9 @@ Change History
 1.0a3 - unreleased
 ------------------
 
+- Fixed issue with egg paths for the zeopack script.
+  [davisagli]
+
 - Added support for setting ZEO log level.
   [baijum]
 
