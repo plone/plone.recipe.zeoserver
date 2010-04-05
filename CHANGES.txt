@@ -1,8 +1,8 @@
 Change History
 ==============
 
-1.0b2 - unreleased
-------------------
+1.0 - 2010-04-05
+----------------
 
 - Depend on and always include ZopeUndo. While it's only needed for Zope 2, the
   distribution is so tiny, it doesn't hurt for non-Zope 2 ZEO servers.
