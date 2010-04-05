@@ -28,6 +28,7 @@ setup(
         'setuptools',
         'zc.recipe.egg',
         'ZODB3',
+        'ZopeUndo',
     ],
     tests_require=['zope.testing'],
     zip_safe=False,
