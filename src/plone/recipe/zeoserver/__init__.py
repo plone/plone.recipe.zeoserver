@@ -183,9 +183,10 @@ class Recipe:
                 'pid-file',
                 os.path.join(base_dir, 'var', self.name + '.pid'))
 
-            # check whether we'll wrap a blob storage around our file storage
-            blob_storage = options.get('blob-storage', None)
-            if blob_storage is not None:
+            blob_storage = os.path.sep.join(('var', 'blobstorage'))
+            blob_storage = options.get('blob-storage', blob_storage)
+            if blob_storage:
+                blob_storage = os.path.join(base_dir, blob_storage)
                 storage_template = blob_storage_template
             else:
                 storage_template = file_storage_template

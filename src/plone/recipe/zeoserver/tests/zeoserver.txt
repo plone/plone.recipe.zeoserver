@@ -44,9 +44,12 @@ We should have a basic zeo.conf::
       pid-filename .../sample-buildout/var/zeo.pid
     </zeo>
     <BLANKLINE>
-    <filestorage 1>
-      path .../sample-buildout/var/filestorage/Data.fs
-    </filestorage>
+    <blobstorage 1>
+      blob-dir .../sample-buildout/var/blobstorage
+      <filestorage 1>
+        path .../sample-buildout/var/filestorage/Data.fs
+      </filestorage>
+    </blobstorage>
     <BLANKLINE>
     <eventlog>
       level info
