@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.0.1'
+version = '1.1'
 
 setup(
     name = "plone.recipe.zeoserver",
@@ -30,7 +30,6 @@ setup(
         'ZODB3',
         'ZopeUndo',
     ],
-    tests_require=['zope.testing'],
     zip_safe=False,
     entry_points = {
         'zc.buildout': ['default = plone.recipe.zeoserver:Recipe']

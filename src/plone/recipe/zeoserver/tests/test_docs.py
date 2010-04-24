@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-Grabs the doctests in /tests
-"""
-__docformat__ = 'restructuredtext'
 
+import doctest
 import unittest
 import sys
-import re
 import os
 
-from zope.testing import doctest, renormalizing
 import zc.buildout.testing, zc.buildout.easy_install
 
 current_dir = os.path.abspath(os.path.dirname(__file__))
@@ -29,8 +24,7 @@ def doc_suite(test_dir, globs=None):
     if globs is None:
         globs = globals()
 
-    flags = (doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE |
-             doctest.REPORT_ONLY_FIRST_FAILURE)
+    flags = (doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE)
 
     doctest_dir = test_dir
 
@@ -40,18 +34,10 @@ def doc_suite(test_dir, globs=None):
             if _right_platform(doc)]
 
     for test in docs:
-        suite.append(doctest.DocFileSuite(test, optionflags=flags, 
-                                          globs=globs, 
+        suite.append(doctest.DocFileSuite(test, optionflags=flags,
+                                          globs=globs,
                     setUp=zc.buildout.testing.buildoutSetUp,
-                    tearDown=zc.buildout.testing.buildoutTearDown,
-                    checker=renormalizing.RENormalizing([
-                        zc.buildout.testing.normalize_path,
-                        (re.compile(r'\S+buildout.py'), 'buildout.py'),
-                        (re.compile(r'line \d+'), 'line NNN'),
-                        (re.compile(r'py\(\d+\)'), 'py(NNN)'),
-                        ])
-                        ,
-                      module_relative=False))
+                    tearDown=zc.buildout.testing.buildoutTearDown))
 
     return unittest.TestSuite(suite)
 

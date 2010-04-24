@@ -1,9 +1,11 @@
 Change History
 ==============
 
-1.0.1 - unreleased
-------------------
+1.1 - unreleased
+----------------
 
+- Removed testing dependency on zope.testing.
+  [hannosch]
 
 1.0 - 2010-04-05
 ----------------
