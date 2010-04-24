@@ -5,11 +5,6 @@ import socket
 import sys
 from ZEO.ClientStorage import ClientStorage
 
-HAS_BLOB = True
-try:
-    from ZODB.interfaces import IBlobStorage; IBlobStorage
-except ImportError:
-    HAS_BLOB = False
 
 def _main(host, port, unix=None, days=1, username=None, password=None,
          realm=None, blob_dir=None, shared_blob_dir=True, storage='1'):
@@ -23,21 +18,16 @@ def _main(host, port, unix=None, days=1, username=None, password=None,
     wait = True
     cs = None
     try:
-        if HAS_BLOB:
-            cs = ClientStorage(
-                addr, storage=storage, wait=wait, read_only=True,
-                username=username, password=password, realm=realm,
-                blob_dir=blob_dir, shared_blob_dir=shared_blob_dir
-            )
-        else:
-            cs = ClientStorage(
-                addr, storage=storage, wait=wait, read_only=True,
-                username=username, password=password, realm=realm
-            )
+        cs = ClientStorage(
+            addr, storage=storage, wait=wait, read_only=True,
+            username=username, password=password, realm=realm,
+            blob_dir=blob_dir, shared_blob_dir=shared_blob_dir,
+        )
         cs.pack(wait=wait, days=int(days))
     finally:
         if cs is not None:
             cs.close()
+
 
 def main(*args, **kw):
     root_logger = logging.getLogger()

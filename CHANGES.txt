@@ -4,6 +4,9 @@ Change History
 1.1 - unreleased
 ----------------
 
+- Require at least ZODB 3.8 and simplify the ``zeopack`` script.
+  [hannosch]
+
 - Various documentation updates.
   [hannosch]
 

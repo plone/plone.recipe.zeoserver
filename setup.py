@@ -28,7 +28,7 @@ setup(
         'setuptools',
         'zc.recipe.egg',
         'zope.mkzeoinstance',
-        'ZODB3',
+        'ZODB3 >= 3.8',
         'ZopeUndo',
     ],
     zip_safe=False,
