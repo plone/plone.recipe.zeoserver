@@ -171,8 +171,8 @@ may be just a port, a host and port combination, or a filesystem path to
 a Unix file socket. The generated script must contain correct values in
 either case.
 
-When just a port is given, the `zeopack` script will assume the host
-being the localhost address 127.0.0.1:
+When just a port is given, the `zeopack` script will assume the host is
+the localhost address 127.0.0.1:
 
     >>> write('buildout.cfg',
     ... '''

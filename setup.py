@@ -21,7 +21,7 @@ setup(
     ],
     packages = find_packages('src'),
     include_package_data = True,
-    package_dir = {'':'src'},
+    package_dir = {'': 'src'},
     namespace_packages = ['plone', 'plone.recipe'],
     install_requires = [
         'zc.buildout',
@@ -33,6 +33,6 @@ setup(
     ],
     zip_safe=False,
     entry_points = {
-        'zc.buildout': ['default = plone.recipe.zeoserver:Recipe']
+        'zc.buildout': ['default = plone.recipe.zeoserver:Recipe'],
     },
     )

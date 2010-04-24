@@ -1,8 +1,7 @@
-# zeopack wrapper
-
 import logging
 import socket
 import sys
+
 from ZEO.ClientStorage import ClientStorage
 
 
@@ -42,6 +41,7 @@ def main(*args, **kw):
     finally:
         logging.getLogger().setLevel(old_level)
         logging.getLogger().removeHandler(handler)
+
 
 if __name__ == "__main__":
     main()

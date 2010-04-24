@@ -1,17 +1,3 @@
-##############################################################################
-#
-# Copyright (c) 2006-2007 Zope Corporation and Contributors.
-# All Rights Reserved.
-#
-# This software is subject to the provisions of the Zope Public License,
-# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
-# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
-# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
-# FOR A PARTICULAR PURPOSE.
-#
-##############################################################################
-
 import logging
 import os
 import shutil
@@ -24,6 +10,7 @@ import ZEO
 join = os.path.join
 
 curdir = os.path.dirname(__file__)
+
 
 class Recipe:
 
@@ -43,8 +30,7 @@ class Recipe:
         # Relative path support for the generated scripts
         relative_paths = options.get(
             'relative-paths',
-            buildout['buildout'].get('relative-paths', 'false')
-            )
+            buildout['buildout'].get('relative-paths', 'false'))
         if relative_paths == 'true':
             options['buildout-directory'] = buildout['buildout']['directory']
             self._relative_paths = options['buildout-directory']
@@ -114,9 +100,7 @@ class Recipe:
             # has changed.
             saved_path = os.path.join(location, 'etc', '.eggs')
             if os.path.isfile(saved_path):
-                if (open(saved_path).read() !=
-                    '\n'.join(self.ws_locations)
-                    ):
+                if (open(saved_path).read() != '\n'.join(self.ws_locations)):
                     # Something has changed. Blow away the instance.
                     self.install()
 
@@ -149,7 +133,7 @@ class Recipe:
 
             effective_user = options.get('effective-user', '')
             if effective_user:
-               effective_user = 'user %s' % effective_user
+                effective_user = 'user %s' % effective_user
 
             invalidation_queue_size = options.get('invalidation-queue-size',
                                                   '100')
@@ -161,7 +145,7 @@ class Recipe:
             if not os.path.exists(socket_dir):
                 os.makedirs(socket_dir)
 
-            z_log_name = os.path.sep.join(('var', 'log', self.name + '.log',))
+            z_log_name = os.path.sep.join(('var', 'log', self.name + '.log'))
             zeo_log_level = options.get('zeo-log-level', 'info')
             zeo_log_custom = options.get('zeo-log-custom', None)
 
@@ -176,11 +160,12 @@ class Recipe:
             # zeo-log-custom superseeds zeo-log
             logformat=options.get('zeo-log-format', '%(asctime)s %(message)s')
             if zeo_log_custom is None:
-                z_log = z_log_file % {'filename': z_log_filename, 'logformat' : logformat}
+                z_log = z_log_file % {
+                    'filename': z_log_filename, 'logformat': logformat}
             else:
                 z_log = zeo_log_custom
 
-            file_storage = os.path.sep.join(('var', 'filestorage', 'Data.fs',))
+            file_storage = os.path.sep.join(('var', 'filestorage', 'Data.fs'))
             file_storage = options.get('file-storage', file_storage)
             file_storage = os.path.join(base_dir, file_storage)
             file_storage_dir = os.path.dirname(file_storage)
@@ -208,7 +193,7 @@ class Recipe:
             storage = storage_template % dict(
                 storage_number = storage_number,
                 file_storage = file_storage,
-                blob_storage = blob_storage
+                blob_storage = blob_storage,
                 )
 
             zeo_conf = zeo_conf_template % dict(
@@ -263,8 +248,7 @@ class Recipe:
             initialization = initialization,
             arguments = ('\n        ["-C", %r]'
                          '\n        + sys.argv[1:]'
-                         % self.zeo_conf
-                         ),
+                         % self.zeo_conf),
             relative_paths=self._relative_paths,
             )
         # zeopack.py
@@ -287,13 +271,14 @@ class Recipe:
                 try:
                     # if the only argument is a port, which must be an int,
                     # we use 127.0.0.1 as the host by default
-                    int_port = int(zeo_address)
-                    host = '127.0.0.1'
-                    port = zeo_address
+                    port = int(zeo_address)
                 except ValueError:
                     # The address is a simple string, we now assume it is
                     # a path to a Unix socket file
                     socket_path = zeo_address
+                else:
+                    host = '127.0.0.1'
+                    port = zeo_address
             else:
                 host, port = parts
 
@@ -320,7 +305,7 @@ class Recipe:
                 blob_dir=options.get('blob-storage', None),
             )
             arguments_info = ''
-            for k,v in arguments.items():
+            for k, v in arguments.items():
                 if not v:
                     arguments_info += '%s = None\n' % k
                 else:
@@ -337,7 +322,7 @@ class Recipe:
                 self.zodb_ws, options['executable'], options['bin-directory'],
                 initialization=arguments_info,
                 arguments=', '.join(arg_list),
-                relative_paths=self._relative_paths, extra_paths=extra_paths
+                relative_paths=self._relative_paths, extra_paths=extra_paths,
                 )
 
         # The backup script, pointing to repozo.py
@@ -347,7 +332,8 @@ class Recipe:
             extra_paths = []
         else:
             if not os.path.exists(repozo):
-                raise AssertionError('Custom repozo script not found: %s' % repozo)
+                raise AssertionError(
+                    'Custom repozo script not found: %s' % repozo)
             directory, filename = os.path.split(repozo)
             repozo = os.path.splitext(filename)[0]
             extra_paths = [directory]

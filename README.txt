@@ -32,7 +32,7 @@ Process
 
 zeo-address
   Give a port for the ZEO server (either specify the port number only (with
-  'localhost' as default) or you use the format ``host:port``).
+  '127.0.0.1' as default) or you use the format ``host:port``).
   Defaults to ``8100``.
 
 effective-user
