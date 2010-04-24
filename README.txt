@@ -14,60 +14,57 @@ You can use it with a part like this::
 Options
 -------
 
-zeopack
-  The path to the zeopack.py backup script. A wrapper for this will be
-  generated in bin/zeopack, which sets up the appropriate environment to
-  run this. Defaults to using the zeopack script from the ZODB3 egg.
-  Set this option to an empty value if you do not want this script to be
-  generated.
+The following options all affect the generated zeo.conf. If you want to have
+full control over the configuration file, see the ``zeo-conf`` option in the
+advanced options.
 
-repozo
-  The path to the repozo.py backup script. A wrapper for this will be
-  generated in bin/repozo, which sets up the appropriate environment for
-  running this. Defaults to using the repozo script from the ZODB3 egg.
-  Set this to an empty value if you do not want this script to be generated.
-
-zeo-conf
-  A relative or absolute path to a zeo.conf file. If this is not given, a
-  zeo.conf will be generated based on the the options below.
-
-The following options all affect the generated zope.conf.
+Process
+-------
 
 zeo-address
   Give a port for the ZEO server (either specify the port number only (with
-  'localhost' as default) or you use the format ``host:port``). Defaults to 8100.
+  'localhost' as default) or you use the format ``host:port``).
+  Defaults to ``8100``.
 
 effective-user
   The name of the effective user for the ZEO process. Defaults to not setting
-  an effective user.
-
-invalidation-queue-size
-  The invalidation-queue-size used for the ZEO server. Defaults to 100.
-
-zeo-log
-  The filename of the ZEO log file. Defaults to var/log/${partname}.log
-
-zeo-log-format
-  Format of logfile entries. Defaults to %(asctime)s %(message)s
-
-zeo-log-custom
-  A custom section for the eventlog, to be able to use another
-  event logger than `logfile`. `zeo-log` is still used to set the logfile
-  value in the runner section.
-
-storage-number
-  The number used to identify a storage.
-
-file-storage
-  The filename where the ZODB data file will be stored.
-  Defaults to var/filestorage/Data.fs.
-
-blob-storage
-  The folder where the ZODB blob data files will be stored.
+  an effective user. This causes the process to run under the user account the
+  process has been started with.
 
 socket-name
   The filename where ZEO will write its socket file.
-  Defaults to var/zeo.zdsock.
+  Defaults to ``var/zeo.zdsock``.
+
+Storage
+-------
+
+storage-number
+  The number used to identify a storage. Defaults to ``1``.
+
+file-storage
+  The filename where the ZODB data file will be stored.
+  Defaults to ``var/filestorage/Data.fs``.
+
+blob-storage
+  The folder where the ZODB blob data files will be stored.
+  Defaults to ``var/blobstorage``.
+
+Logging
+-------
+
+zeo-log
+  The filename of the ZEO log file. Defaults to ``var/log/${partname}.log``.
+
+zeo-log-format
+  Format of logfile entries. Defaults to ``%(asctime)s %(message)s``.
+
+zeo-log-custom
+  A custom section for the eventlog, to be able to use another
+  event logger than ``logfile``. ``zeo-log`` is still used to set the logfile
+  value in the runner section.
+
+Authentication
+--------------
 
 authentication-database
   The filename for a authentication database. Only accounts listed in this
@@ -85,10 +82,13 @@ authentication-database
     sha.new(string).hexdigest()
 
 authentication-realm
-  The authentication realm. Defaults to 'ZEO'
+  The authentication realm. Defaults to ``ZEO``.
+
+Packing
+-------
 
 pack-days
-  Specify of days for the zeopack script to retain of history. Defaults to
+  How many days of history should the zeopack script retain. Defaults to
   one day.
 
 pack-user
@@ -99,22 +99,54 @@ pack-password
   If the ZEO server uses authentication, this is the password used by the
   zeopack script to connect to the ZEO server.
 
-zeo-conf-additional
-  Give additional lines to zeo.conf. Make sure you indent any lines after
-  the one with the parameter.
+Monitoring
+----------
 
 monitor-address
-  The address at which the monitor server should listen.
-  The monitor server provides server statistics in a simple text format.
+  The address at which the monitor server should listen. The monitor server
+  provides server statistics in a simple text format.
 
-relative-paths
-  Set this to `true` to make the generated scripts use relative
-  paths. You can also enable this in the `[buildout]` section.
+Performance
+-----------
+
+invalidation-queue-size
+  The invalidation-queue-size used for the ZEO server. Defaults to ``100``.
+
+Customization
+-------------
+
+zeo-conf-additional
+  Give additional lines to zeo.conf. Make sure you indent any lines after
+  the one with the parameter. This allows you to use generated zeo.conf file
+  but add some minor additional lines to it.
 
 eggs
   Set if you need to include other packages as eggs e.g. for making
   application code available on the ZEO server side for performing
   conflict resolution (through the _p_resolveConflict() handler).
+
+zeo-conf
+  A relative or absolute path to a zeo.conf file. This lets you provide a
+  completely custom configuration file and ignore most of the options in
+  this recipe.
+
+repozo
+  The path to the repozo.py backup script. A wrapper for this will be
+  generated in bin/repozo, which sets up the appropriate environment for
+  running this. Defaults to using the repozo script from the ZODB3 egg.
+  Set this to an empty value if you do not want this script to be generated.
+
+zeopack
+  The path to the zeopack.py backup script. A wrapper for this will be
+  generated in bin/zeopack, which sets up the appropriate environment to
+  run this. Defaults to using the zeopack script from the ZODB3 egg.
+  Set this option to an empty value if you do not want this script to be
+  generated.
+
+relative-paths
+  Set this to `true` to make the generated scripts use relative
+  paths. You can also enable this in the `[buildout]` section.
+
 
 Reporting bugs or asking questions
 ----------------------------------
