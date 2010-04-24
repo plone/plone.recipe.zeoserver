@@ -15,19 +15,16 @@ plone.recipe.zeoserver::
     >>> simplest = '''
     ... [buildout]
     ... parts = zeo
-    ... develop =
-    ...     %(recipe_location)s
-    ... index = http://pypi.python.org/simple
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
-    ... ''' % globals()
+    ... '''
     >>> write('buildout.cfg', simplest)
 
 Let's run it::
 
-    >>> print system(join('bin', 'buildout')),
-    Develop: '...'
+    >>> print system(join('bin', 'buildout'))
+    Couldn't find index page...
     ...
     Installing zeo.
     ...
@@ -39,30 +36,30 @@ We should have a basic zeo.conf::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
     >>> print open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
-    %define INSTANCE /sample-buildout/parts/zeo
+    %define INSTANCE .../sample-buildout/parts/zeo
     <BLANKLINE>
     <zeo>
       address 8100
       read-only false
       invalidation-queue-size 100
-      pid-filename /sample-buildout/var/zeo.pid
+      pid-filename .../sample-buildout/var/zeo.pid
     </zeo>
     <BLANKLINE>
     <filestorage 1>
-      path /sample-buildout/var/filestorage/Data.fs
+      path .../sample-buildout/var/filestorage/Data.fs
     </filestorage>
     <BLANKLINE>
     <eventlog>
       level info
       <logfile>
-        path /sample-buildout/var/log/zeo.log
+        path .../sample-buildout/var/log/zeo.log
         format %(asctime)s %(message)s
       </logfile>
     </eventlog>
     <BLANKLINE>
     <runner>
       program $INSTANCE/bin/runzeo
-      socket-name /sample-buildout/var/zeo.zdsock
+      socket-name .../sample-buildout/var/zeo.zdsock
       daemon true
       forever false
       backoff-limit 10
@@ -73,7 +70,7 @@ We should have a basic zeo.conf::
     <BLANKLINE>
       # This logfile should match the one in the zeo.conf file.
       # It is used by zdctl's logtail command, zdrun/zdctl doesn't write it.
-      logfile /sample-buildout/var/log/zeo.log
+      logfile .../sample-buildout/var/log/zeo.log
     </runner>
     <BLANKLINE>
     <BLANKLINE>
@@ -90,9 +87,6 @@ to use `rotatezlogs`::
     ... '''
     ... [buildout]
     ... parts = zeo
-    ... index = http://pypi.python.org/simple
-    ... develop =
-    ...     %(recipe_location)s
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
@@ -109,7 +103,8 @@ to use `rotatezlogs`::
 Let's run it::
 
     >>> print system(join('bin', 'buildout')),
-    Develop: '...'
+    Couldn't find index page...
+    ...
     Uninstalling zeo.
     Installing zeo...
 
@@ -142,9 +137,6 @@ as `error`::
     ... '''
     ... [buildout]
     ... parts = zeo
-    ... index = http://pypi.python.org/simple
-    ... develop =
-    ...     %(recipe_location)s
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
@@ -155,7 +147,8 @@ as `error`::
 Let's run it::
 
     >>> print system(join('bin', 'buildout')),
-    Develop: '...'
+    Couldn't find index page...
+    ...
     Uninstalling zeo.
     Installing zeo...
 
@@ -186,9 +179,6 @@ being the localhost address 127.0.0.1:
     ... '''
     ... [buildout]
     ... parts = zeo
-    ... index = http://pypi.python.org/simple
-    ... develop =
-    ...     %(recipe_location)s
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
@@ -196,7 +186,8 @@ being the localhost address 127.0.0.1:
     ...
     ... ''' % globals())
     >>> print system(join('bin', 'buildout')),
-    Develop: '...'
+    Couldn't find index page...
+    ...
     Uninstalling zeo.
     Installing zeo...
 
@@ -217,9 +208,6 @@ When a host:port combination is provided, the recipe must split it correctly::
     ... '''
     ... [buildout]
     ... parts = zeo
-    ... index = http://pypi.python.org/simple
-    ... develop =
-    ...     %(recipe_location)s
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
@@ -227,7 +215,8 @@ When a host:port combination is provided, the recipe must split it correctly::
     ...
     ... ''' % globals())
     >>> print system(join('bin', 'buildout')),
-    Develop: '...'
+    Couldn't find index page...
+    ...
     Uninstalling zeo.
     Installing zeo...
 
@@ -249,9 +238,6 @@ to a Unix socket file::
     ... '''
     ... [buildout]
     ... parts = zeo
-    ... index = http://pypi.python.org/simple
-    ... develop =
-    ...     %(recipe_location)s
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
@@ -259,7 +245,8 @@ to a Unix socket file::
     ...
     ... ''' % globals())
     >>> print system(join('bin', 'buildout')),
-    Develop: '...'
+    Couldn't find index page...
+    ...
     Uninstalling zeo.
     Installing zeo...
 
@@ -284,16 +271,13 @@ The recipe supports the generation of scripts with relative paths.
     ... [buildout]
     ... relative-paths = true
     ... parts = zeo
-    ... index = http://pypi.python.org/simple
-    ... develop =
-    ...     %(recipe_location)s
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
     ... zeo-address = /path/to/zeo.socket
     ... ''' % globals())
     >>> print system(join('bin', 'buildout')),
-    Develop: '...'
+    Couldn't find index page...
     ...
 
 Our generated script now has a reference to the relative path.

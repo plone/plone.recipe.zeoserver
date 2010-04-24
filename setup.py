@@ -27,7 +27,7 @@ setup(
         'zc.buildout',
         'setuptools',
         'zc.recipe.egg',
-        'ZODB3',
+        'ZODB3 < 3.9.5',
         'ZopeUndo',
     ],
     zip_safe=False,
