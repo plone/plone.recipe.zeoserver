@@ -2,6 +2,7 @@
 
 import doctest
 import unittest
+import shutil
 
 import pkg_resources
 from zc.buildout.testing import buildoutSetUp
@@ -24,6 +25,12 @@ def setUp(test):
             # Some distributions are installed multiple times, and the
             # underlying API doesn't check for it
             pass
+
+
+def tearDown(test):
+    buildoutTearDown(test)
+    sample_buildout = test.globs['sample_buildout']
+    shutil.rmtree(sample_buildout, ignore_errors=True)
 
 
 def test_suite():
