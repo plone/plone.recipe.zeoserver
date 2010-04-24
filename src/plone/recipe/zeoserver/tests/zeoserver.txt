@@ -15,17 +15,16 @@ plone.recipe.zeoserver::
     >>> simplest = '''
     ... [buildout]
     ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
-    ... '''
+    ... ''' % globals()
     >>> write('buildout.cfg', simplest)
 
 Let's run it::
 
     >>> print system(join('bin', 'buildout'))
-    Couldn't find index page...
-    ...
     Installing zeo.
     ...
     Generated script '...zeo'.
@@ -87,6 +86,7 @@ to use `rotatezlogs`::
     ... '''
     ... [buildout]
     ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
@@ -103,7 +103,6 @@ to use `rotatezlogs`::
 Let's run it::
 
     >>> print system(join('bin', 'buildout')),
-    Couldn't find index page...
     ...
     Uninstalling zeo.
     Installing zeo...
@@ -137,6 +136,7 @@ as `error`::
     ... '''
     ... [buildout]
     ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
@@ -147,7 +147,6 @@ as `error`::
 Let's run it::
 
     >>> print system(join('bin', 'buildout')),
-    Couldn't find index page...
     ...
     Uninstalling zeo.
     Installing zeo...
@@ -179,6 +178,7 @@ being the localhost address 127.0.0.1:
     ... '''
     ... [buildout]
     ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
@@ -186,7 +186,6 @@ being the localhost address 127.0.0.1:
     ...
     ... ''' % globals())
     >>> print system(join('bin', 'buildout')),
-    Couldn't find index page...
     ...
     Uninstalling zeo.
     Installing zeo...
@@ -208,6 +207,7 @@ When a host:port combination is provided, the recipe must split it correctly::
     ... '''
     ... [buildout]
     ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
@@ -215,7 +215,6 @@ When a host:port combination is provided, the recipe must split it correctly::
     ...
     ... ''' % globals())
     >>> print system(join('bin', 'buildout')),
-    Couldn't find index page...
     ...
     Uninstalling zeo.
     Installing zeo...
@@ -238,6 +237,7 @@ to a Unix socket file::
     ... '''
     ... [buildout]
     ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
@@ -245,7 +245,6 @@ to a Unix socket file::
     ...
     ... ''' % globals())
     >>> print system(join('bin', 'buildout')),
-    Couldn't find index page...
     ...
     Uninstalling zeo.
     Installing zeo...
@@ -271,13 +270,15 @@ The recipe supports the generation of scripts with relative paths.
     ... [buildout]
     ... relative-paths = true
     ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
     ...
     ... [zeo]
     ... recipe = plone.recipe.zeoserver
     ... zeo-address = /path/to/zeo.socket
     ... ''' % globals())
     >>> print system(join('bin', 'buildout')),
-    Couldn't find index page...
+    Uninstalling zeo.
+    Installing zeo.
     ...
 
 Our generated script now has a reference to the relative path.
