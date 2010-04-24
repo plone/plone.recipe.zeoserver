@@ -37,7 +37,8 @@ def doc_suite(test_dir, globs=None):
         suite.append(doctest.DocFileSuite(test, optionflags=flags,
                                           globs=globs,
                     setUp=zc.buildout.testing.buildoutSetUp,
-                    tearDown=zc.buildout.testing.buildoutTearDown))
+                    tearDown=zc.buildout.testing.buildoutTearDown,
+                    module_relative=False))
 
     return unittest.TestSuite(suite)
 
