@@ -11,7 +11,7 @@ Change History
 - Removed unmaintained win32 specific tests and old zope2 test mockups.
   [hannosch]
 
-- Removed testing dependency on zope.testing.
+- Removed testing dependency on ``zope.testing`` and refactored testing setup.
   [hannosch]
 
 1.0 - 2010-04-05
