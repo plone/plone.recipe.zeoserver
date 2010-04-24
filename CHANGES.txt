@@ -4,6 +4,9 @@ Change History
 1.1 - unreleased
 ----------------
 
+- Removed unmaintained win32 specific tests and old zope2 test mockups.
+  [hannosch]
+
 - Removed testing dependency on zope.testing.
   [hannosch]
 
