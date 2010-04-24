@@ -67,24 +67,21 @@ class Recipe:
         if os.path.exists(location):
             shutil.rmtree(location)
 
-        # What follows is a bit of a hack because the instance-setup mechanism
-        # is a bit monolithic. We'll run mkzeoinst and then we'll
-        # patch the result. A better approach might be to provide independent
-        # instance-creation logic, but this raises lots of issues that
-        # need to be stored out first.
-
         # this was taken from mkzeoinstance.py
-        from ZEO.mkzeoinst import ZEOInstanceBuilder
+        import zdaemon
+        zdaemon_home = os.path.split(zdaemon.__path__[0])[0]
 
         self.zodb3_home = os.path.dirname(os.path.dirname(ZEO.__file__))
         params = {
             "package": "zeo",
             "PACKAGE": "ZEO",
             "zodb3_home": self.zodb3_home,
+            'zdaemon_home': zdaemon_home,
             "instance_home": location,
-            "port": 8100, # will be overwritten later
+            "address": '8100', # will be overwritten later
             "python": options['executable'],
             }
+        from zope.mkzeoinstance import ZEOInstanceBuilder
         ZEOInstanceBuilder().create(location, params)
 
         try:
@@ -312,6 +309,7 @@ class Recipe:
                 'username', 'password', 'realm', 'blob_dir', 'storage',
             ]
             arguments = dict(
+                address=zeo_address,
                 host=host,
                 port=port,
                 unix=socket_path,

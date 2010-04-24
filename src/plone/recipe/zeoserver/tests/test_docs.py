@@ -25,6 +25,7 @@ def setUp(test):
     install('zope.event', test)
     install('zope.exceptions', test)
     install('zope.interface', test)
+    install('zope.mkzeoinstance', test)
     install('zope.proxy', test)
 
 

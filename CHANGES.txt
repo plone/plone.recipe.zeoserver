@@ -4,6 +4,10 @@ Change History
 1.1 - unreleased
 ----------------
 
+- Use the new ``zope.mkzeoinstance`` package, which makes the recipe compatible
+  with ZODB 3.9.5+.
+  [hannosch]
+
 - Removed unmaintained win32 specific tests and old zope2 test mockups.
   [hannosch]
 
