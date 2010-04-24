@@ -1,15 +1,24 @@
-plone.recipe.zeoserver
-======================
+Overview
+========
 
-This recipe creates and configures a ZEO server in parts. It also
-installs a control script, which is like zeoctl, in the bin/ directory.
-The name of the control script is the the name of the part in buildout.
+This recipe creates and configures a ZEO server in parts. It also installs a
+control script in the bin/ directory. The name of the control script is the
+name of the part in buildout.
 
 You can use it with a part like this::
 
-  [zeoserver]
+  [zeo]
   recipe = plone.recipe.zeoserver
   zeo-address = 8100
+
+This will create a control script ``bin/zeo``.
+
+You can either start the database in foreground mode via ``bin/zeo fg`` or use
+the built-in zdaemon process control and use the ``start/stop/restart/status``
+commands. The foreground mode is suitable for running the process under general
+process control software like supervisord.
+
+Note: Windows support for this recipe is currently limited.
 
 Options
 -------
