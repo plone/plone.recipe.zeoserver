@@ -100,6 +100,10 @@ pack-days
   How many days of history should the zeopack script retain. Defaults to
   one day.
 
+pack-gc
+  Can be set to ``false`` to disable garbage collection as part of the pack.
+  Defaults to ``true``.
+
 pack-user
   If the ZEO server uses authentication, this is the username used by the
   zeopack script to connect to the ZEO server.

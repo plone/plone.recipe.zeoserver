@@ -4,6 +4,9 @@ Change History
 1.1 - unreleased
 ----------------
 
+- Added support for the ``pack-gc`` option introduced in ZODB 3.9.
+  [hannosch]
+
 - Always create a blob-storage by default.
   [hannosch]
 

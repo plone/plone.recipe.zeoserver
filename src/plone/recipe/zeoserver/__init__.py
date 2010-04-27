@@ -191,10 +191,19 @@ class Recipe:
             else:
                 storage_template = file_storage_template
 
+            effective_user = options.get('effective-user', '')
+            if effective_user:
+                effective_user = 'user %s' % effective_user
+
+            pack_gc = options.get('pack-gc', '')
+            if pack_gc.lower() == 'false':
+                pack_gc = 'pack-gc false'
+
             storage = storage_template % dict(
                 storage_number = storage_number,
                 file_storage = file_storage,
                 blob_storage = blob_storage,
+                pack_gc = pack_gc,
                 )
 
             zeo_conf = zeo_conf_template % dict(
@@ -381,6 +390,7 @@ class Recipe:
 file_storage_template = """
 <filestorage %(storage_number)s>
   path %(file_storage)s
+  %(pack_gc)s
 </filestorage>
 """.strip()
 
@@ -391,6 +401,7 @@ blob_storage_template = """
   blob-dir %(blob_storage)s
   <filestorage %(storage_number)s>
     path %(file_storage)s
+    %(pack_gc)s
   </filestorage>
 </blobstorage>
 """.strip()
