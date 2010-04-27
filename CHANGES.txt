@@ -1,8 +1,8 @@
 Change History
 ==============
 
-1.1 - unreleased
-----------------
+1.1a1 - 2010-04-27
+------------------
 
 - Added support for the ``pack-gc`` option introduced in ZODB 3.9.
   [hannosch]
