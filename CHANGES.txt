@@ -4,6 +4,8 @@ Change History
 1.1a2 - unreleased
 ------------------
 
+- Added support for the ``pack-keep-old`` option introduced in ZODB 3.9.
+  [hannosch]
 
 1.1a1 - 2010-04-27
 ------------------

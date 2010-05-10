@@ -104,6 +104,10 @@ pack-gc
   Can be set to ``false`` to disable garbage collection as part of the pack.
   Defaults to ``true``.
 
+pack-keep-old
+  Can be set to ``false`` to disable the creation of ``*.fs.old`` files before
+  the pack is run. Defaults to ``true``.
+
 pack-user
   If the ZEO server uses authentication, this is the username used by the
   zeopack script to connect to the ZEO server.

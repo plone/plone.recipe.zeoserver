@@ -199,11 +199,16 @@ class Recipe:
             if pack_gc.lower() == 'false':
                 pack_gc = 'pack-gc false'
 
+            pack_keep_old = options.get('pack-keep-old', '')
+            if pack_keep_old.lower() == 'false':
+                pack_keep_old = 'pack-keep-old false'
+
             storage = storage_template % dict(
                 storage_number = storage_number,
                 file_storage = file_storage,
                 blob_storage = blob_storage,
                 pack_gc = pack_gc,
+                pack_keep_old = pack_keep_old,
                 )
 
             zeo_conf = zeo_conf_template % dict(
@@ -391,6 +396,7 @@ file_storage_template = """
 <filestorage %(storage_number)s>
   path %(file_storage)s
   %(pack_gc)s
+  %(pack_keep_old)s
 </filestorage>
 """.strip()
 
@@ -402,6 +408,7 @@ blob_storage_template = """
   <filestorage %(storage_number)s>
     path %(file_storage)s
     %(pack_gc)s
+    %(pack_keep_old)s
   </filestorage>
 </blobstorage>
 """.strip()
