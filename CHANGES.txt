@@ -1,7 +1,7 @@
-Change History
-==============
+Changelog
+=========
 
-1.1a2 - unreleased
+1.1a2 - 2010-05-10
 ------------------
 
 - Added support for the ``pack-keep-old`` option introduced in ZODB 3.9.
