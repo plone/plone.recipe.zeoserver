@@ -5,7 +5,6 @@ import sys
 
 import zc.buildout
 import zc.recipe.egg
-import ZEO
 
 join = os.path.join
 
@@ -57,6 +56,7 @@ class Recipe:
         import zdaemon
         zdaemon_home = os.path.split(zdaemon.__path__[0])[0]
 
+        import ZEO
         self.zodb3_home = os.path.dirname(os.path.dirname(ZEO.__file__))
         params = {
             "package": "zeo",
