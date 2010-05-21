@@ -52,6 +52,12 @@ class Recipe:
         if os.path.exists(location):
             shutil.rmtree(location)
 
+        self.module_paths = self.options.get('extra-paths', [])
+        if self.module_paths:
+            # Filter out empty directories
+            self.module_paths = [p for p in self.module_paths.split('\n') if p]
+
+
         # this was taken from mkzeoinstance.py
         import zdaemon
         zdaemon_home = os.path.split(zdaemon.__path__[0])[0]
@@ -234,7 +240,10 @@ class Recipe:
         location = self.options['location']
         # XXX We need to patch the windows specific batch scripts
         # and they need a different path seperator
-        path = os.path.pathsep.join(self.ws_locations)
+        path = (os.path.pathsep.join(self.ws_locations)
+                + os.path.pathsep
+                + os.path.pathsep.join(self.module_paths))
+
         for script_name in ('runzeo', 'zeoctl'):
             script_path = os.path.join(location, 'bin', script_name)
             script = open(script_path).read()
@@ -254,9 +263,12 @@ class Recipe:
 
         _, ws = self.egg.working_set(['plone.recipe.zeoserver'])
 
+        path = (os.path.pathsep.join(self.ws_locations)
+                + os.path.pathsep
+                + os.path.pathsep.join(self.module_paths))
         initialization = """
         import os; os.environ['PYTHONPATH'] = %r
-        """.strip() % os.path.pathsep.join(self.ws_locations)
+        """.strip() % path
         zc.buildout.easy_install.scripts(
             [(self.name, 'plone.recipe.zeoserver.ctl', 'main')],
             ws, options['executable'], options['bin-directory'],
@@ -264,8 +276,10 @@ class Recipe:
             arguments = ('\n        ["-C", %r]'
                          '\n        + sys.argv[1:]'
                          % self.zeo_conf),
-            relative_paths=self._relative_paths,
+            extra_paths=self.module_paths,
+            relative_paths=self._relative_paths
             )
+
         # zeopack.py
         zeopack = options.get('zeopack', None)
         if zeopack is not None:
@@ -274,7 +288,7 @@ class Recipe:
                 zc.buildout.easy_install.scripts(
                     [('zeopack', os.path.splitext(filename)[0], 'main')],
                     ws, options['executable'], options['bin-directory'],
-                    extra_paths = ws + [directory],
+                    extra_paths = ws + [directory] + self.module_paths,
                     relative_paths=self._relative_paths,
                     )
         else:
@@ -337,7 +351,8 @@ class Recipe:
                 self.zodb_ws, options['executable'], options['bin-directory'],
                 initialization=arguments_info,
                 arguments=', '.join(arg_list),
-                relative_paths=self._relative_paths, extra_paths=extra_paths,
+                relative_paths=self._relative_paths,
+                extra_paths=extra_paths + self.module_paths,
                 )
 
         # The backup script, pointing to repozo.py
@@ -355,7 +370,7 @@ class Recipe:
         zc.buildout.easy_install.scripts(
             [('repozo', repozo, 'main')],
             self.zodb_ws, options['executable'], options['bin-directory'],
-            extra_paths = extra_paths,
+            extra_paths = extra_paths + self.module_paths,
             relative_paths=self._relative_paths,
             )
 

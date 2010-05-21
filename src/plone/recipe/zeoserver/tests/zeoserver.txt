@@ -288,3 +288,34 @@ Our generated script now has a reference to the relative path.
 
     >>> open(join('bin', 'zeo')).read()
     '...base = os.path.dirname(os.path.abspath(os.path.realpath(__file__)))...'
+
+Extra paths in scripts
+======================
+
+The recipe support extra paths.
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zeoserver
+    ... zeo-address = /path/to/zeo.socket
+    ... extra-paths = /path/to/test-1.0.egg
+    ... ''' % globals())
+    >>> print system(join('bin', 'buildout')),
+    Uninstalling zeo.
+    Installing zeo.
+    ...
+
+The generated scripts should have the extra path.
+
+    >>> open(join('bin', 'zeo')).read()
+    '.../path/to/test-1.0.egg.../path/to/test-1.0.egg...'
+    >>> open(join('parts', 'zeo', 'bin', 'runzeo')).read()
+    '.../path/to/test-1.0.egg...'
+    >>> open(join('parts', 'zeo', 'bin', 'zeoctl')).read()
+    '.../path/to/test-1.0.egg...'
+

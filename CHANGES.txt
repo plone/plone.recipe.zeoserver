@@ -4,6 +4,8 @@ Changelog
 1.1a3 - unreleased
 ------------------
 
+- Added ``extra-paths`` option to add additional modules paths.
+  [baijum]
 
 1.1a2 - 2010-05-10
 ------------------
