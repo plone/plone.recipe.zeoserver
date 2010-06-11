@@ -1,18 +1,20 @@
 import logging
 import socket
 import sys
+import os
 
 from ZEO.ClientStorage import ClientStorage
 
 
 def _main(host, port, unix=None, days=1, username=None, password=None,
-         realm=None, blob_dir=None, shared_blob_dir=True, storage='1'):
+         realm=None, blob_dir=None, storage='1', shared_blob_dir=True):
     if unix is not None:
         addr = unix
     else:
         if host is None:
             host = socket.gethostname()
         addr = host, int(port)
+    blob_dir = os.path.abspath(blob_dir)
 
     wait = True
     cs = None
