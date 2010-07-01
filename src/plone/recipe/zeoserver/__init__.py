@@ -57,7 +57,6 @@ class Recipe:
             # Filter out empty directories
             self.module_paths = [p for p in self.module_paths.split('\n') if p]
 
-
         # this was taken from mkzeoinstance.py
         import zdaemon
         zdaemon_home = os.path.split(zdaemon.__path__[0])[0]

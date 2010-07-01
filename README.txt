@@ -142,6 +142,10 @@ eggs
   application code available on the ZEO server side for performing
   conflict resolution (through the _p_resolveConflict() handler).
 
+extra-paths
+  Specify additional directories which should be available to the control
+  scripts. Use this only for non-eggified Python packages.
+
 zeo-conf
   A relative or absolute path to a zeo.conf file. This lets you provide a
   completely custom configuration file and ignore most of the options in
