@@ -14,7 +14,9 @@ def _main(host, port, unix=None, days=1, username=None, password=None,
         if host is None:
             host = socket.gethostname()
         addr = host, int(port)
-    blob_dir = os.path.abspath(blob_dir)
+
+    if blob_dir:
+        blob_dir = os.path.abspath(blob_dir)
 
     wait = True
     cs = None
