@@ -10,7 +10,8 @@ Changelog
 - Fixed ZEO packing of mounted storage.
   [vangheem]
 
-- Added -B option to script to specify the location of the blob storage.
+- Added -B option to the ``zeopack`` script to specify the location of the
+  blob storage.
   [vangheem]
 
 1.1a2 - 2010-05-10
