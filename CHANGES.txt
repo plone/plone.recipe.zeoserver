@@ -7,11 +7,10 @@ Changelog
 - Added ``extra-paths`` option to add additional modules paths.
   [baijum]
 
-- fixed zeopacking of mounted storage
+- Fixed ZEO packing of mounted storage.
   [vangheem]
 
-- added -B option to script to specify the location of the blob
-  storage
+- Added -B option to script to specify the location of the blob storage.
   [vangheem]
 
 1.1a2 - 2010-05-10
