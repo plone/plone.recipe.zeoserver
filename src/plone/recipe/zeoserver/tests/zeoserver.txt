@@ -9,6 +9,8 @@ works fine. It is based on zc.buildout testing module::
     >>> from os.path import join
     >>> import sys, os
 
+    >>> WINDOWS = sys.platform == 'win32'
+
 Let's create a minimum buildout that uses the current
 plone.recipe.zeoserver::
 
@@ -194,6 +196,8 @@ the localhost address 127.0.0.1:
 Now check the values for `host`, `port` and `unix`::
 
     >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
+    >>> if WINDOWS:
+    ...     zeopack_path += '.exe'
     >>> zeopack = open(zeopack_path, 'r').read()
     >>> 'host = "127.0.0.1"' in zeopack
     True
@@ -223,6 +227,8 @@ When a host:port combination is provided, the recipe must split it correctly::
 Now check the values for `host`, `port` and `unix`::
 
     >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
+    >>> if WINDOWS:
+    ...     zeopack_path += '.exe'
     >>> zeopack = open(zeopack_path, 'r').read()
     >>> 'host = "192.168.0.11"' in zeopack
     True
@@ -253,6 +259,8 @@ to a Unix socket file::
 Now check the values for `host`, `port` and `unix`::
 
     >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
+    >>> if WINDOWS:
+    ...     zeopack_path += '.exe'
     >>> zeopack = open(zeopack_path, 'r').read()
     >>> 'host = None' in zeopack
     True
@@ -284,7 +292,10 @@ The recipe supports the generation of scripts with relative paths.
 
 Our generated script now has a reference to the relative path.
 
-    >>> open(join('bin', 'zeo')).read()
+    >>> zeo_path = join('bin', 'zeo')
+    >>> if WINDOWS:
+    ...     zeo_path += '.exe'
+    >>> open(zeo_path).read()
     '...base = os.path.dirname(os.path.abspath(os.path.realpath(__file__)))...'
 
 Extra paths in scripts
@@ -310,10 +321,14 @@ The recipe support extra paths.
 
 The generated scripts should have the extra path.
 
-    >>> open(join('bin', 'zeo')).read()
-    '.../path/to/test-1.0.egg.../path/to/test-1.0.egg...'
-    >>> open(join('parts', 'zeo', 'bin', 'runzeo')).read()
-    '.../path/to/test-1.0.egg...'
-    >>> open(join('parts', 'zeo', 'bin', 'zeoctl')).read()
-    '.../path/to/test-1.0.egg...'
+    >>> if WINDOWS:
+    ...     suffix = '.exe'
+    ... else:
+    ...     suffix = ''
 
+    >>> open(join('bin', 'zeo' + suffix)).read()
+    '.../path/to/test-1.0.egg.../path/to/test-1.0.egg...'
+    >>> open(join('parts', 'zeo', 'bin', 'runzeo' + suffix)).read()
+    '.../path/to/test-1.0.egg...'
+    >>> open(join('parts', 'zeo', 'bin', 'zeoctl' + suffix)).read()
+    '.../path/to/test-1.0.egg...'
