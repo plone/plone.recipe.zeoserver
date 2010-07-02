@@ -330,13 +330,19 @@ The generated scripts should have the extra path.
     >>> if WINDOWS:
     ...     extra = '\\path\\to\\test-1.0.egg'
 
+    >>> parts_bin = join('parts', 'zeo', 'bin')
+
     >>> extra in open(join('bin', 'zeo' + suffix)).read()
     True
 
     >>> if not WINDOWS:
-    ...     open(join('parts', 'zeo', 'bin', 'runzeo' + suffix)).read()
-    '.../path/to/test-1.0.egg...'
+    ...     extra in open(join(parts_bin, 'runzeo' + suffix)).read()
+    ... else:
+    ...     print True
+    True
 
     >>> if not WINDOWS:
-    ...     open(join('parts', 'zeo', 'bin', 'zeoctl' + suffix)).read()
-    '.../path/to/test-1.0.egg...'
+    ...     extra in open(join(parts_bin, 'zeoctl' + suffix)).read()
+    ... else:
+    ...     print True
+    True
