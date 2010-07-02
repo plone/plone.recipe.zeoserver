@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1b1 - unreleased
+1.1b1 - 2010-07-02
 ------------------
 
 - Implemented Windows support and support for running ZEO as a Windows service.
