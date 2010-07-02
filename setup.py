@@ -26,6 +26,7 @@ setup(
     install_requires = [
         'zc.buildout',
         'setuptools',
+        'nt_svcutils',
         'zc.recipe.egg',
         'zope.mkzeoinstance',
         'ZODB3 >= 3.8',

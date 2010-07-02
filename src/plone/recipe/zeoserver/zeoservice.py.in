@@ -69,15 +69,16 @@ import sys, os
 
 # these are replacements from mkzopeinstance
 PYTHON = r'%(PYTHON)s'
-SOFTWARE_HOME=r'%(SOFTWARE_HOME)s'
 INSTANCE_HOME = r'%(INSTANCE_HOME)s'
-ZOPE_HOME = r'%(ZOPE_HOME)s'
 ZODB3_HOME = r'%(zodb3_home)s'
 PYTHONPATH = r'%(PYTHONPATH)s'
+PID_FILENAME = r'%(PID_FILENAME)s'
 
 ZEO_RUN = r'%%s\\ZEO\\runzeo.py' %% ZODB3_HOME
 CONFIG_FILE= os.path.join(INSTANCE_HOME, 'etc', 'zeo.conf')
-PYTHONSERVICE_EXE=r'%%s\\bin\\PythonService.exe' %% ZOPE_HOME
+
+import win32service
+PYTHONSERVICE_EXE=os.path.join(os.path.dirname(win32service.__file__), 'PythonServicea.exe')
 
 # Setup the environment, so sub-processes see these variables
 parts = os.environ.get("PYTHONPATH", "").split(os.pathsep)
@@ -85,16 +86,8 @@ for part in PYTHONPATH.split(os.pathsep):
     if part not in parts:
         parts.append(part)
 
-if SOFTWARE_HOME not in parts:
-    parts = filter(None, [SOFTWARE_HOME] + parts)
-
 os.environ["PYTHONPATH"] = os.pathsep.join(parts)
-os.environ["INSTANCE_HOME"] = INSTANCE_HOME
-
-# Ensure SOFTWARE_HOME is on our current sys.path so we can import the
-# nt_svcutils package.
-if SOFTWARE_HOME not in sys.path:
-    sys.path.insert(0, SOFTWARE_HOME)
+sys.path[0:0] = parts
 
 from nt_svcutils.service import Service
 
@@ -113,6 +106,10 @@ class InstanceService(Service):
 
     process_runner = PYTHON
     process_args = '"%%s" -C "%%s"' %% (ZEO_RUN, CONFIG_FILE)
+    def __init__(self, args):
+        self.setReg('command', self.process_runner + " " + self.process_args)
+        self.setReg('pid_filename', PID_FILENAME)
+        Service.__init__(self, args)
 
 def main(cls=InstanceService):
     serviceClassString = None

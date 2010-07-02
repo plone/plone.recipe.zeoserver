@@ -186,7 +186,7 @@ class Recipe:
             else:
                 authentication = ''
 
-            pid_file = options.get(
+            self.pid_file = options.get(
                 'pid-file',
                 os.path.join(base_dir, 'var', self.name + '.pid'))
 
@@ -228,7 +228,7 @@ class Recipe:
                 authentication = authentication,
                 storage = storage,
                 zeo_address = zeo_address,
-                pid_file = pid_file,
+                pid_file = self.pid_file,
                 zeo_conf_additional = zeo_conf_additional,
                 monitor_address = monitor_address,
                 zeo_log_level = zeo_log_level,
@@ -380,20 +380,42 @@ class Recipe:
             self.install_win32_scripts()
 
     def install_win32_scripts(self):
-            # XXX FIXME for Zope 2.12
-            location = self.options['location']
+        path = self.ws_locations + self.module_paths
+        location = self.options['location']
 
-            arguments = {'PYTHON': self.options['executable'],
-                         'zodb3_home': self.zodb3_home,
-                         'INSTANCE_HOME': location,
-                         'PYTHONPATH': os.path.pathsep.join(self.ws_locations),
-                         'PACKAGE': 'zeo'}
+        arguments = {'PYTHON': self.options['executable'],
+                     'zodb3_home': self.zodb3_home,
+                     'INSTANCE_HOME': location,
+                     'PYTHONPATH': os.path.pathsep.join(path),
+                     'PACKAGE': 'zeo',
+                     'PID_FILENAME': self.pid_file}
 
-            # runzeo.bat
-            runzeo_filename = '%s_runzeo.bat' % self.name
-            runzeo = open(join(curdir, 'runzeo.bat')).read()
-            self._write_file(os.path.join(self.options['bin-directory'],
-                             runzeo_filename), runzeo % arguments)
+        # runzeo.bat
+        runzeo_filename = '%s_runzeo.bat' % self.name
+        runzeo = open(join(curdir, 'runzeo.bat')).read()
+        self._write_file(os.path.join(self.options['bin-directory'],
+                                      runzeo_filename), runzeo % arguments)
+
+        # zeoservice.py
+        zeo_filename = '%s_service' % self.name
+        zeo_service = open(join(curdir, 'zeoservice.py.in')).read()
+        zeo_file = os.path.join(self.options['bin-directory'],
+                                    '%s.py' % zeo_filename)
+        self._write_file(zeo_file, zeo_service % arguments)
+
+        initialization = """
+        import os; os.environ['PYTHONPATH'] = %r
+        """.strip() % os.path.pathsep.join(path)
+
+        zc.buildout.easy_install.scripts(
+            [(zeo_filename, zeo_filename, 'main')],
+            self.zodb_ws,
+            self.options['executable'],
+            self.options['bin-directory'],
+            extra_paths = path,
+            relative_paths=self._relative_paths,
+            initialization = initialization,
+            )
 
     def _write_file(self, path, content):
         logger = logging.getLogger('zc.buildout.easy_install')
