@@ -197,7 +197,7 @@ Now check the values for `host`, `port` and `unix`::
 
     >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
     >>> if WINDOWS:
-    ...     zeopack_path += '.exe'
+    ...     zeopack_path += '-script.py'
     >>> zeopack = open(zeopack_path, 'r').read()
     >>> 'host = "127.0.0.1"' in zeopack
     True
@@ -228,7 +228,7 @@ Now check the values for `host`, `port` and `unix`::
 
     >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
     >>> if WINDOWS:
-    ...     zeopack_path += '.exe'
+    ...     zeopack_path += '-script.py'
     >>> zeopack = open(zeopack_path, 'r').read()
     >>> 'host = "192.168.0.11"' in zeopack
     True
@@ -260,7 +260,7 @@ Now check the values for `host`, `port` and `unix`::
 
     >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
     >>> if WINDOWS:
-    ...     zeopack_path += '.exe'
+    ...     zeopack_path += '-script.py'
     >>> zeopack = open(zeopack_path, 'r').read()
     >>> 'host = None' in zeopack
     True
@@ -294,7 +294,7 @@ Our generated script now has a reference to the relative path.
 
     >>> zeo_path = join('bin', 'zeo')
     >>> if WINDOWS:
-    ...     zeo_path += '.exe'
+    ...     zeo_path += '-script.py'
     >>> open(zeo_path).read()
     '...base = os.path.dirname(os.path.abspath(os.path.realpath(__file__)))...'
 
@@ -322,7 +322,7 @@ The recipe support extra paths.
 The generated scripts should have the extra path.
 
     >>> if WINDOWS:
-    ...     suffix = '.exe'
+    ...     suffix = '-script.py'
     ... else:
     ...     suffix = ''
 
