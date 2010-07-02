@@ -4,6 +4,10 @@ Changelog
 1.1a3 - unreleased
 ------------------
 
+- The FileStorage component of ZODB 3.9 now supports blobs natively,
+  so no need to use BlobStorage proxy for it anymore.
+  [baijum, hannosch]
+
 - Added ``extra-paths`` option to add additional modules paths.
   [baijum]
 

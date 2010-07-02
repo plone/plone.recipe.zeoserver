@@ -3,6 +3,8 @@ import os
 import shutil
 import sys
 
+from pkg_resources import get_distribution
+from pkg_resources import parse_version
 import zc.buildout
 import zc.recipe.egg
 
@@ -276,8 +278,7 @@ class Recipe:
                          '\n        + sys.argv[1:]'
                          % self.zeo_conf),
             extra_paths=self.module_paths,
-            relative_paths=self._relative_paths
-            )
+            relative_paths=self._relative_paths)
 
         # zeopack.py
         zeopack = options.get('zeopack', None)
@@ -394,7 +395,6 @@ class Recipe:
             self._write_file(os.path.join(self.options['bin-directory'],
                              runzeo_filename), runzeo % arguments)
 
-
     def _write_file(self, path, content):
         logger = logging.getLogger('zc.buildout.easy_install')
         f = open(path, 'w')
@@ -416,9 +416,24 @@ file_storage_template = """
 </filestorage>
 """.strip()
 
-# the template used to build a blob storage wrapping a file storage entry for
-# zeo.conf
-blob_storage_template = """
+
+# the template used to build a blob storage
+zodb_version = get_distribution('ZODB3').version
+
+if parse_version(zodb_version) >= parse_version('3.9'):
+    # ZODB 3.9+ supports blobs natively
+    blob_storage_template = """
+<filestorage %(storage_number)s>
+  path %(file_storage)s
+  blob-dir %(blob_storage)s
+  %(pack_gc)s
+  %(pack_keep_old)s
+</filestorage>
+""".strip()
+
+else:
+    # ZODB 3.8 needs a blob storage wrapper
+    blob_storage_template = """
 <blobstorage %(storage_number)s>
   blob-dir %(blob_storage)s
   <filestorage %(storage_number)s>
@@ -428,6 +443,7 @@ blob_storage_template = """
   </filestorage>
 </blobstorage>
 """.strip()
+
 
 z_log_file = """\
      <logfile>
