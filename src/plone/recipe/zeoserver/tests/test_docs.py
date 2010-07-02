@@ -15,6 +15,7 @@ def setUp(test):
     buildoutSetUp(test)
     install_develop('plone.recipe.zeoserver', test)
     install('zc.recipe.egg', test)
+    install('nt_svcutils', test)
     install('zope.mkzeoinstance', test)
     install('ZopeUndo', test)
     dependencies = pkg_resources.working_set.require('ZODB3')
