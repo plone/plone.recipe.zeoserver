@@ -36,7 +36,8 @@ Let's run it::
 We should have a basic zeo.conf::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
-    >>> print open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
+    >>> conf = open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
+    >>> print conf.replace('\\', '/')
     %define INSTANCE .../sample-buildout/parts/zeo
     <BLANKLINE>
     <zeo>
