@@ -169,6 +169,16 @@ relative-paths
   paths. You can also enable this in the `[buildout]` section.
 
 
+Usage
+-----
+
+zeopack
+  A zeopack script will be generated for you in the buildout bin directory.
+  If you'd like to use this script to pack a different mount point, you'll
+  need to specify `-S mount_name`. You can also specify a `-B` option to not
+  use the default blob directory.
+
+
 Reporting bugs or asking questions
 ----------------------------------
 
