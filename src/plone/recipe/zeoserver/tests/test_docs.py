@@ -3,6 +3,7 @@
 import doctest
 import unittest
 import shutil
+import sys
 
 import pkg_resources
 from zc.buildout.testing import buildoutSetUp
@@ -15,7 +16,8 @@ def setUp(test):
     buildoutSetUp(test)
     install_develop('plone.recipe.zeoserver', test)
     install('zc.recipe.egg', test)
-    install('nt_svcutils', test)
+    if sys.platform[:3].lower() == "win":
+        install('nt_svcutils', test)
     install('zope.mkzeoinstance', test)
     install('ZopeUndo', test)
     dependencies = pkg_resources.working_set.require('ZODB3')
