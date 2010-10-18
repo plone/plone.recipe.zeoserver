@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.2.0 - unreleased
+1.2.0 - 2010-10-18
 ------------------
 
 - Only require a ``nt_svcutils`` distribution on Windows.
