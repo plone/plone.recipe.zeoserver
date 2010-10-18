@@ -1,17 +1,19 @@
 Changelog
 =========
 
-1.1.2 - unreleased
+1.2.0 - unreleased
 ------------------
 
+- Only require a ``nt_svcutils`` distribution on Windows.
+  [hannosch]
 
 1.1.1 - 2010-07-20
 ------------------
 
-- fixed -B option being required for along with the -S option.
+- Fixed -B option being required for along with the -S option.
   [vangheem]
-  
-- added documentation for using the zeopack script with mount points
+
+- Added documentation for using the zeopack script with mount points.
   [vangheem]
 
 1.1 - 2010-07-18

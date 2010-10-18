@@ -1,6 +1,13 @@
+import sys
 from setuptools import setup, find_packages
 
-version = '1.1.2dev'
+version = '1.2.0dev'
+
+additional_install_requires = []
+
+if sys.platform[:3].lower() == "win":
+    additional_install_requires += ['nt_svcutils']
+
 
 setup(
     name = "plone.recipe.zeoserver",
@@ -26,12 +33,11 @@ setup(
     install_requires = [
         'zc.buildout',
         'setuptools',
-        'nt_svcutils',
         'zc.recipe.egg',
         'zope.mkzeoinstance',
         'ZODB3 >= 3.8',
         'ZopeUndo',
-    ],
+    ] + additional_install_requires,
     zip_safe=False,
     entry_points = {
         'zc.buildout': ['default = plone.recipe.zeoserver:Recipe'],
