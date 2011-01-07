@@ -132,6 +132,10 @@ invalidation-queue-size
 Customization
 -------------
 
+var
+  Used to configure the base directory for all things going into var.
+  Defaults to ${buildout:directory}/var.
+
 zeo-conf-additional
   Give additional lines to zeo.conf. Make sure you indent any lines after
   the one with the parameter. This allows you to use generated zeo.conf file

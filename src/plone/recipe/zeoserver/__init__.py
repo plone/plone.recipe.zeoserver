@@ -146,20 +146,24 @@ class Recipe:
                                                   '100')
 
             base_dir = self.buildout['buildout']['directory']
+            var_dir = options.get('var', os.path.join(base_dir, 'var'))
+            if not os.path.exists(var_dir):
+                os.makedirs(var_dir)
+
             socket_name = options.get('socket-name',
-                                      '%s/var/zeo.zdsock' % base_dir)
+                                      '%s/zeo.zdsock' % var_dir)
             socket_dir = os.path.dirname(socket_name)
             if not os.path.exists(socket_dir):
                 os.makedirs(socket_dir)
 
-            z_log_name = os.path.sep.join(('var', 'log', self.name + '.log'))
+            z_log_name = os.path.sep.join(('log', self.name + '.log'))
             zeo_log_level = options.get('zeo-log-level', 'info')
             zeo_log_custom = options.get('zeo-log-custom', None)
 
             # if zeo-log is given, we use it to set the runner
             # logfile value in any case
             z_log_filename = options.get('zeo-log', z_log_name)
-            z_log_filename = os.path.join(base_dir, z_log_filename)
+            z_log_filename = os.path.join(var_dir, z_log_filename)
             z_log_dir = os.path.dirname(z_log_filename)
             if not os.path.exists(z_log_dir):
                 os.makedirs(z_log_dir)
@@ -172,9 +176,9 @@ class Recipe:
             else:
                 z_log = zeo_log_custom
 
-            file_storage = os.path.sep.join(('var', 'filestorage', 'Data.fs'))
+            file_storage = os.path.sep.join(('filestorage', 'Data.fs'))
             file_storage = options.get('file-storage', file_storage)
-            file_storage = os.path.join(base_dir, file_storage)
+            file_storage = os.path.join(var_dir, file_storage)
             file_storage_dir = os.path.dirname(file_storage)
             if not os.path.exists(file_storage_dir):
                 os.makedirs(file_storage_dir)
@@ -188,12 +192,11 @@ class Recipe:
 
             self.pid_file = options.get(
                 'pid-file',
-                os.path.join(base_dir, 'var', self.name + '.pid'))
+                os.path.join(var_dir, self.name + '.pid'))
 
-            blob_storage = os.path.sep.join(('var', 'blobstorage'))
-            blob_storage = options.get('blob-storage', blob_storage)
+            blob_storage = options.get('blob-storage', 'blobstorage')
             if blob_storage:
-                blob_storage = os.path.join(base_dir, blob_storage)
+                blob_storage = os.path.join(var_dir, blob_storage)
                 storage_template = blob_storage_template
             else:
                 storage_template = file_storage_template

@@ -4,6 +4,8 @@ Changelog
 1.2.1 - unreleased
 ------------------
 
+- added 'var' option like it is in plone.recipe.zope3instance
+  [garbas]
 
 1.2.0 - 2010-10-18
 ------------------
