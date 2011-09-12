@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.2.1 - unreleased
+1.2.1 - 2011-09-12
 ------------------
 
 - When the zeoserver is not running, the zeopack script cannot do
