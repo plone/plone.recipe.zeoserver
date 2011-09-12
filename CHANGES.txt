@@ -15,7 +15,7 @@ Changelog
   error message.  Formerly it would wait forever.
   [maurits]
 
-- added 'var' option like it is in plone.recipe.zope3instance
+- Added 'var' option like it is in plone.recipe.zope2instance.
   [garbas]
 
 1.2.0 - 2010-10-18
