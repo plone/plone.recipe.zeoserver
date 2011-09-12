@@ -4,6 +4,11 @@ Changelog
 1.2.1 - unreleased
 ------------------
 
+- When the zeoserver is not running, the zeopack script cannot do
+  anything.  So when zeopack cannot connect, it now quits with an
+  error message.  Formerly it would wait forever.
+  [maurits]
+
 - added 'var' option like it is in plone.recipe.zope3instance
   [garbas]
 

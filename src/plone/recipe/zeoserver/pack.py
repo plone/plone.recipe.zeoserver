@@ -4,6 +4,7 @@ import sys
 import os
 
 from ZEO.ClientStorage import ClientStorage
+from ZEO.Exceptions import ClientDisconnected
 
 
 def _main(host, port, unix=None, days=1, username=None, password=None,
@@ -18,7 +19,9 @@ def _main(host, port, unix=None, days=1, username=None, password=None,
     if blob_dir:
         blob_dir = os.path.abspath(blob_dir)
 
-    wait = True
+    # We do not want to wait until a zeoserver is up and running; it
+    # should already be running.
+    wait = False
     cs = None
     try:
         cs = ClientStorage(
@@ -26,7 +29,13 @@ def _main(host, port, unix=None, days=1, username=None, password=None,
             username=username, password=password, realm=realm,
             blob_dir=blob_dir, shared_blob_dir=shared_blob_dir,
         )
-        cs.pack(wait=wait, days=int(days))
+        try:
+            cs.pack(wait=wait, days=int(days))
+        except ClientDisconnected:
+            logger = logging.getLogger(__name__)
+            logger.error("Could not connect to zeoserver. Please make sure it "
+                         "is running.")
+            sys.exit(1)
     finally:
         if cs is not None:
             cs.close()
