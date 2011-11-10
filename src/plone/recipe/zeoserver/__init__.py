@@ -126,6 +126,15 @@ class Recipe:
         location = options['location']
         instance_home = location
 
+        base_dir = self.buildout['buildout']['directory']
+        var_dir = options.get('var', os.path.join(base_dir, 'var'))
+        if not os.path.exists(var_dir):
+            os.makedirs(var_dir)
+
+        self.pid_file = options.get(
+            'pid-file',
+            os.path.join(var_dir, self.name + '.pid'))
+
         zeo_conf_path = options.get('zeo-conf', None)
         if zeo_conf_path is not None:
             zeo_conf = "%%include %s" % os.path.abspath(zeo_conf_path)
@@ -144,11 +153,6 @@ class Recipe:
 
             invalidation_queue_size = options.get('invalidation-queue-size',
                                                   '100')
-
-            base_dir = self.buildout['buildout']['directory']
-            var_dir = options.get('var', os.path.join(base_dir, 'var'))
-            if not os.path.exists(var_dir):
-                os.makedirs(var_dir)
 
             socket_name = options.get('socket-name',
                                       '%s/zeo.zdsock' % var_dir)
@@ -189,10 +193,6 @@ class Recipe:
                              realm=options.get('authentication-realm', 'ZEO'))
             else:
                 authentication = ''
-
-            self.pid_file = options.get(
-                'pid-file',
-                os.path.join(var_dir, self.name + '.pid'))
 
             blob_storage = options.get('blob-storage', 'blobstorage')
             if blob_storage:
