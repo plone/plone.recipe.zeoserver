@@ -1,7 +1,7 @@
 import sys
 from setuptools import setup, find_packages
 
-version = '1.2.2'
+version = '1.2.3dev'
 
 additional_install_requires = []
 
