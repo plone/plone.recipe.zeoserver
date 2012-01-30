@@ -170,7 +170,7 @@ zeopack
 
 zeopack-script-name
   The name of the wrapper script to generate in `bin/`. Defaults to `zeopack`.
-  Change this option is you have more than one instance of this recipe in
+  Change this option if you have more than one instance of this recipe in
   the one buildout to create separate scripts and avoid any one script being
   overwritten.
 
