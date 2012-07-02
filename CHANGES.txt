@@ -7,6 +7,13 @@ Changelog
 - Nothing changed yet.
 
 
+1.2.2.1 (2012-03-30)
+------------------
+
+- Added option 'transaction-timeout'(Maximum time amount to wait for a transaction to commit) .
+  [baijum]
+
+
 1.2.2 (2011-11-24)
 ------------------
 

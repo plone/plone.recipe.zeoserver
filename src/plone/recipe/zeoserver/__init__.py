@@ -154,6 +154,9 @@ class Recipe:
             invalidation_queue_size = options.get('invalidation-queue-size',
                                                   '100')
 
+            transaction_timeout = options.get('transaction-timeout',
+                                                  '300')
+
             socket_name = options.get('socket-name',
                                       '%s/zeo.zdsock' % var_dir)
             socket_dir = os.path.dirname(socket_name)
@@ -225,6 +228,7 @@ class Recipe:
                 instance_home = instance_home,
                 effective_user = effective_user,
                 invalidation_queue_size = invalidation_queue_size,
+                transaction_timeout = transaction_timeout,
                 socket_name = socket_name,
                 z_log = z_log,
                 z_log_filename = z_log_filename,
@@ -495,6 +499,7 @@ zeo_conf_template = """\
   address %(zeo_address)s
   read-only false
   invalidation-queue-size %(invalidation_queue_size)s
+  transaction-timeout %(transaction_timeout)s
   pid-filename %(pid_file)s
   %(authentication)s
   %(monitor_address)s
