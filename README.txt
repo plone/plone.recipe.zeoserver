@@ -163,10 +163,16 @@ repozo
 
 zeopack
   The path to the zeopack.py backup script. A wrapper for this will be
-  generated in bin/zeopack, which sets up the appropriate environment to
-  run this. Defaults to using the zeopack script from the ZODB3 egg.
-  Set this option to an empty value if you do not want this script to be
-  generated.
+  generated in bin/zeopack (unless you change `zeopack-script-name`), which
+  sets up the appropriate environment to run this. Defaults to using the zeopack
+  script from the ZODB3 egg.  Set this option to an empty value if you do not
+  want this script to be generated.
+
+zeopack-script-name
+  The name of the wrapper script to generate in `bin/`. Defaults to `zeopack`.
+  Change this option if you have more than one instance of this recipe in
+  the one buildout to create separate scripts and avoid any one script being
+  overwritten.
 
 relative-paths
   Set this to `true` to make the generated scripts use relative
@@ -177,10 +183,11 @@ Usage
 -----
 
 zeopack
-  A zeopack script will be generated for you in the buildout bin directory.
-  If you'd like to use this script to pack a different mount point, you'll
-  need to specify `-S mount_name`. You can also specify a `-B` option to not
-  use the default blob directory.
+  A zeopack script will be generated for you in the buildout bin directory,
+  unless you change the `zeopack-script-name` option, in which case the script
+  will be called the name you specify. If you'd like to use this script to pack
+  a different mount point, you'll need to specify `-S mount_name`. You can also
+  specify a `-B` option to not use the default blob directory.
 
 
 Reporting bugs or asking questions

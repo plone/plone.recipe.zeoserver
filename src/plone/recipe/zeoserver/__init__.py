@@ -285,12 +285,15 @@ class Recipe:
 
         # zeopack.py
         zeopack = options.get('zeopack', None)
+        zeopack_script_name = options.get('zeopack-script-name', 'zeopack')
+        zeopack_scripts = dict(zeopack=zeopack_script_name)
         if zeopack is not None:
             directory, filename = os.path.split(zeopack)
             if zeopack and os.path.exists(zeopack):
                 zc.buildout.easy_install.scripts(
                     [('zeopack', os.path.splitext(filename)[0], 'main')],
                     ws, options['executable'], options['bin-directory'],
+                    scripts=zeopack_scripts,
                     extra_paths = ws + [directory] + self.module_paths,
                     relative_paths=self._relative_paths,
                     )
@@ -358,6 +361,7 @@ class Recipe:
             zc.buildout.easy_install.scripts(
                 [('zeopack', 'plone.recipe.zeoserver.pack', 'main')],
                 self.zodb_ws, options['executable'], options['bin-directory'],
+                scripts=zeopack_scripts,
                 initialization=arguments_info,
                 arguments=', '.join(arg_list),
                 relative_paths=self._relative_paths,
