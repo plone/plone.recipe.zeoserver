@@ -1,4 +1,5 @@
 .installed.cfg
+*.pyc
 bin/
 develop-eggs/
 include/

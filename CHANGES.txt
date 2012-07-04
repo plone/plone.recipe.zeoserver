@@ -4,7 +4,9 @@ Changelog
 1.2.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Adding ability to control output script name for zeopack. Use the
+  ``zeopack-script-name`` option to change the script name.
+  [davidjb]
 
 
 1.2.2 (2011-11-24)

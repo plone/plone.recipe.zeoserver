@@ -270,6 +270,79 @@ Now check the values for `host`, `port` and `unix`::
     >>> 'unix = "/path/to/zeo.socket"' in zeopack
     True
 
+The recipe supports specifying a custom script name for the zeopack script::
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zeoserver
+    ... zeopack-script-name = custom-zeopack-name
+    ...
+    ... ''' % globals())
+    >>> print system(join('bin', 'buildout')),
+    ...
+    Uninstalling zeo.
+    ...
+    Generated script '...custom-zeopack-name'...
+
+Confirm that for multiple zeoserver instances, there are two different files
+created for different script names::
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo zeo2
+    ... find-links = %(sample_buildout)s/eggs
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zeoserver
+    ... zeopack-script-name = first-zeopack
+    ... pack-user = firstuser
+    ...
+    ... [zeo2]
+    ... recipe = plone.recipe.zeoserver
+    ... zeopack-script-name = second-zeopack
+    ... pack-user = seconduser
+    ...
+    ... ''' % globals())
+    >>> print system(join('bin', 'buildout')),
+    ...
+    Uninstalling zeo.
+    ...
+    Generated script '...first-zeopack'.
+    ...
+    Generated script '...second-zeopack'...
+
+Check the files are actually different by comparing different settings. The given usernames should
+be different and correspond as the buildout specified::
+
+    >>> zeopack_scripts = ('first-zeopack', 'second-zeopack')
+    >>> zeopack_paths = [os.path.join(sample_buildout, 'bin', script) for script in zeopack_scripts]
+    >>> if WINDOWS:
+    ...     zeopack_paths =  [zeopack + '-script.py' for zeopack in zeopacks]
+    >>> zeopacks = [open(zeopack_path, 'r').read() for zeopack_path in zeopack_paths]
+
+    >>> 'username = "firstuser"' in zeopacks[0]
+    True
+    >>> 'username = "seconduser"' in zeopacks[0]
+    False
+    >>> 'username = "firstuser"' in zeopacks[1]
+    False
+    >>> 'username = "seconduser"' in zeopacks[1]
+    True
+
+Restore the original simple configuration::
+
+    >>> write('buildout.cfg', simplest)
+    >>> print system(join('bin', 'buildout')),
+    ...
+    Uninstalling zeo2.
+    Uninstalling zeo...
+
 Relative paths in scripts
 =========================
 
