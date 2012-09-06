@@ -8,6 +8,11 @@ Changelog
   ``zeopack-script-name`` option to change the script name.
   [davidjb]
 
+- Fix zeopack connection handling. The previous fix to abort after a failed
+  connection attempt only worked by chance and caused zeopack to exit before
+  the packing finished. Now failed connections are correctly detected and
+  zeopack waits until the packing is finished.
+  [gaudenz]
 
 1.2.2 (2011-11-24)
 ------------------

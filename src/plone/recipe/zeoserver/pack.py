@@ -19,22 +19,27 @@ def _main(host, port, unix=None, days=1, username=None, password=None,
     if blob_dir:
         blob_dir = os.path.abspath(blob_dir)
 
-    # We do not want to wait until a zeoserver is up and running; it
-    # should already be running.
-    wait = False
     cs = None
+    logger = logging.getLogger(__name__)
     try:
+        # We do not want to wait until a zeoserver is up and running; it
+        # should already be running, so wait=False
         cs = ClientStorage(
-            addr, storage=storage, wait=wait, read_only=True,
+            addr, storage=storage, wait=False, read_only=True,
             username=username, password=password, realm=realm,
             blob_dir=blob_dir, shared_blob_dir=shared_blob_dir,
         )
-        try:
-            cs.pack(wait=wait, days=int(days))
-        except ClientDisconnected:
-            logger = logging.getLogger(__name__)
+        if not cs.is_connected():
             logger.error("Could not connect to zeoserver. Please make sure it "
                          "is running.")
+            sys.exit(1)
+        try:
+            # The script should not exit util the packing is done.
+            # => wait=True
+            cs.pack(wait=True, days=int(days))
+        except ClientDisconnected:
+            logger.error("Disconnected from zeoserver. Please make sure it "
+                         "is still running.")
             sys.exit(1)
     finally:
         if cs is not None:
