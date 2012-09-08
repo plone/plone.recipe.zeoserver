@@ -8,7 +8,7 @@ from ZEO.Exceptions import ClientDisconnected
 
 
 def _main(host, port, unix=None, days=1, username=None, password=None,
-         realm=None, blob_dir=None, storage='1', shared_blob_dir=True):
+          realm=None, blob_dir=None, storage='1', shared_blob_dir=True):
     if unix is not None:
         addr = unix
     else:
@@ -34,7 +34,7 @@ def _main(host, port, unix=None, days=1, username=None, password=None,
                          "is running.")
             sys.exit(1)
         try:
-            # The script should not exit util the packing is done.
+            # The script should not exit until the packing is done.
             # => wait=True
             cs.pack(wait=True, days=int(days))
         except ClientDisconnected:
