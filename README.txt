@@ -161,6 +161,12 @@ repozo
   running this. Defaults to using the repozo script from the ZODB3 egg.
   Set this to an empty value if you do not want this script to be generated.
 
+repozo-script-name
+  The name of the wrapper script to generate in `bin/`. Defaults to `repozo`.
+  Change this option if you have more than one instance of this recipe in
+  the one buildout to create separate scripts and avoid any one script being
+  overwritten.
+
 zeopack
   The path to the zeopack.py backup script. A wrapper for this will be
   generated in bin/zeopack (unless you change `zeopack-script-name`), which

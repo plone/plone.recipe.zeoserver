@@ -4,7 +4,9 @@ Changelog
 1.2.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Adding ability to control output script name for repozo. Use the
+  ``repozo-script-name`` option to change the script name.
+  [do3cc]
 
 
 1.2.3 (2012-10-03)

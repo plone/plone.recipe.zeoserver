@@ -370,6 +370,8 @@ class Recipe:
 
         # The backup script, pointing to repozo.py
         repozo = options.get('repozo', None)
+        repozo_script_name = options.get('repozo-script-name', 'repozo')
+        repozo_scripts = dict(repozo=repozo_script_name)
         if repozo is None:
             repozo = 'ZODB.scripts.repozo'
             extra_paths = []
@@ -383,6 +385,7 @@ class Recipe:
         zc.buildout.easy_install.scripts(
             [('repozo', repozo, 'main')],
             self.zodb_ws, options['executable'], options['bin-directory'],
+            scripts=repozo_scripts,
             extra_paths = extra_paths + self.module_paths,
             relative_paths=self._relative_paths,
             )

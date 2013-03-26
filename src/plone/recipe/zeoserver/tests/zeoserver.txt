@@ -343,6 +343,28 @@ Restore the original simple configuration::
     Uninstalling zeo2.
     Uninstalling zeo...
 
+Repozo
+======
+
+The recipe supports specifying a custom script name for the zeopack script::
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zeoserver
+    ... repozo-script-name = custom-repozo-name
+    ...
+    ... ''' % globals())
+    >>> print system(join('bin', 'buildout')),
+    ...
+    Uninstalling zeo.
+    ...
+    Generated script '...custom-repozo-name'...
+
 Relative paths in scripts
 =========================
 
