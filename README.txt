@@ -72,6 +72,9 @@ zeo-log-custom
   event logger than ``logfile``. ``zeo-log`` is still used to set the logfile
   value in the runner section.
 
+zeo-log-level
+  Control the logging level in the eventlog. Defaults to ``info``.
+
 Authentication
 --------------
 
