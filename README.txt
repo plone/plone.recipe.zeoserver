@@ -119,6 +119,32 @@ pack-password
   If the ZEO server uses authentication, this is the password used by the
   zeopack script to connect to the ZEO server.
 
+ZRS
+---
+
+First off, you'll need to specify the recipe to install zc.zrs. To do so,
+just slightly change the way the recipe option is specified in your zeoserver
+buildout part::
+
+    [zeoserver]
+    recipe = plone.recipe.zeoserver[zrs]
+    ...
+
+
+replicate-to
+    url for secondary servers to connect to
+
+replicate-from
+    url of primary server to replicate from
+
+keep-alive-delay
+    In some network configurations, TCP connections are broken after extended
+    periods of inactivity. This may even be done in a way that a client doesn't
+    detect the disconnection. To prevent this, you can use the keep-alive-delay
+    option to cause the secondary storage to send periodic no-operation
+    messages to the server.
+
+
 Monitoring
 ----------
 

@@ -8,6 +8,11 @@ from pkg_resources import parse_version
 import zc.buildout
 import zc.recipe.egg
 
+try:
+    import zc.zrs
+    HAS_ZRS = True
+except ImportError:
+    HAS_ZRS = False
 join = os.path.join
 
 curdir = os.path.dirname(__file__)
@@ -221,6 +226,22 @@ class Recipe:
                 pack_keep_old = pack_keep_old,
                 )
 
+            # ZRS config
+            rfrom = options.get('replicate-from')
+            rto = options.get('replicate-to')
+            if HAS_ZRS and (rfrom or rto):
+                replicate = ''
+                if rfrom:
+                    replicate += "\nreplicate-from %s" % rfrom
+                if rto:
+                    replicate += "\nreplicate-to %s" % rto
+                keep_alive = options.get('keep-alive-delay', '60')
+                storage = zrs_template % dict(
+                    storage=storage,
+                    keep_alive=keep_alive,
+                    replicate=replicate
+                    )
+
             zeo_conf = zeo_conf_template % dict(
                 instance_home = instance_home,
                 effective_user = effective_user,
@@ -355,7 +376,7 @@ class Recipe:
                                "opts['-B'] or blob_dir")
 
             # Make sure the recipe itself and its dependencies are on the path
-            extra_paths = [ws.by_key[options['recipe']].location]
+            extra_paths = [ws.by_key[options['recipe'].replace('[zrs]', '')].location]
             extra_paths.append(ws.by_key['zc.buildout'].location)
             extra_paths.append(ws.by_key['zc.recipe.egg'].location)
             zc.buildout.easy_install.scripts(
@@ -479,6 +500,16 @@ else:
   </filestorage>
 </blobstorage>
 """.strip()
+
+
+zrs_template = """
+%%import zc.zrs
+
+<zrs>
+ %(replicate)s
+ keep-alive-delay %(keep_alive)s
+ %(storage)s
+</zrs>""".strip()
 
 
 z_log_file = """\

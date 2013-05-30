@@ -38,6 +38,9 @@ setup(
         'ZODB3 >= 3.8',
         'ZopeUndo',
     ] + additional_install_requires,
+    extras_require={
+        'zrs': ['zc.zrs']
+    },
     zip_safe=False,
     entry_points = {
         'zc.buildout': ['default = plone.recipe.zeoserver:Recipe'],
