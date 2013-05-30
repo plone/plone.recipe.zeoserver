@@ -8,6 +8,11 @@ from pkg_resources import parse_version
 import zc.buildout
 import zc.recipe.egg
 
+try:
+    import zc.zrs
+    HAS_ZRS = True
+except ImportError:
+    HAS_ZRS = False
 join = os.path.join
 
 curdir = os.path.dirname(__file__)
@@ -221,6 +226,24 @@ class Recipe:
                 pack_keep_old = pack_keep_old,
                 )
 
+            # ZRS config
+            rfrom = options.get('replicate-from')
+            rto = options.get('replicate-to')
+            if HAS_ZRS and (rfrom or rto):
+                replicate = ''
+                if rfrom:
+                    replicate += "\nreplicate-from %s" % rfrom
+                if rto:
+                    replicate += "\nreplicate-to %s" % rto
+                keep_alive = options.get('keep-alive-delay', '60')
+                storage = zrs_template % dict(
+                    storage=storage,
+                    keep_alive=keep_alive,
+                    replicate=replicate,
+                    storage_number=storage_number
+                    )
+
+            read_only = options.get('read-only', 'false')
             zeo_conf = zeo_conf_template % dict(
                 instance_home = instance_home,
                 effective_user = effective_user,
@@ -235,6 +258,7 @@ class Recipe:
                 zeo_conf_additional = zeo_conf_additional,
                 monitor_address = monitor_address,
                 zeo_log_level = zeo_log_level,
+                read_only = read_only
                 )
 
         zeo_conf_path = os.path.join(location, 'etc', 'zeo.conf')
@@ -355,7 +379,7 @@ class Recipe:
                                "opts['-B'] or blob_dir")
 
             # Make sure the recipe itself and its dependencies are on the path
-            extra_paths = [ws.by_key[options['recipe']].location]
+            extra_paths = [ws.by_key[options['recipe'].replace('[zrs]', '')].location]
             extra_paths.append(ws.by_key['zc.buildout'].location)
             extra_paths.append(ws.by_key['zc.recipe.egg'].location)
             zc.buildout.easy_install.scripts(
@@ -481,6 +505,16 @@ else:
 """.strip()
 
 
+zrs_template = """
+%%import zc.zrs
+
+<zrs %(storage_number)s>
+ %(replicate)s
+ keep-alive-delay %(keep_alive)s
+ %(storage)s
+</zrs>""".strip()
+
+
 z_log_file = """\
      <logfile>
       path %(filename)s
@@ -500,7 +534,7 @@ zeo_conf_template = """\
 
 <zeo>
   address %(zeo_address)s
-  read-only false
+  read-only %(read_only)s
   invalidation-queue-size %(invalidation_queue_size)s
   pid-filename %(pid_file)s
   %(authentication)s

@@ -20,6 +20,8 @@ def setUp(test):
         install('nt_svcutils', test)
     install('zope.mkzeoinstance', test)
     install('ZopeUndo', test)
+    install('zc.zrs', test)
+    install('Twisted', test)
     dependencies = pkg_resources.working_set.require('ZODB3')
     for dep in dependencies:
         try:

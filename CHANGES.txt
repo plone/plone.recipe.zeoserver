@@ -4,7 +4,11 @@ Changelog
 1.2.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- add support for setting zeoserver as read only
+  [vangheem]
+
+- Add integration with ZRS
+  [vangheem]
 
 
 1.2.5 (2013-05-23)
