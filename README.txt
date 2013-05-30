@@ -119,6 +119,7 @@ pack-password
   If the ZEO server uses authentication, this is the password used by the
   zeopack script to connect to the ZEO server.
 
+
 ZRS
 ---
 
@@ -212,6 +213,9 @@ zeopack-script-name
 relative-paths
   Set this to `true` to make the generated scripts use relative
   paths. You can also enable this in the `[buildout]` section.
+
+read-only
+  Set zeoserver to run in read-only mode
 
 
 Usage

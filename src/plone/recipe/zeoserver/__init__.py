@@ -242,6 +242,7 @@ class Recipe:
                     replicate=replicate
                     )
 
+            read_only = options.get('read-only', 'false')
             zeo_conf = zeo_conf_template % dict(
                 instance_home = instance_home,
                 effective_user = effective_user,
@@ -256,6 +257,7 @@ class Recipe:
                 zeo_conf_additional = zeo_conf_additional,
                 monitor_address = monitor_address,
                 zeo_log_level = zeo_log_level,
+                read_only = read_only
                 )
 
         zeo_conf_path = os.path.join(location, 'etc', 'zeo.conf')
@@ -531,7 +533,7 @@ zeo_conf_template = """\
 
 <zeo>
   address %(zeo_address)s
-  read-only false
+  read-only %(read_only)s
   invalidation-queue-size %(invalidation_queue_size)s
   pid-filename %(pid_file)s
   %(authentication)s
