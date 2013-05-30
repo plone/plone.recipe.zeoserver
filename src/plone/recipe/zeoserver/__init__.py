@@ -239,7 +239,8 @@ class Recipe:
                 storage = zrs_template % dict(
                     storage=storage,
                     keep_alive=keep_alive,
-                    replicate=replicate
+                    replicate=replicate,
+                    storage_number=storage_number
                     )
 
             read_only = options.get('read-only', 'false')
@@ -507,7 +508,7 @@ else:
 zrs_template = """
 %%import zc.zrs
 
-<zrs>
+<zrs %(storage_number)s>
  %(replicate)s
  keep-alive-delay %(keep_alive)s
  %(storage)s
