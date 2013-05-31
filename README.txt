@@ -133,10 +133,12 @@ buildout part::
 
 
 replicate-to
-    url for secondary servers to connect to
-
+    host:port combination this ZRS should liston to as a primary.
+    ZRS Secondaries connect here to get replication data.
+  
 replicate-from
-    url of primary server to replicate from
+    host:port combination of a ZRS primary this ZRS should connect to as a secondary.
+    This ZRS replicates the data it gets from the primary.
 
 keep-alive-delay
     In some network configurations, TCP connections are broken after extended
