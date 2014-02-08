@@ -1,11 +1,11 @@
 Changelog
 =========
 
-1.2.6 (unreleased)
+1.2.7 (unreleased)
 ------------------
 
-- nothing changed yet
-
+- Add support for Buildout 2
+  [aclark]
 
 1.2.6 (2013-06-04)
 ------------------
