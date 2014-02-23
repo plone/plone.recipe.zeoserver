@@ -4,7 +4,7 @@ Changelog
 1.2.7 (unreleased)
 ------------------
 
-- Add support for Buildout 2
+- Add support for Pip-installed Buildout
   [aclark]
 
 1.2.6 (2013-06-04)
