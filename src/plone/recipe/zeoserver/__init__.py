@@ -371,12 +371,15 @@ class Recipe:
                     arguments_info += '%s = "%s"\n' % (k, v)
 
             arguments_info += ("import getopt; opts = "
-                               "getopt.getopt(sys.argv[1:], 'S:B:W1')[0];\n"
+                               "getopt.getopt(sys.argv[1:], 'S:B:D:W1')[0];\n"
                                "opts = dict(opts)\n"
                                "storage = opts.has_key('-S') and "
                                "opts['-S'] or '1'\n"
                                "blob_dir = opts.has_key('-B') and "
-                               "opts['-B'] or blob_dir")
+                               "opts['-B'] or blob_dir\n"
+                               "days = opts.has_key('-D') and "
+                               "opts['-D'] or days\n"
+                               )
 
             # Make sure the recipe itself and its dependencies are on the path
             extra_paths = [ws.by_key[options['recipe'].replace('[zrs]', '')].location]
