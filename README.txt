@@ -135,7 +135,7 @@ buildout part::
 replicate-to
     host:port combination this ZRS should liston to as a primary.
     ZRS Secondaries connect here to get replication data.
-  
+
 replicate-from
     host:port combination of a ZRS primary this ZRS should connect to as a secondary.
     This ZRS replicates the data it gets from the primary.
@@ -229,6 +229,8 @@ zeopack
   will be called the name you specify. If you'd like to use this script to pack
   a different mount point, you'll need to specify `-S mount_name`. You can also
   specify a `-B` option to not use the default blob directory.
+  You may override the pack-days by adding "-D #" to the command line where
+  "#" is the number of days to keep.
 
 
 Reporting bugs or asking questions
