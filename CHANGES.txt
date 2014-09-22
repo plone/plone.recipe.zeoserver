@@ -4,6 +4,9 @@ Changelog
 1.2.7 (unreleased)
 ------------------
 
+- Add support for Pip-installed Buildout
+  [aclark]
+
 - Add "-D" argument to zopepack options to allow override of pack days.
   [smcmahon]
 
