@@ -4,6 +4,9 @@ Changelog
 1.2.7 (unreleased)
 ------------------
 
+- Add support for initialization in main script.
+  [mamico]
+
 - Add support for Pip-installed Buildout
   [aclark]
 

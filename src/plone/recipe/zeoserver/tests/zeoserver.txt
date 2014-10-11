@@ -513,3 +513,36 @@ The generated scripts should have the extra path.
     ... else:
     ...     print True
     True
+
+Initialization in main script
+=============================
+
+The recipe support initialization.
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zeoserver
+    ... zeo-address = /path/to/zeo.socket
+    ... initialization =
+    ...    foo = 1
+    ... ''' % globals())
+    >>> print system(join('bin', 'buildout')),
+    Uninstalling zeo.
+    Installing zeo.
+    ...
+
+The main script should have the initialization.
+
+    >>> if WINDOWS:
+    ...     suffix = '-script.py'
+    ... else:
+    ...     suffix = ''
+
+    >>> 'foo = 1' in open(join('bin', 'zeo' + suffix)).read()
+    True
+

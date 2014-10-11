@@ -300,7 +300,8 @@ class Recipe:
         zc.buildout.easy_install.scripts(
             [(self.name, 'plone.recipe.zeoserver.ctl', 'main')],
             ws, options['executable'], options['bin-directory'],
-            initialization = initialization,
+            initialization = '\n'.join(
+                [initialization, options.get('initialization', ''), '']),
             arguments = ('\n        ["-C", %r]'
                          '\n        + sys.argv[1:]'
                          % self.zeo_conf),
