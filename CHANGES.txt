@@ -4,6 +4,9 @@ Changelog
 1.2.7 (unreleased)
 ------------------
 
+- Postpone computation of working set until recipe is ran
+  [gotcha]
+
 - Add support for initialization in main script.
   [mamico]
 
