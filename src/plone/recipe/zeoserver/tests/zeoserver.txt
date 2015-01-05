@@ -109,7 +109,7 @@ We should have primary zrs config in zeo.conf::
     ...
     %import zc.zrs
     <BLANKLINE>
-    <zrs>
+    <zrs 1>
      replicate-to 127.0.0.1:5000
     ...
     <filestorage 1>
@@ -142,7 +142,7 @@ We should have primary zrs config in zeo.conf::
     ...
     %import zc.zrs
     <BLANKLINE>
-    <zrs>
+    <zrs 1>
      replicate-from 127.0.0.1:5000
     ...
     <filestorage 1>
