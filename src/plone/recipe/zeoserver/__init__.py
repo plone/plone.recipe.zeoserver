@@ -31,7 +31,6 @@ class Recipe:
         options['bin-directory'] = buildout['buildout']['bin-directory']
         options['scripts'] = '' # suppress script generation.
 
-        _, self.zodb_ws = self.egg.working_set()
 
         # Relative path support for the generated scripts
         relative_paths = options.get(
@@ -53,6 +52,8 @@ class Recipe:
     ws_locations = property(ws_locations)
 
     def install(self):
+        _, self.zodb_ws = self.egg.working_set()
+
         options = self.options
         location = options['location']
 
@@ -104,6 +105,8 @@ class Recipe:
         return location
 
     def update(self):
+        _, self.zodb_ws = self.egg.working_set()
+
         options = self.options
         location = options['location']
 
