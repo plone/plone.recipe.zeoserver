@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.2.7 (unreleased)
+1.2.7 (2015-01-05)
 ------------------
 
 - Postpone computation of working set until recipe is ran
