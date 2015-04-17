@@ -309,6 +309,33 @@ Now check the values for `host`, `port` and `unix`::
     >>> 'unix = None' in zeopack
     True
 
+When storage-number is provided, the script will assume as default::
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zeoserver
+    ... storage-number = 9
+    ...
+    ... ''' % globals())
+    >>> print system(join('bin', 'buildout')),
+    ...
+    Uninstalling zeo.
+    Installing zeo...
+
+Now check the values for `storage`::
+
+    >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
+    >>> if WINDOWS:
+    ...     zeopack_path += '-script.py'
+    >>> zeopack = open(zeopack_path, 'r').read()
+    >>> 'storage = "9"' in zeopack
+    True
+
 If the `zeo-address`-parameter is a string it is assumed to be the path
 to a Unix socket file::
 

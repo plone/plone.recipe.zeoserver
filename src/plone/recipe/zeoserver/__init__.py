@@ -351,6 +351,7 @@ class Recipe:
                 realm = options.get('authentication-realm', 'ZEO')
             else:
                 realm = None
+            storage = options.get('storage-number', '1')
 
             arg_list = [
                 'host', 'port', 'unix', 'days',
@@ -365,6 +366,7 @@ class Recipe:
                 username=username,
                 password=password,
                 realm=realm,
+                storage=storage,
                 blob_dir=options.get('blob-storage', None),
             )
             arguments_info = ''
@@ -378,7 +380,7 @@ class Recipe:
                                "getopt.getopt(sys.argv[1:], 'S:B:D:W1')[0];\n"
                                "opts = dict(opts)\n"
                                "storage = opts.has_key('-S') and "
-                               "opts['-S'] or '1'\n"
+                               "opts['-S'] or storage\n"
                                "blob_dir = opts.has_key('-B') and "
                                "opts['-B'] or blob_dir\n"
                                "days = opts.has_key('-D') and "
