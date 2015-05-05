@@ -15,8 +15,8 @@ setup(
     author = "Hanno Schlichting",
     author_email = "hannosch@plone.org",
     description = "ZC Buildout recipe for installing a ZEO server",
-    long_description = open('README.txt').read() + '\n' +
-                       open('CHANGES.txt').read(),
+    long_description = open('README.rst').read() + '\n' +
+                       open('CHANGES.rst').read(),
     license = "ZPL 2.1",
     keywords = "zope2 zeo zodb buildout",
     url='http://pypi.python.org/pypi/plone.recipe.zeoserver',
