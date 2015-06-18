@@ -236,5 +236,5 @@ zeopack
 Reporting bugs or asking questions
 ----------------------------------
 
-We have a shared bugtracker and help desk on Launchpad:
-https://bugs.launchpad.net/collective.buildout/
+We have a bugtracker and help desk on Github:
+https://github.com/plone.recipe.zeoserver/issues
