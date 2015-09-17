@@ -5,29 +5,29 @@ version = '1.2.9.dev0'
 
 additional_install_requires = []
 
-if sys.platform[:3].lower() == "win":
+if sys.platform[:3].lower() == 'win':
     additional_install_requires += ['nt_svcutils']
 
 
 setup(
     name = "plone.recipe.zeoserver",
     version = version,
-    author = "Hanno Schlichting",
-    author_email = "hannosch@plone.org",
-    description = "ZC Buildout recipe for installing a ZEO server",
+    author = 'Hanno Schlichting',
+    author_email = 'hannosch@plone.org',
+    description = 'ZC Buildout recipe for installing a ZEO server'",
     long_description = open('README.rst').read() + '\n' +
                        open('CHANGES.rst').read(),
-    license = "ZPL 2.1",
-    keywords = "zope2 zeo zodb buildout",
+    license = 'ZPL 2.1',
+    keywords = 'zope2 zeo zodb buildout',
     url='https://github.com/plone/plone.recipe.zeoserver',
     download_url='http://pypi.python.org/pypi/plone.recipe.zeoserver',
     classifiers=[
-        "License :: OSI Approved :: Zope Public License",
-        "Framework :: Buildout",
-        "Framework :: Zope2",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 2.6",
-        "Programming Language :: Python :: 2.7",
+        'License :: OSI Approved :: Zope Public License',
+        'Framework :: Buildout',
+        'Framework :: Zope2',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
     ],
     packages = find_packages('src'),
     include_package_data = True,
@@ -48,4 +48,4 @@ setup(
     entry_points = {
         'zc.buildout': ['default = plone.recipe.zeoserver:Recipe'],
     },
-    )
+)
