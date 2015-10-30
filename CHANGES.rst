@@ -4,7 +4,13 @@ Changelog
 1.2.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+New:
+
+- *add item here*
+
+Fixes:
+
+- *add item here*
 
 
 1.2.8 (2015-04-18)
