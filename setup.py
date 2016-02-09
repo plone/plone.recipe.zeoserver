@@ -20,7 +20,7 @@ setup(
     license = 'ZPL 2.1',
     keywords = 'zope2 zeo zodb buildout',
     url='https://github.com/plone/plone.recipe.zeoserver',
-    download_url='http://pypi.python.org/pypi/plone.recipe.zeoserver',
+    download_url='https://pypi.python.org/pypi/plone.recipe.zeoserver',
     classifiers=[
         'License :: OSI Approved :: Zope Public License',
         'Framework :: Buildout',
