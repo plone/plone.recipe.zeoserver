@@ -10,7 +10,7 @@ New:
 
 Fixes:
 
-- *add item here*
+- Updated documentation.  [mamico, gforcada]
 
 
 1.2.8 (2015-04-18)
