@@ -4,10 +4,6 @@ Changelog
 1.2.9 (unreleased)
 ------------------
 
-New:
-
-- *add item here*
-
 Fixes:
 
 - Updated documentation.  [mamico, gforcada]
