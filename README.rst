@@ -237,4 +237,4 @@ Reporting bugs or asking questions
 ----------------------------------
 
 We have a bugtracker and help desk on Github:
-https://github.com/plone.recipe.zeoserver/issues
+https://github.com/plone/plone.recipe.zeoserver/issues

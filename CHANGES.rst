@@ -14,7 +14,7 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Typo in documentation. [ale-rt]
 
 
 1.2.9 (2016-05-26)
