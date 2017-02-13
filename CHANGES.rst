@@ -10,7 +10,8 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Add support for log rotation.
+  [hvelarde]
 
 Bug fixes:
 

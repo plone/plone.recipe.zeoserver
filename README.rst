@@ -64,6 +64,15 @@ Logging
 zeo-log
   The filename of the ZEO log file. Defaults to ``var/log/${partname}.log``.
 
+zeo-log-level
+  Control the logging level in the eventlog. Defaults to ``info``.
+
+zeo-log-max-size
+  Maximum size of ZEO log file. Enables log rotation.
+
+zeo-log-old-files
+  Number of previous log files to retain when log rotation is enabled. Defaults to ``1``.
+
 zeo-log-format
   Format of logfile entries. Defaults to ``%(asctime)s %(message)s``.
 
@@ -71,9 +80,6 @@ zeo-log-custom
   A custom section for the eventlog, to be able to use another
   event logger than ``logfile``. ``zeo-log`` is still used to set the logfile
   value in the runner section.
-
-zeo-log-level
-  Control the logging level in the eventlog. Defaults to ``info``.
 
 Authentication
 --------------

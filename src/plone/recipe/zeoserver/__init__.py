@@ -183,8 +183,17 @@ class Recipe:
             # zeo-log-custom superseeds zeo-log
             logformat=options.get('zeo-log-format', '%(asctime)s %(message)s')
             if zeo_log_custom is None:
+                zeo_log_rotate = ''
+                zeo_log_max_size = options.get('zeo-log-max-size', None)
+                if zeo_log_max_size:
+                    zeo_log_old_files = options.get('zeo-log-old-files', 1)
+                    zeo_log_rotate = '\n'.join((
+                        "max-size %s" % zeo_log_max_size,
+                        "      old-files %s" % zeo_log_old_files))
                 z_log = z_log_file % {
-                    'filename': z_log_filename, 'logformat': logformat}
+                    'filename': z_log_filename,
+                    'logformat': logformat,
+                    'zeo_log_rotate': zeo_log_rotate}
             else:
                 z_log = zeo_log_custom
 
@@ -529,9 +538,10 @@ zrs_template = """
 
 
 z_log_file = """\
-     <logfile>
+    <logfile>
       path %(filename)s
       format %(logformat)s
+      %(zeo_log_rotate)s
     </logfile>
 """.strip()
 
