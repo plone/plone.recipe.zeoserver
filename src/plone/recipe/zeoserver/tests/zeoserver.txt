@@ -237,6 +237,48 @@ We should have a zeo.conf with a log level set to `error`::
     ...
     <BLANKLINE>
 
+ZEO log rotation
+================
+
+Using `zeo-log-max-size` option enables log rotation::
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zeoserver
+    ... zeo-log-max-size = 10MB
+    ... zeo-log-old-files = 7
+    ...
+    ... ''' % globals())
+
+Let's run it::
+
+    >>> print system(join('bin', 'buildout')),
+    ...
+    Uninstalling zeo.
+    Installing zeo...
+
+We should have a zeo.conf with log file rotation enabled::
+
+    >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
+    >>> print open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
+    %define INSTANCE ...
+    ...
+    <eventlog>
+      level info
+      <logfile>
+        path .../sample-buildout/var/log/zeo.log
+        format %(asctime)s %(message)s
+        max-size 10MB
+        old-files 7
+      </logfile>
+    </eventlog>
+    ...
+
 Custom Zeopack
 ==============
 
