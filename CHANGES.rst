@@ -4,10 +4,6 @@ Changelog
 1.3 (unreleased)
 ----------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
 
 - Add support for log rotation.
