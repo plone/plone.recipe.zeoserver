@@ -37,7 +37,7 @@ setup(
         'zc.buildout',
         'setuptools',
         'zc.recipe.egg',
-        'zope.mkzeoinstance',
+        'zope.mkzeoinstance < 4',
         'ZODB3 >= 3.8',
         'ZopeUndo',
     ] + additional_install_requires,

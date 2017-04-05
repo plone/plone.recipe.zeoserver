@@ -14,7 +14,7 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fix tests to run with current Twisted version.
 
 
 1.3 (2017-02-15)
