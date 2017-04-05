@@ -21,6 +21,10 @@ def setUp(test):
     install('zope.mkzeoinstance', test)
     install('ZopeUndo', test)
     install('zc.zrs', test)
+    install('Automat', test)
+    install('incremental', test)
+    install('constantly', test)
+    install('attrs', test)
     install('Twisted', test)
     dependencies = pkg_resources.working_set.require('ZODB3')
     for dep in dependencies:
