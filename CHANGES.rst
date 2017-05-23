@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Cleanup: utf8 headers, isort, pep8.
+  [jensens]
 
 
 1.3.1 (2017-04-08)

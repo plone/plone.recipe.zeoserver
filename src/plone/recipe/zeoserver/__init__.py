@@ -281,9 +281,11 @@ class Recipe:
         location = self.options['location']
         # XXX We need to patch the windows specific batch scripts
         # and they need a different path seperator
-        path = (os.path.pathsep.join(self.ws_locations)
-                + os.path.pathsep
-                + os.path.pathsep.join(self.module_paths))
+        path = (
+            os.path.pathsep.join(self.ws_locations) +
+            os.path.pathsep +
+            os.path.pathsep.join(self.module_paths)
+        )
 
         for script_name in ('runzeo', 'zeoctl'):
             script_path = os.path.join(location, 'bin', script_name)
@@ -304,9 +306,11 @@ class Recipe:
 
         _, ws = self.egg.working_set(['plone.recipe.zeoserver'])
 
-        path = (os.path.pathsep.join(self.ws_locations)
-                + os.path.pathsep
-                + os.path.pathsep.join(self.module_paths))
+        path = (
+            os.path.pathsep.join(self.ws_locations) +
+            os.path.pathsep +
+            os.path.pathsep.join(self.module_paths)
+        )
         initialization = """
         import os; os.environ['PYTHONPATH'] = %r
         """.strip() % path
