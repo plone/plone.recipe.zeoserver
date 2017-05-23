@@ -47,6 +47,6 @@ def test_suite():
     flags = (doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE)
 
     suite.append(doctest.DocFileSuite('zeoserver.txt', optionflags=flags,
-                 setUp=setUp, tearDown=buildoutTearDown))
+                                      setUp=setUp, tearDown=buildoutTearDown))
 
     return unittest.TestSuite(suite)

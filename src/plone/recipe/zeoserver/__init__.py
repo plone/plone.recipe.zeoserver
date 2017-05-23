@@ -29,10 +29,9 @@ class Recipe:
         options['location'] = os.path.join(
             buildout['buildout']['parts-directory'],
             self.name,
-            )
+        )
         options['bin-directory'] = buildout['buildout']['bin-directory']
-        options['scripts'] = '' # suppress script generation.
-
+        options['scripts'] = ''  # suppress script generation.
 
         # Relative path support for the generated scripts
         relative_paths = options.get(
@@ -79,9 +78,9 @@ class Recipe:
             "zodb3_home": self.zodb3_home,
             'zdaemon_home': zdaemon_home,
             "instance_home": location,
-            "address": '8100', # will be overwritten later
+            "address": '8100',  # will be overwritten later
             "python": options['executable'],
-            }
+        }
         from zope.mkzeoinstance import ZEOInstanceBuilder
         ZEOInstanceBuilder().create(location, params)
 
@@ -99,8 +98,7 @@ class Recipe:
             # Install extra scripts
             self.install_scripts()
 
-        except:
-            # clean up
+        except Exception:            # clean up
             shutil.rmtree(location)
             raise
 
@@ -183,7 +181,8 @@ class Recipe:
                 os.makedirs(z_log_dir)
 
             # zeo-log-custom superseeds zeo-log
-            logformat=options.get('zeo-log-format', '%(asctime)s %(message)s')
+            logformat = options.get(
+                'zeo-log-format', '%(asctime)s %(message)s')
             if zeo_log_custom is None:
                 zeo_log_rotate = ''
                 zeo_log_max_size = options.get('zeo-log-max-size', None)
@@ -208,8 +207,8 @@ class Recipe:
 
             if options.get('authentication-database', ''):
                 authentication = authentication_template % \
-                        dict(database=options.get('authentication-database'),
-                             realm=options.get('authentication-realm', 'ZEO'))
+                    dict(database=options.get('authentication-database'),
+                         realm=options.get('authentication-realm', 'ZEO'))
             else:
                 authentication = ''
 
@@ -233,12 +232,12 @@ class Recipe:
                 pack_keep_old = 'pack-keep-old false'
 
             storage = storage_template % dict(
-                storage_number = storage_number,
-                file_storage = file_storage,
-                blob_storage = blob_storage,
-                pack_gc = pack_gc,
-                pack_keep_old = pack_keep_old,
-                )
+                storage_number=storage_number,
+                file_storage=file_storage,
+                blob_storage=blob_storage,
+                pack_gc=pack_gc,
+                pack_keep_old=pack_keep_old,
+            )
 
             # ZRS config
             rfrom = options.get('replicate-from')
@@ -255,25 +254,25 @@ class Recipe:
                     keep_alive=keep_alive,
                     replicate=replicate,
                     storage_number=storage_number
-                    )
+                )
 
             read_only = options.get('read-only', 'false')
             zeo_conf = zeo_conf_template % dict(
-                instance_home = instance_home,
-                effective_user = effective_user,
-                invalidation_queue_size = invalidation_queue_size,
-                socket_name = socket_name,
-                z_log = z_log,
-                z_log_filename = z_log_filename,
-                authentication = authentication,
-                storage = storage,
-                zeo_address = zeo_address,
-                pid_file = self.pid_file,
-                zeo_conf_additional = zeo_conf_additional,
-                monitor_address = monitor_address,
-                zeo_log_level = zeo_log_level,
-                read_only = read_only
-                )
+                instance_home=instance_home,
+                effective_user=effective_user,
+                invalidation_queue_size=invalidation_queue_size,
+                socket_name=socket_name,
+                z_log=z_log,
+                z_log_filename=z_log_filename,
+                authentication=authentication,
+                storage=storage,
+                zeo_address=zeo_address,
+                pid_file=self.pid_file,
+                zeo_conf_additional=zeo_conf_additional,
+                monitor_address=monitor_address,
+                zeo_log_level=zeo_log_level,
+                read_only=read_only
+            )
 
         zeo_conf_path = os.path.join(location, 'etc', 'zeo.conf')
         open(zeo_conf_path, 'w').write(zeo_conf)
@@ -314,11 +313,11 @@ class Recipe:
         zc.buildout.easy_install.scripts(
             [(self.name, 'plone.recipe.zeoserver.ctl', 'main')],
             ws, options['executable'], options['bin-directory'],
-            initialization = '\n'.join(
+            initialization='\n'.join(
                 [initialization, options.get('initialization', ''), '']),
-            arguments = ('\n        ["-C", %r]'
-                         '\n        + sys.argv[1:]'
-                         % self.zeo_conf),
+            arguments=('\n        ["-C", %r]'
+                       '\n        + sys.argv[1:]'
+                       % self.zeo_conf),
             extra_paths=self.module_paths,
             relative_paths=self._relative_paths)
 
@@ -333,9 +332,9 @@ class Recipe:
                     [('zeopack', os.path.splitext(filename)[0], 'main')],
                     ws, options['executable'], options['bin-directory'],
                     scripts=zeopack_scripts,
-                    extra_paths = ws + [directory] + self.module_paths,
+                    extra_paths=ws + [directory] + self.module_paths,
                     relative_paths=self._relative_paths,
-                    )
+                )
         else:
             host = port = socket_path = ''
             zeo_address = options.get('zeo-address', '8100')
@@ -399,7 +398,8 @@ class Recipe:
                                )
 
             # Make sure the recipe itself and its dependencies are on the path
-            extra_paths = [ws.by_key[options['recipe'].replace('[zrs]', '')].location]
+            extra_paths = [
+                ws.by_key[options['recipe'].replace('[zrs]', '')].location]
             try:
                 extra_paths.append(ws.by_key['zc.buildout'].location)
             except KeyError:
@@ -414,7 +414,7 @@ class Recipe:
                 arguments=', '.join(arg_list),
                 relative_paths=self._relative_paths,
                 extra_paths=extra_paths + self.module_paths,
-                )
+            )
 
         # The backup script, pointing to repozo.py
         repozo = options.get('repozo', None)
@@ -434,9 +434,9 @@ class Recipe:
             [('repozo', repozo, 'main')],
             self.zodb_ws, options['executable'], options['bin-directory'],
             scripts=repozo_scripts,
-            extra_paths = extra_paths + self.module_paths,
+            extra_paths=extra_paths + self.module_paths,
             relative_paths=self._relative_paths,
-            )
+        )
 
         if sys.platform == 'win32':
             self.install_win32_scripts()
@@ -462,7 +462,7 @@ class Recipe:
         zeo_filename = '%s_service' % self.name
         zeo_service = open(join(curdir, 'zeoservice.py.in')).read()
         zeo_file = os.path.join(self.options['bin-directory'],
-                                    '%s.py' % zeo_filename)
+                                '%s.py' % zeo_filename)
         self._write_file(zeo_file, zeo_service % arguments)
 
         initialization = """
@@ -474,10 +474,10 @@ class Recipe:
             self.zodb_ws,
             self.options['executable'],
             self.options['bin-directory'],
-            extra_paths = path,
+            extra_paths=path,
             relative_paths=self._relative_paths,
-            initialization = initialization,
-            )
+            initialization=initialization,
+        )
 
     def _write_file(self, path, content):
         logger = logging.getLogger('zc.buildout.easy_install')
@@ -487,7 +487,7 @@ class Recipe:
         finally:
             f.close()
         logger.debug('Wrote file %s' % path)
-        os.chmod(path, 0755)
+        os.chmod(path, 0o755)
         logger.warning('Changed mode for %s to 755' % path)
 
 
