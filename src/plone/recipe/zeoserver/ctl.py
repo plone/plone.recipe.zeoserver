@@ -11,11 +11,11 @@ no action is specified on the command line, a "shell" interpreting actions
 typed interactively is started. Use the action "help" to find out about
 available actions. """
 
-import sys
-import os
-
-from ZEO import zeoctl
 from ZEO import runzeo
+from ZEO import zeoctl
+
+import os
+import sys
 
 
 if sys.platform[:3].lower() == "win":

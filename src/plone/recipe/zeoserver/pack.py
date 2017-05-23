@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-import logging
-import socket
-import sys
-import os
-
 from ZEO.ClientStorage import ClientStorage
 from ZEO.Exceptions import ClientDisconnected
+
+import logging
+import os
+import socket
+import sys
 
 
 def _main(host, port, unix=None, days=1, username=None, password=None,

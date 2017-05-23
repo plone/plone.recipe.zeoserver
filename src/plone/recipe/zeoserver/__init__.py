@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
+from pkg_resources import get_distribution
+from pkg_resources import parse_version
+
 import logging
 import os
 import shutil
 import sys
-
-from pkg_resources import get_distribution
-from pkg_resources import parse_version
 import zc.buildout
 import zc.recipe.egg
+
 
 try:
     import zc.zrs
