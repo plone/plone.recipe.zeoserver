@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """zeocltl -- control a ZEO server using zdaemon.
 
 Usage: zeocltl [options] [action [arguments]]
