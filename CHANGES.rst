@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3.2 (unreleased)
+1.4.0 (unreleased)
 ------------------
 
 Breaking changes:
@@ -10,7 +10,8 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Requires zope.mkzeoistance > 4.0 in order to work cleanly with latest ZODB.
+  [jensens]
 
 Bug fixes:
 

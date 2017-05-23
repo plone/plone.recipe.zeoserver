@@ -20,7 +20,7 @@ join = os.path.join
 curdir = os.path.dirname(__file__)
 
 
-class Recipe:
+class Recipe(object):
 
     def __init__(self, buildout, name, options):
         self.egg = zc.recipe.egg.Egg(buildout, options['recipe'], options)
@@ -71,11 +71,11 @@ class Recipe:
         zdaemon_home = os.path.split(zdaemon.__path__[0])[0]
 
         import ZEO
-        self.zodb3_home = os.path.dirname(os.path.dirname(ZEO.__file__))
+        self.zodb_home = os.path.dirname(os.path.dirname(ZEO.__file__))
         params = {
             "package": "zeo",
             "PACKAGE": "ZEO",
-            "zodb3_home": self.zodb3_home,
+            "zodb_home": self.zodb_home,
             'zdaemon_home': zdaemon_home,
             "instance_home": location,
             "address": '8100',  # will be overwritten later
@@ -450,7 +450,7 @@ class Recipe:
         location = self.options['location']
 
         arguments = {'PYTHON': self.options['executable'],
-                     'zodb3_home': self.zodb3_home,
+                     'zodb_home': self.zodb_home,
                      'INSTANCE_HOME': location,
                      'PYTHONPATH': os.path.pathsep.join(path),
                      'PACKAGE': 'zeo',
