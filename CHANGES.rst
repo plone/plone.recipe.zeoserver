@@ -4,10 +4,6 @@ Changelog
 1.4.0 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
 
 - Requires zope.mkzeoistance > 4.0 in order to work cleanly with latest ZODB.
