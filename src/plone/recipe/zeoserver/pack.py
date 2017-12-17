@@ -6,6 +6,7 @@ import logging
 import os
 import socket
 import sys
+import time
 
 
 def _main(host, port, unix=None, days=1, username=None, password=None,
@@ -30,9 +31,14 @@ def _main(host, port, unix=None, days=1, username=None, password=None,
             username=username, password=password, realm=realm,
             blob_dir=blob_dir, shared_blob_dir=shared_blob_dir,
         )
-        if not cs.is_connected():
+        for i in range(60):
+            if cs.is_connected():
+                break
+            time.sleep(1)
+        else:
             logger.error("Could not connect to zeoserver. Please make sure it "
                          "is running.")
+            cs.close()
             sys.exit(1)
         try:
             # The script should not exit until the packing is done.
