@@ -26,6 +26,7 @@ def setUp(test):
     install('constantly', test)
     install('attrs', test)
     install('Twisted', test)
+    install('hyperlink', test)
     dependencies = pkg_resources.working_set.require('ZODB3')
     for dep in dependencies:
         try:

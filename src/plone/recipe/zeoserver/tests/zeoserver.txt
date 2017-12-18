@@ -614,4 +614,3 @@ The main script should have the initialization.
 
     >>> 'foo = 1' in open(join('bin', 'zeo' + suffix)).read()
     True
-
