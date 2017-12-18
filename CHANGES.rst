@@ -14,7 +14,7 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fixed Travis tests by installing the ``hyperlink`` package.  [maurits]
 
 
 1.4.0 (2017-06-16)
