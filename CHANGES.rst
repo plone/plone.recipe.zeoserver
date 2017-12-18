@@ -16,6 +16,8 @@ Bug fixes:
 
 - Fixed Travis tests by installing the ``hyperlink`` package.  [maurits]
 
+- Fixed zeopack script for ZEO >= 5 (backport from original ZEO's script) [mamico]
+
 
 1.4.0 (2017-06-16)
 ------------------
