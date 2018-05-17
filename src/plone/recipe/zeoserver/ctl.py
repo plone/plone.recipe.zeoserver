@@ -10,6 +10,7 @@ Actions are commands like "start", "stop" and "status". If -i is specified or
 no action is specified on the command line, a "shell" interpreting actions
 typed interactively is started. Use the action "help" to find out about
 available actions. """
+from __future__ import print_function
 
 from ZEO import runzeo
 from ZEO import zeoctl

@@ -5,6 +5,7 @@ plone.recipe.zeoserver
 This is the doctest for plone.recipe.zeoserver. It ensures the template
 works fine. It is based on zc.buildout testing module::
 
+    >>> from __future__ import print_function
     >>> from zc.buildout.testing import *
     >>> from os.path import join
     >>> import sys, os
@@ -26,7 +27,7 @@ plone.recipe.zeoserver::
 
 Let's run it::
 
-    >>> print system(join('bin', 'buildout'))
+    >>> print(system(join('bin', 'buildout')))
     Installing zeo.
     ...
     Generated script '...zeo'.
@@ -37,7 +38,7 @@ We should have a basic zeo.conf::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
     >>> conf = open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
-    >>> print conf.replace('\\', '/')
+    >>> print(conf.replace('\\', '/'))
     %define INSTANCE .../sample-buildout/parts/zeo
     <BLANKLINE>
     <zeo>
@@ -95,7 +96,7 @@ Now, let's create a simple buildout to create a primary replication::
     ... replicate-to = 127.0.0.1:5000
     ... ''' % globals()
     >>> write('buildout.cfg', primaryzrs)
-    >>> print system(join('bin', 'buildout'))
+    >>> print(system(join('bin', 'buildout')))
     ...
     Uninstalling zeo.
     Installing zeo.
@@ -104,7 +105,7 @@ Now, let's create a simple buildout to create a primary replication::
 We should have primary zrs config in zeo.conf::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
-    >>> print open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
+    >>> print(open(os.path.join(zeo, 'etc', 'zeo.conf')).read())
     %define INSTANCE ...
     ...
     %import zc.zrs
@@ -128,7 +129,7 @@ And for a secondary::
     ... replicate-from = 127.0.0.1:5000
     ... ''' % globals()
     >>> write('buildout.cfg', primaryzrs)
-    >>> print system(join('bin', 'buildout'))
+    >>> print(system(join('bin', 'buildout')))
     ...
     Uninstalling zeo.
     Installing zeo.
@@ -137,7 +138,7 @@ And for a secondary::
 We should have primary zrs config in zeo.conf::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
-    >>> print open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
+    >>> print(open(os.path.join(zeo, 'etc', 'zeo.conf')).read())
     %define INSTANCE ...
     ...
     %import zc.zrs
@@ -177,7 +178,7 @@ to use `rotatezlogs`::
 
 Let's run it::
 
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     ...
     Uninstalling zeo.
     Installing zeo...
@@ -185,7 +186,7 @@ Let's run it::
 We should have a zeo.conf with a rotatezlog::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
-    >>> print open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
+    >>> print(open(os.path.join(zeo, 'etc', 'zeo.conf')).read())
      %define INSTANCE ...
     ...
     <eventlog>
@@ -221,7 +222,7 @@ as `error`::
 
 Let's run it::
 
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     ...
     Uninstalling zeo.
     Installing zeo...
@@ -257,7 +258,7 @@ Using `zeo-log-max-size` option enables log rotation::
 
 Let's run it::
 
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     ...
     Uninstalling zeo.
     Installing zeo...
@@ -265,7 +266,7 @@ Let's run it::
 We should have a zeo.conf with log file rotation enabled::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
-    >>> print open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
+    >>> print(open(os.path.join(zeo, 'etc', 'zeo.conf')).read())
     %define INSTANCE ...
     ...
     <eventlog>
@@ -302,7 +303,7 @@ the localhost address 127.0.0.1:
     ... zeo-address = 8001
     ...
     ... ''' % globals())
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     ...
     Uninstalling zeo.
     Installing zeo...
@@ -333,7 +334,7 @@ When a host:port combination is provided, the recipe must split it correctly::
     ... zeo-address = 192.168.0.11:8001
     ...
     ... ''' % globals())
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     ...
     Uninstalling zeo.
     Installing zeo...
@@ -364,7 +365,7 @@ When storage-number is provided, the script will assume as default::
     ... storage-number = 9
     ...
     ... ''' % globals())
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     ...
     Uninstalling zeo.
     Installing zeo...
@@ -392,7 +393,7 @@ to a Unix socket file::
     ... zeo-address = /path/to/zeo.socket
     ...
     ... ''' % globals())
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     ...
     Uninstalling zeo.
     Installing zeo...
@@ -423,7 +424,7 @@ The recipe supports specifying a custom script name for the zeopack script::
     ... zeopack-script-name = custom-zeopack-name
     ...
     ... ''' % globals())
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     ...
     Uninstalling zeo.
     ...
@@ -449,7 +450,7 @@ created for different script names::
     ... pack-user = seconduser
     ...
     ... ''' % globals())
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     ...
     Uninstalling zeo.
     ...
@@ -478,7 +479,7 @@ be different and correspond as the buildout specified::
 Restore the original simple configuration::
 
     >>> write('buildout.cfg', simplest)
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     ...
     Uninstalling zeo2.
     Uninstalling zeo...
@@ -499,7 +500,7 @@ The recipe supports specifying a custom script name for the zeopack script::
     ... repozo-script-name = custom-repozo-name
     ...
     ... ''' % globals())
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     ...
     Uninstalling zeo.
     ...
@@ -521,7 +522,7 @@ The recipe supports the generation of scripts with relative paths.
     ... recipe = plone.recipe.zeoserver
     ... zeo-address = /path/to/zeo.socket
     ... ''' % globals())
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     Uninstalling zeo.
     Installing zeo.
     ...
@@ -550,7 +551,7 @@ The recipe support extra paths.
     ... zeo-address = /path/to/zeo.socket
     ... extra-paths = /path/to/test-1.0.egg
     ... ''' % globals())
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     Uninstalling zeo.
     Installing zeo.
     ...
@@ -574,13 +575,13 @@ The generated scripts should have the extra path.
     >>> if not WINDOWS:
     ...     extra in open(join(parts_bin, 'runzeo' + suffix)).read()
     ... else:
-    ...     print True
+    ...     print(True)
     True
 
     >>> if not WINDOWS:
     ...     extra in open(join(parts_bin, 'zeoctl' + suffix)).read()
     ... else:
-    ...     print True
+    ...     print(True)
     True
 
 Initialization in main script
@@ -600,7 +601,7 @@ The recipe support initialization.
     ... initialization =
     ...    foo = 1
     ... ''' % globals())
-    >>> print system(join('bin', 'buildout')),
+    >>> print(system(join('bin', 'buildout'))),
     Uninstalling zeo.
     Installing zeo.
     ...
