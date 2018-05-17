@@ -16,6 +16,9 @@ Bug fixes:
 
 - *add item here*
 
+- Move Recipe from __init__.py to a new module to get rid of the dependency on
+  zc.recipe.egg in control scripts
+  [tschorr]
 
 1.4.1 (2018-02-05)
 ------------------
