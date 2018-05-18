@@ -230,7 +230,7 @@ Let's run it::
 We should have a zeo.conf with a log level set to `error`::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
-    >>> print open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
+    >>> print(open(os.path.join(zeo, 'etc', 'zeo.conf')).read())
      %define INSTANCE ...
     ...
     <eventlog>
