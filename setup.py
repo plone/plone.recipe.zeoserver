@@ -55,6 +55,6 @@ setup(
     },
     zip_safe=False,
     entry_points={
-        'zc.buildout': ['default = plone.recipe.zeoserver:Recipe'],
+        'zc.buildout': ['default = plone.recipe.zeoserver.recipe:Recipe'],
     },
 )

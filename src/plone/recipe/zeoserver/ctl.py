@@ -10,6 +10,7 @@ Actions are commands like "start", "stop" and "status". If -i is specified or
 no action is specified on the command line, a "shell" interpreting actions
 typed interactively is started. Use the action "help" to find out about
 available actions. """
+from __future__ import print_function
 
 from ZEO import runzeo
 from ZEO import zeoctl
@@ -19,9 +20,9 @@ import sys
 
 
 if sys.platform[:3].lower() == "win":
-    print 'For win32 platforms, runzeo.bat or zeoservice.exe should be used'
-    print '%s is based on zdaemon, which is Linux specific' % sys.argv[0]
-    print 'Aborting...'
+    print('For win32 platforms, runzeo.bat or zeoservice.exe should be used')
+    print('%s is based on zdaemon, which is Linux specific' % sys.argv[0])
+    print('Aborting...')
     sys.exit(0)
 
 
