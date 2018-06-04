@@ -5,7 +5,7 @@ from setuptools import setup
 import sys
 
 
-version = '1.4.2.dev0'
+version = '1.4.2'
 
 additional_install_requires = []
 

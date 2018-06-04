@@ -1,8 +1,10 @@
 Changelog
 =========
 
-1.4.2 (unreleased)
+1.4.2 (2018-06-04)
 ------------------
+
+Bug fixes:
 
 - Move Recipe from __init__.py to a new module to get rid of the dependency on
   zc.recipe.egg in control scripts
