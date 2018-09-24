@@ -28,7 +28,7 @@ def setUp(test):
     install('Twisted', test)
     install('hyperlink', test)
     install('idna', test)
-    dependencies = pkg_resources.working_set.require('ZODB3')
+    dependencies = pkg_resources.working_set.require('ZODB') + pkg_resources.working_set.require('ZEO') + pkg_resources.working_set.require('zc.zrs')
     for dep in dependencies:
         try:
             install(dep.project_name, test)

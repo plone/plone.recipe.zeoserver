@@ -506,7 +506,7 @@ file_storage_template = """
 
 
 # the template used to build a blob storage
-zodb_version = get_distribution('ZODB3').version
+zodb_version = get_distribution('ZODB').version
 
 if parse_version(zodb_version) >= parse_version('3.9'):
     # ZODB 3.9+ supports blobs natively
