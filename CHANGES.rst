@@ -6,7 +6,7 @@ Changelog
 
 Breaking changes:
 
-- *add item here*
+- remove dependency to ZODB3 use the splitted version of ZEO and ZODB instead 
 
 New features:
 
