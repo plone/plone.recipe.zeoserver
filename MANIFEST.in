@@ -1,5 +1,8 @@
-include *
+  include *.rst
 
-recursive-include src *
+  include tox.ini
+  exclude tox.ini
 
-global-exclude *pyc
+  recursive-include src *.bat
+  recursive-include src *.in
+  recursive-include src *.txt
