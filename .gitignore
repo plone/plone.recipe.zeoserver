@@ -1,7 +1,11 @@
-.installed.cfg
 *.pyc
+.coverage
+.coverage.*
+.installed.cfg
+.tox/
 bin/
 develop-eggs/
+htmlcov/
 include/
 lib/
 parts/
