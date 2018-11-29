@@ -10,7 +10,7 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Add support for Python 3.6 and 3.7.
 
 Bug fixes:
 

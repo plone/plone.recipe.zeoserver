@@ -1,17 +1,20 @@
 language: python
-sudo: false
+dist: xenial
 python:
     - 2.7
-    - 3.5
     - 3.6
+    - 3.7
+before_install:
+    - pip install -U setuptools pip
+    - pip install -U coverage coveralls zope.testrunner
 install:
-    - python bootstrap.py
-    - bin/buildout
+    - pip install -U -e .[zrs]
 script:
-    - bin/test -v1
+    - COVERAGE_PROCESS_START=.coveragerc coverage run -m zope.testrunner --test-path=src --all -v1
 notifications:
     email: false
+after_success:
+    - coverage combine
+    - coveralls
 cache:
   pip: true
-  directories:
-    - eggs/
