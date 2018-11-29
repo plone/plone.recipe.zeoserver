@@ -10,7 +10,9 @@ before_install:
 install:
     - pip install -U -e .[zrs]
 script:
-    - COVERAGE_PROCESS_START=.coveragerc coverage run -m zope.testrunner --test-path=src --all -v1
+    - export COVERAGE_HOME=$(pwd)
+    - export COVERAGE_PROCESS_START=$COVERAGE_HOME/.coveragerc
+    - coverage run -m zope.testrunner --test-path=src --all -v1
 notifications:
     email: false
 after_success:
