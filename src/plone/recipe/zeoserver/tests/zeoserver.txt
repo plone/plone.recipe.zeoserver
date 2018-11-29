@@ -37,7 +37,8 @@ Let's run it::
 We should have a basic zeo.conf::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
-    >>> conf = open(os.path.join(zeo, 'etc', 'zeo.conf')).read()
+    >>> with open(os.path.join(zeo, 'etc', 'zeo.conf')) as f:
+    ...     conf = f.read()
     >>> print(conf.replace('\\', '/'))
     %define INSTANCE .../sample-buildout/parts/zeo
     <BLANKLINE>
@@ -105,7 +106,8 @@ Now, let's create a simple buildout to create a primary replication::
 We should have primary zrs config in zeo.conf::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
-    >>> print(open(os.path.join(zeo, 'etc', 'zeo.conf')).read())
+    >>> with open(os.path.join(zeo, 'etc', 'zeo.conf')) as f:
+    ...     print(f.read())
     %define INSTANCE ...
     ...
     %import zc.zrs
@@ -138,7 +140,8 @@ And for a secondary::
 We should have primary zrs config in zeo.conf::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
-    >>> print(open(os.path.join(zeo, 'etc', 'zeo.conf')).read())
+    >>> with open(os.path.join(zeo, 'etc', 'zeo.conf')) as f:
+    ...     print(f.read())
     %define INSTANCE ...
     ...
     %import zc.zrs
@@ -186,7 +189,8 @@ Let's run it::
 We should have a zeo.conf with a rotatezlog::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
-    >>> print(open(os.path.join(zeo, 'etc', 'zeo.conf')).read())
+    >>> with open(os.path.join(zeo, 'etc', 'zeo.conf')) as f:
+    ...     print(f.read())
      %define INSTANCE ...
     ...
     <eventlog>
@@ -230,7 +234,8 @@ Let's run it::
 We should have a zeo.conf with a log level set to `error`::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
-    >>> print(open(os.path.join(zeo, 'etc', 'zeo.conf')).read())
+    >>> with open(os.path.join(zeo, 'etc', 'zeo.conf')) as f:
+    ...     print(f.read())
      %define INSTANCE ...
     ...
     <eventlog>
@@ -266,7 +271,8 @@ Let's run it::
 We should have a zeo.conf with log file rotation enabled::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
-    >>> print(open(os.path.join(zeo, 'etc', 'zeo.conf')).read())
+    >>> with open(os.path.join(zeo, 'etc', 'zeo.conf')) as f:
+    ...     print(f.read())
     %define INSTANCE ...
     ...
     <eventlog>
@@ -313,7 +319,8 @@ Now check the values for `host`, `port` and `unix`::
     >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
     >>> if WINDOWS:
     ...     zeopack_path += '-script.py'
-    >>> zeopack = open(zeopack_path, 'r').read()
+    >>> with open(zeopack_path, 'r') as f:
+    ...     zeopack = f.read()
     >>> 'host = "127.0.0.1"' in zeopack
     True
     >>> 'port = "8001"' in zeopack
@@ -344,7 +351,8 @@ Now check the values for `host`, `port` and `unix`::
     >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
     >>> if WINDOWS:
     ...     zeopack_path += '-script.py'
-    >>> zeopack = open(zeopack_path, 'r').read()
+    >>> with open(zeopack_path, 'r') as f:
+    ...     zeopack = f.read()
     >>> 'host = "192.168.0.11"' in zeopack
     True
     >>> 'port = "8001"' in zeopack
@@ -375,7 +383,8 @@ Now check the values for `storage`::
     >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
     >>> if WINDOWS:
     ...     zeopack_path += '-script.py'
-    >>> zeopack = open(zeopack_path, 'r').read()
+    >>> with open(zeopack_path, 'r') as f:
+    ...     zeopack = f.read()
     >>> 'storage = "9"' in zeopack
     True
 
@@ -403,7 +412,8 @@ Now check the values for `host`, `port` and `unix`::
     >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
     >>> if WINDOWS:
     ...     zeopack_path += '-script.py'
-    >>> zeopack = open(zeopack_path, 'r').read()
+    >>> with open(zeopack_path, 'r') as f:
+    ...     zeopack = f.read()
     >>> 'host = None' in zeopack
     True
     >>> 'port = None' in zeopack
@@ -465,15 +475,17 @@ be different and correspond as the buildout specified::
     >>> zeopack_paths = [os.path.join(sample_buildout, 'bin', script) for script in zeopack_scripts]
     >>> if WINDOWS:
     ...     zeopack_paths =  [zeopack + '-script.py' for zeopack in zeopacks]
-    >>> zeopacks = [open(zeopack_path, 'r').read() for zeopack_path in zeopack_paths]
-
-    >>> 'username = "firstuser"' in zeopacks[0]
+    >>> with open(zeopack_paths[0], 'r') as f:
+    ...     first_zeopack = f.read()
+    >>> with open(zeopack_paths[1], 'r') as f:
+    ...     second_zeopack = f.read()
+    >>> 'username = "firstuser"' in first_zeopack
     True
-    >>> 'username = "seconduser"' in zeopacks[0]
+    >>> 'username = "seconduser"' in first_zeopack
     False
-    >>> 'username = "firstuser"' in zeopacks[1]
+    >>> 'username = "firstuser"' in second_zeopack
     False
-    >>> 'username = "seconduser"' in zeopacks[1]
+    >>> 'username = "seconduser"' in second_zeopack
     True
 
 Restore the original simple configuration::
@@ -532,7 +544,8 @@ Our generated script now has a reference to the relative path.
     >>> zeo_path = join('bin', 'zeo')
     >>> if WINDOWS:
     ...     zeo_path += '-script.py'
-    >>> open(zeo_path).read()
+    >>> with open(zeo_path) as f:
+    ...     f.read()
     '...base = os.path.dirname(os.path.abspath(os.path.realpath(__file__)))...'
 
 Extra paths in scripts
@@ -569,17 +582,20 @@ The generated scripts should have the extra path.
 
     >>> parts_bin = join('parts', 'zeo', 'bin')
 
-    >>> extra in open(join('bin', 'zeo' + suffix)).read()
+    >>> with open(join('bin', 'zeo' + suffix)) as f:
+    ...     extra in f.read()
     True
 
     >>> if not WINDOWS:
-    ...     extra in open(join(parts_bin, 'runzeo' + suffix)).read()
+    ...     with open(join(parts_bin, 'runzeo' + suffix)) as f:
+    ...         extra in f.read()
     ... else:
     ...     print(True)
     True
 
     >>> if not WINDOWS:
-    ...     extra in open(join(parts_bin, 'zeoctl' + suffix)).read()
+    ...     with open(join(parts_bin, 'zeoctl' + suffix)) as f:
+    ...         extra in f.read()
     ... else:
     ...     print(True)
     True
@@ -613,5 +629,6 @@ The main script should have the initialization.
     ... else:
     ...     suffix = ''
 
-    >>> 'foo = 1' in open(join('bin', 'zeo' + suffix)).read()
+    >>> with open(join('bin', 'zeo' + suffix)) as f:
+    ...     'foo = 1' in f.read()
     True
