@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-from pkg_resources import get_distribution
-from pkg_resources import parse_version
-
 import logging
 import os
 import shutil
@@ -506,11 +503,8 @@ file_storage_template = """
 
 
 # the template used to build a blob storage
-zodb_version = get_distribution('ZODB3').version
 
-if parse_version(zodb_version) >= parse_version('3.9'):
-    # ZODB 3.9+ supports blobs natively
-    blob_storage_template = """
+blob_storage_template = """
 <filestorage %(storage_number)s>
   path %(file_storage)s
   blob-dir %(blob_storage)s
@@ -518,20 +512,6 @@ if parse_version(zodb_version) >= parse_version('3.9'):
   %(pack_keep_old)s
 </filestorage>
 """.strip()
-
-else:
-    # ZODB 3.8 needs a blob storage wrapper
-    blob_storage_template = """
-<blobstorage %(storage_number)s>
-  blob-dir %(blob_storage)s
-  <filestorage %(storage_number)s>
-    path %(file_storage)s
-    %(pack_gc)s
-    %(pack_keep_old)s
-  </filestorage>
-</blobstorage>
-""".strip()
-
 
 zrs_template = """
 %%import zc.zrs

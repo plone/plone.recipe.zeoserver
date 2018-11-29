@@ -1,12 +1,12 @@
 Changelog
 =========
 
-1.4.3 (unreleased)
-------------------
+2.0 (unreleased)
+----------------
 
 Breaking changes:
 
-- *add item here*
+- Drop support for ``ZODB3`` but require ``ZODB >= 5``.
 
 New features:
 

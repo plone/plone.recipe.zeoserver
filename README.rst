@@ -196,7 +196,7 @@ zeo-conf
 repozo
   The path to the repozo.py backup script. A wrapper for this will be
   generated in bin/repozo, which sets up the appropriate environment for
-  running this. Defaults to using the repozo script from the ZODB3 egg.
+  running this. Defaults to using the repozo script from the ZODB egg.
   Set this to an empty value if you do not want this script to be generated.
 
 repozo-script-name
@@ -209,7 +209,7 @@ zeopack
   The path to the zeopack.py backup script. A wrapper for this will be
   generated in bin/zeopack (unless you change `zeopack-script-name`), which
   sets up the appropriate environment to run this. Defaults to using the zeopack
-  script from the ZODB3 egg.  Set this option to an empty value if you do not
+  script from the ZODB egg.  Set this option to an empty value if you do not
   want this script to be generated.
 
 zeopack-script-name

@@ -29,7 +29,7 @@ def setUp(test):
     install('hyperlink', test)
     install('idna', test)
     install('PyHamcrest', test)
-    dependencies = pkg_resources.working_set.require('ZODB3')
+    dependencies = pkg_resources.working_set.require('ZODB')
     for dep in dependencies:
         try:
             install(dep.project_name, test)

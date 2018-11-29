@@ -5,7 +5,7 @@ from setuptools import setup
 import sys
 
 
-version = '1.4.3.dev0'
+version = '2.0.dev0'
 
 additional_install_requires = []
 
@@ -32,7 +32,6 @@ setup(
         'License :: OSI Approved :: Zope Public License',
         'Framework :: Buildout',
         'Framework :: Plone',
-        'Framework :: Plone :: 5.1',
         'Framework :: Plone :: 5.2',
         'Framework :: Zope',
         'Framework :: Zope :: 4',
@@ -53,8 +52,8 @@ setup(
         'setuptools',
         'zc.buildout',
         'zc.recipe.egg',
-        'ZODB3 >= 3.8',
-        'zope.mkzeoinstance >=4',
+        'ZODB >= 5',
+        'zope.mkzeoinstance >=4.1',
         'ZopeUndo',
     ] + additional_install_requires,
     extras_require={
