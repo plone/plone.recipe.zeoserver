@@ -5,7 +5,7 @@ from setuptools import setup
 import sys
 
 
-version = '1.4.3.dev0'
+version = '2.0.dev0'
 
 additional_install_requires = []
 
@@ -34,9 +34,16 @@ setup(
         'Framework :: Plone',
         'Framework :: Plone :: 5.1',
         'Framework :: Plone :: 5.2',
-        'Framework :: Zope2',
+        'Framework :: Zope',
+        'Framework :: Zope :: 4',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: Implementation',
+        'Programming Language :: Python :: Implementation :: CPython',
     ],
     packages=find_packages('src'),
     include_package_data=True,
@@ -46,8 +53,8 @@ setup(
         'setuptools',
         'zc.buildout',
         'zc.recipe.egg',
-        'ZODB3 >= 3.8',
-        'zope.mkzeoinstance >=4',
+        'ZODB >= 5',
+        'zope.mkzeoinstance >=4.1',
         'ZopeUndo',
     ] + additional_install_requires,
     extras_require={

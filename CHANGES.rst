@@ -1,16 +1,16 @@
 Changelog
 =========
 
-1.4.3 (unreleased)
-------------------
+2.0 (unreleased)
+----------------
 
 Breaking changes:
 
-- *add item here*
+- Drop support for ``ZODB3`` but require ``ZODB >= 5``.
 
 New features:
 
-- *add item here*
+- Add support for Python 3.6 and 3.7.
 
 Bug fixes:
 

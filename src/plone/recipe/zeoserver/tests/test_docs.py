@@ -28,7 +28,8 @@ def setUp(test):
     install('Twisted', test)
     install('hyperlink', test)
     install('idna', test)
-    dependencies = pkg_resources.working_set.require('ZODB3')
+    install('PyHamcrest', test)
+    dependencies = pkg_resources.working_set.require('ZODB')
     for dep in dependencies:
         try:
             install(dep.project_name, test)

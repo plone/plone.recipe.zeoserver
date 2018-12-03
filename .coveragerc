@@ -1,0 +1,8 @@
+[run]
+branch = True
+source = $COVERAGE_HOME/src/plone/recipe/zeoserver
+parallel = true
+data_file = $COVERAGE_HOME/.coverage
+
+[report]
+precision = 2
