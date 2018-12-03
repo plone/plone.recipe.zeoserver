@@ -12,10 +12,6 @@ New features:
 
 - Add support for Python 3.6 and 3.7.
 
-Bug fixes:
-
-- *add item here*
-
 
 1.4.2 (2018-06-04)
 ------------------
