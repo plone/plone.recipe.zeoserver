@@ -390,11 +390,11 @@ class Recipe(object):
             arguments_info += ("import getopt; opts = "
                                "getopt.getopt(sys.argv[1:], 'S:B:D:W1')[0];\n"
                                "opts = dict(opts)\n"
-                               "storage = opts.has_key('-S') and "
+                               "storage = opts.get('-S') and "
                                "opts['-S'] or storage\n"
-                               "blob_dir = opts.has_key('-B') and "
+                               "blob_dir = opts.get('-B') and "
                                "opts['-B'] or blob_dir\n"
-                               "days = opts.has_key('-D') and "
+                               "days = opts.get('-D') and "
                                "opts['-D'] or days\n"
                                )
 

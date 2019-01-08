@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Python 3 compatibility for generated bin/zeopack script
+  [ajung]
 
 
 2.0.0 (2018-12-03)
