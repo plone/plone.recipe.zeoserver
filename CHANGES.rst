@@ -8,6 +8,15 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.1 (2019-02-08)
+------------------
+
+Bug fixes:
+
+
+- Python 3 compatibility for generated bin/zeopack script [ajung] (#36)
+
+
 2.0.0 (2018-12-03)
 ------------------
 
