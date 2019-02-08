@@ -1,8 +1,12 @@
-  include *.rst
+include *.rst
+include pyproject.toml
 
-  include tox.ini
-  exclude tox.ini
+include tox.ini
+exclude tox.ini
 
-  recursive-include src *.bat
-  recursive-include src *.in
-  recursive-include src *.txt
+recursive-include src *.bat
+recursive-include src *.in
+recursive-include src *.txt
+
+recursive-exclude news *
+exclude news
