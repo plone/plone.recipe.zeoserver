@@ -139,7 +139,7 @@ buildout part::
 
 
 replicate-to
-    host:port combination this ZRS should liston to as a primary.
+    host:port combination this ZRS should listen to as a primary.
     ZRS Secondaries connect here to get replication data.
 
 replicate-from
