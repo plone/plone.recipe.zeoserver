@@ -29,6 +29,7 @@ setup(
     url='https://github.com/plone/plone.recipe.zeoserver',
     download_url='https://pypi.org/project/plone.recipe.zeoserver',
     classifiers=[
+        'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: Zope Public License',
         'Framework :: Buildout',
         'Framework :: Plone',
