@@ -70,11 +70,11 @@ import sys, os
 # these are replacements from mkzopeinstance
 PYTHON = r'%(PYTHON)s'
 INSTANCE_HOME = r'%(INSTANCE_HOME)s'
-ZODB3_HOME = r'%(zodb3_home)s'
+ZODB_HOME = r'%(zodb_home)s'
 PYTHONPATH = r'%(PYTHONPATH)s'
 PID_FILENAME = r'%(PID_FILENAME)s'
 
-ZEO_RUN = r'%%s\\ZEO\\runzeo.py' %% ZODB3_HOME
+ZEO_RUN = r'%%s\\ZEO\\runzeo.py' %% ZODB_HOME
 CONFIG_FILE= os.path.join(INSTANCE_HOME, 'etc', 'zeo.conf')
 
 import win32service
