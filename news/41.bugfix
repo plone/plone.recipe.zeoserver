@@ -1,0 +1,1 @@
+Removing ZODB3_HOME variable from runzeo.bat and zeoservice.py.in files, Fix for windows machine
