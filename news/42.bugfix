@@ -1,1 +1,2 @@
 fix for "ValueError: Attempted relative import in non-package" - In windows build
+Removing ZODB3 variable from runzeo.bat and recipe.py files, Fix for windows machine
