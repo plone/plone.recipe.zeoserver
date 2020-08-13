@@ -74,7 +74,7 @@ ZODB_HOME = r'%(zodb_home)s'
 PYTHONPATH = r'%(PYTHONPATH)s'
 PID_FILENAME = r'%(PID_FILENAME)s'
 
-ZEO_RUN = r'%%s\\ZEO\\runzeo.py' %% ZODB_HOME
+ZEO_RUN = r'ZEO.runzeo'
 CONFIG_FILE= os.path.join(INSTANCE_HOME, 'etc', 'zeo.conf')
 
 import win32service
@@ -105,7 +105,7 @@ class InstanceService(Service):
         _exe_name_ = PYTHONSERVICE_EXE
 
     process_runner = PYTHON
-    process_args = '"%%s" -C "%%s"' %% (ZEO_RUN, CONFIG_FILE)
+    process_args = '-m "%%s" -C "%%s"' %% (ZEO_RUN, CONFIG_FILE)
     def __init__(self, args):
         self.setReg('command', self.process_runner + " " + self.process_args)
         self.setReg('pid_filename', PID_FILENAME)
