@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.3 (2020-08-14)
+------------------
+
+Bug fixes:
+
+
+- Removing ZODB3_HOME variable from runzeo.bat and zeoservice.py.in files, Fix for windows machine (#41)
+- fix for "ValueError: Attempted relative import in non-package" - In windows build (#42)
+
+
 2.0.2 (2020-04-21)
 ------------------
 
