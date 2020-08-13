@@ -287,7 +287,7 @@ class Recipe(object):
         for script_name in ('runzeo', 'zeoctl'):
             script_path = os.path.join(location, 'bin', script_name)
             script = open(script_path).read()
-            script = script.replace('PYTHONPATH="$ZODB3_HOME"',
+            script = script.replace('PYTHONPATH="$ZODB_HOME"',
                                     'PYTHONPATH="%s"' % path)
             f = open(script_path, 'w')
             f.write(script)
