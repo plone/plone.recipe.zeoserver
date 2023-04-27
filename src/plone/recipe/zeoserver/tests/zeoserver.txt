@@ -632,3 +632,36 @@ The main script should have the initialization.
     >>> with open(join('bin', 'zeo' + suffix)) as f:
     ...     'foo = 1' in f.read()
     True
+
+Additinal eggs
+==============
+
+The recipe support additional eggs.
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zeoserver
+    ... zeo-address = /path/to/zeo.socket
+    ... eggs = ZEO
+    ... ''' % globals())
+    >>> print(system(join('bin', 'buildout'))),
+    Uninstalling zeo.
+    Installing zeo.
+    ...
+
+The main script should have the initialization.
+
+    >>> breakpoint()
+    >>> if WINDOWS:
+    ...     suffix = '-script.py'
+    ... else:
+    ...     suffix = ''
+
+    >>> with open(join('bin', 'zeo' + suffix)) as f:
+    ...     'foo = 1' in f.read()
+    True
