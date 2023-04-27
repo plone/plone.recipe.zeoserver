@@ -22,6 +22,10 @@ class Recipe:
         self.egg = zc.recipe.egg.Egg(buildout, options["recipe"], options)
         self.buildout, self.options, self.name = buildout, options, name
 
+        if self.options.get("eggs") and options["recipe"] not in self.options["eggs"]:
+            # make sure we do not loose our own dependencies if additional eggs are provided
+            self.options["eggs"] += "\n%s" % options["recipe"]
+
         options["location"] = os.path.join(
             buildout["buildout"]["parts-directory"],
             self.name,
@@ -45,7 +49,7 @@ class Recipe:
     @property
     def ws_locations(self):
         if self._ws_locations is None:
-            self._ws_locations = [d.location for d in self.zodb_ws]
+            self._ws_locations = {d.location for d in self.zodb_ws}
         return self._ws_locations
 
     def install(self):
