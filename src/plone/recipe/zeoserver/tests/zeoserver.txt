@@ -633,8 +633,8 @@ The main script should have the initialization.
     ...     'foo = 1' in f.read()
     True
 
-Additinal eggs
-==============
+Additional eggs
+===============
 
 The recipe support additional eggs.
 
@@ -656,12 +656,11 @@ The recipe support additional eggs.
 
 The main script should have the initialization.
 
-    >>> breakpoint()
     >>> if WINDOWS:
     ...     suffix = '-script.py'
     ... else:
     ...     suffix = ''
 
-    >>> with open(join('bin', 'zeo' + suffix)) as f:
-    ...     'foo = 1' in f.read()
+    >>> with open(join('parts', 'zeo', 'bin', 'zeoctl' + suffix)) as f:
+    ...     'plone.recipe.zeoserver' in f.read()
     True
