@@ -1,15 +1,8 @@
 from setuptools import find_packages
 from setuptools import setup
 
-import sys
 
-
-version = "2.0.4.dev0"
-
-additional_install_requires = []
-
-if sys.platform[:3].lower() == "win":
-    additional_install_requires += ["nt_svcutils"]
+version = "3.0.0.dev0"
 
 
 setup(
@@ -28,22 +21,18 @@ setup(
         "License :: OSI Approved :: Zope Public License",
         "Framework :: Buildout",
         "Framework :: Plone",
-        "Framework :: Plone :: 5.1",
-        "Framework :: Plone :: 5.2",
-        "Framework :: Plone :: Core",
+        "Framework :: Plone :: 6.0",
         "Framework :: Zope",
-        "Framework :: Zope :: 4",
+        "Framework :: Zope :: 5",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: Implementation",
         "Programming Language :: Python :: Implementation :: CPython",
     ],
-    python_requires=">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*",
+    python_requires=">=3.8",
     packages=find_packages("src"),
     include_package_data=True,
     package_dir={"": "src"},
@@ -56,8 +45,8 @@ setup(
         "ZODB >= 5",
         "zope.mkzeoinstance >=4.1",
         "ZopeUndo",
-    ]
-    + additional_install_requires,
+        "nt_svcutils; platform_system == 'Windows'",
+    ],
     extras_require={"zrs": ["zc.zrs"]},
     zip_safe=False,
     entry_points={
