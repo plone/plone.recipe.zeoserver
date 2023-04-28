@@ -457,7 +457,7 @@ class Recipe:
             self.install_win32_scripts()
 
     def install_win32_scripts(self):
-        path = self.ws_locations + self.module_paths
+        path = list(self.ws_locations) + self.module_paths
         location = self.options["location"]
 
         arguments = {
