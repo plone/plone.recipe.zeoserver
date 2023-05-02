@@ -657,11 +657,6 @@ The recipe support additional eggs.
 
 The main script should have the initialization.
 
-    >>> if WINDOWS:
-    ...     suffix = '-script.py'
-    ... else:
-    ...     suffix = ''
-
-    >>> with open(join('parts', 'zeo', 'bin', 'zeoctl' + suffix)) as f:
+    >>> with open(join('parts', 'zeo', 'bin', 'zeoctl')) as f:
     ...     'plone.recipe.zeoserver' in f.read()
     True
