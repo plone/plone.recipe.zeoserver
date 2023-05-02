@@ -6,7 +6,6 @@ from zc.buildout.testing import install_develop
 import doctest
 import pkg_resources
 import shutil
-import sys
 import unittest
 
 
