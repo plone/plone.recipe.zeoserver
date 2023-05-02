@@ -45,7 +45,6 @@ setup(
         "ZODB >= 5",
         "zope.mkzeoinstance >=4.1",
         "ZopeUndo",
-        "nt_svcutils; platform_system == 'Windows'",
     ],
     extras_require={"zrs": ["zc.zrs"]},
     zip_safe=False,
