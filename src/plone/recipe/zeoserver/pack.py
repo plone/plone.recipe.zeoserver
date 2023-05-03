@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from ZEO.ClientStorage import ClientStorage
 from ZEO.Exceptions import ClientDisconnected
 
@@ -9,8 +8,18 @@ import sys
 import time
 
 
-def _main(host, port, unix=None, days=1, username=None, password=None,
-          realm=None, blob_dir=None, storage='1', shared_blob_dir=True):
+def _main(
+    host,
+    port,
+    unix=None,
+    days=1,
+    username=None,
+    password=None,
+    realm=None,
+    blob_dir=None,
+    storage="1",
+    shared_blob_dir=True,
+):
     if unix is not None:
         addr = unix
     else:
@@ -27,17 +36,24 @@ def _main(host, port, unix=None, days=1, username=None, password=None,
         # We do not want to wait until a zeoserver is up and running; it
         # should already be running, so wait=False
         cs = ClientStorage(
-            addr, storage=storage, wait=False, read_only=True,
-            username=username, password=password, realm=realm,
-            blob_dir=blob_dir, shared_blob_dir=shared_blob_dir,
+            addr,
+            storage=storage,
+            wait=False,
+            read_only=True,
+            username=username,
+            password=password,
+            realm=realm,
+            blob_dir=blob_dir,
+            shared_blob_dir=shared_blob_dir,
         )
         for i in range(60):
             if cs.is_connected():
                 break
             time.sleep(1)
         else:
-            logger.error("Could not connect to zeoserver. Please make sure it "
-                         "is running.")
+            logger.error(
+                "Could not connect to zeoserver. Please make sure it " "is running."
+            )
             cs.close()
             sys.exit(1)
         try:
@@ -45,8 +61,9 @@ def _main(host, port, unix=None, days=1, username=None, password=None,
             # => wait=True
             cs.pack(wait=True, days=int(days))
         except ClientDisconnected:
-            logger.error("Disconnected from zeoserver. Please make sure it "
-                         "is still running.")
+            logger.error(
+                "Disconnected from zeoserver. Please make sure it " "is still running."
+            )
             sys.exit(1)
     finally:
         if cs is not None:
@@ -58,8 +75,7 @@ def main(*args, **kw):
     old_level = root_logger.getEffectiveLevel()
     logging.getLogger().setLevel(logging.WARNING)
     handler = logging.StreamHandler(sys.stdout)
-    handler.setFormatter(logging.Formatter(
-        "%(name)s %(levelname)s %(message)s"))
+    handler.setFormatter(logging.Formatter("%(name)s %(levelname)s %(message)s"))
     logging.getLogger().addHandler(handler)
     try:
         _main(*args, **kw)

@@ -239,6 +239,13 @@ zeopack
   "#" is the number of days to keep.
 
 
+Version Information
+-------------------
+
+- 3.x -> Plone 6, Zope 5, Python 3.8+
+- 2.x -> Plone 5, Zope 4, Python 2.7
+
+
 Reporting bugs or asking questions
 ----------------------------------
 

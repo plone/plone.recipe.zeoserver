@@ -1,0 +1,3 @@
+- Fix lost dependencies when defining additional `eggs` in buildout part.
+- Update Codebase to python 3.8+
+[petschki]

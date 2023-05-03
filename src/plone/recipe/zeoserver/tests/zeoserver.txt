@@ -272,7 +272,8 @@ We should have a zeo.conf with log file rotation enabled::
 
     >>> zeo = os.path.join(sample_buildout, 'parts', 'zeo')
     >>> with open(os.path.join(zeo, 'etc', 'zeo.conf')) as f:
-    ...     print(f.read())
+    ...     output = f.read()
+    >>> print(output.replace('\\', '/'))
     %define INSTANCE ...
     ...
     <eventlog>
@@ -474,7 +475,7 @@ be different and correspond as the buildout specified::
     >>> zeopack_scripts = ('first-zeopack', 'second-zeopack')
     >>> zeopack_paths = [os.path.join(sample_buildout, 'bin', script) for script in zeopack_scripts]
     >>> if WINDOWS:
-    ...     zeopack_paths =  [zeopack + '-script.py' for zeopack in zeopacks]
+    ...     zeopack_paths =  [zeopack + '-script.py' for zeopack in zeopack_paths]
     >>> with open(zeopack_paths[0], 'r') as f:
     ...     first_zeopack = f.read()
     >>> with open(zeopack_paths[1], 'r') as f:
@@ -631,4 +632,31 @@ The main script should have the initialization.
 
     >>> with open(join('bin', 'zeo' + suffix)) as f:
     ...     'foo = 1' in f.read()
+    True
+
+Additional eggs
+===============
+
+The recipe support additional eggs.
+
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zeoserver
+    ... zeo-address = /path/to/zeo.socket
+    ... eggs = ZEO
+    ... ''' % globals())
+    >>> print(system(join('bin', 'buildout'))),
+    Uninstalling zeo.
+    Installing zeo.
+    ...
+
+The main script should have the initialization.
+
+    >>> with open(join('parts', 'zeo', 'bin', 'zeoctl')) as f:
+    ...     'plone.recipe.zeoserver' in f.read()
     True
