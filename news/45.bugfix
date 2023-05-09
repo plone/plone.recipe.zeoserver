@@ -1,2 +1,0 @@
-Fix lost dependencies when defining additional ``eggs`` in buildout part.
-[petschki]
