@@ -43,7 +43,7 @@ setup(
         "zc.recipe.egg",
         "ZEO",
         "ZODB >= 5",
-        "zope.mkzeoinstance >=4.1",
+        "zope.mkzeoinstance >= 5.1.1",
         "ZopeUndo",
     ],
     extras_require={"zrs": ["zc.zrs"]},
