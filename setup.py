@@ -1,9 +1,13 @@
+from pathlib import Path
 from setuptools import find_packages
 from setuptools import setup
 
 
 version = "3.0.1.dev0"
 
+long_description = (
+    f"{Path('README.rst').read_text()}\n{Path('CHANGES.rst').read_text()}"
+)
 
 setup(
     name="plone.recipe.zeoserver",
@@ -11,11 +15,14 @@ setup(
     author="Hanno Schlichting",
     author_email="hannosch@plone.org",
     description="ZC Buildout recipe for installing a ZEO server",
-    long_description=(open("README.rst").read() + "\n" + open("CHANGES.rst").read()),
+    long_description=long_description,
+    long_description_content_type="text/x-rst",
     license="ZPL 2.1",
     keywords="zope2 zeo zodb buildout",
     url="https://github.com/plone/plone.recipe.zeoserver",
     download_url="https://pypi.org/project/plone.recipe.zeoserver",
+    # Get more strings from
+    # https://pypi.org/classifiers/
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: Zope Public License",
