@@ -48,6 +48,7 @@ setup(
         "setuptools",
         "zc.buildout",
         "zc.recipe.egg",
+        "zdaemon",
         "ZEO",
         "ZODB >= 5",
         "zope.mkzeoinstance >= 5.1.1",
