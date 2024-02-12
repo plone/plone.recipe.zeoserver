@@ -181,7 +181,7 @@ class Recipe:
             if not os.path.exists(z_log_dir):
                 os.makedirs(z_log_dir)
 
-            # zeo-log-custom superseeds zeo-log
+            # zeo-log-custom supersedes zeo-log
             logformat = options.get("zeo-log-format", "%(asctime)s %(message)s")
             if zeo_log_custom is None:
                 zeo_log_rotate = ""
