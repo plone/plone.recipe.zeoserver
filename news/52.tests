@@ -1,5 +1,0 @@
-Removed tests for Zope Replication Services.
-The recipe support should still work, but the tests are broken.
-Note that the `zc.zrs` project is currently unmaintained, so if you rely on this, please step up.
-See `issue 52 <https://github.com/plone/plone.recipe.zeoserver/issues/52>`_.
-[maurits]

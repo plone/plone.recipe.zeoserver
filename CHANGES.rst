@@ -8,6 +8,19 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.2 (2024-05-06)
+------------------
+
+Tests
+
+
+- Removed tests for Zope Replication Services.
+  The recipe support should still work, but the tests are broken.
+  Note that the `zc.zrs` project is currently unmaintained, so if you rely on this, please step up.
+  See `issue 52 <https://github.com/plone/plone.recipe.zeoserver/issues/52>`_.
+  [maurits] (#52)
+
+
 3.0.1 (2023-10-07)
 ------------------
 
