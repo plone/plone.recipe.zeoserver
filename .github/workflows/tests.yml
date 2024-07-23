@@ -16,11 +16,11 @@ jobs:
       fail-fast: false
       matrix:
         os:
-        - ["windows", "windows-latest"]
-        - ["macos", "macos-11"]
+          - ["windows", "windows-latest"]
+          - ["macos", "macos-12"]
         config:
-        # [Python version, tox env]
-        - ["3.9",   "test"]
+          # [Python version, tox env]
+          - ["3.9",   "test"]
 
     runs-on: ${{ matrix.os[1] }}
     name: ${{ matrix.os[0] }}-${{ matrix.config[1] }}
