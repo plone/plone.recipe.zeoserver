@@ -17,7 +17,7 @@ jobs:
       matrix:
         os:
           - ["windows", "windows-latest"]
-          - ["macos", "macos-12"]
+          - ["macos", "macos-14"]
         config:
           # [Python version, tox env]
           - ["3.9",   "test"]
