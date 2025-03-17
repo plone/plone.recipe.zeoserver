@@ -8,6 +8,22 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.4 (2025-03-17)
+------------------
+
+Bug fixes:
+
+
+- Fix KeyError: 'zc.recipe.egg'.  [maurits] (#66)
+
+
+Internal:
+
+
+- Update configuration files.
+  [plone devs]
+
+
 3.0.3 (2025-01-23)
 ------------------
 
