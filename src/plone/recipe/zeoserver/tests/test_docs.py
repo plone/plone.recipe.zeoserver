@@ -4,7 +4,6 @@ from zc.buildout.testing import install
 from zc.buildout.testing import install_develop
 
 import doctest
-import pkg_resources
 import shutil
 import unittest
 
@@ -23,14 +22,6 @@ def setUp(test):
     install("Twisted", test)
     install("hyperlink", test)
     install("idna", test)
-    dependencies = pkg_resources.working_set.require("ZODB")
-    for dep in dependencies:
-        try:
-            install(dep.project_name, test)
-        except OSError:
-            # Some distributions are installed multiple times, and the
-            # underlying API doesn't check for it
-            pass
 
 
 def tearDown(test):
