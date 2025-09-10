@@ -8,6 +8,15 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.5 (2025-09-10)
+------------------
+
+Tests:
+
+
+- Drop ``pkg_resources`` usage.  [maurits] (#4126)
+
+
 3.0.4 (2025-03-17)
 ------------------
 
