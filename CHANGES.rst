@@ -8,6 +8,15 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.4 (2025-10-02)
+------------------
+
+Bug fixes:
+
+
+- Backport #67: fix KeyError : 'zc.recipe.egg' @erral (#78)
+
+
 2.0.3 (2020-08-14)
 ------------------
 
