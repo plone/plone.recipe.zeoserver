@@ -400,12 +400,6 @@ class Recipe(object):
 
             # Make sure the recipe itself and its dependencies are on the path
             extra_paths = [ws.by_key[options["recipe"].replace("[zrs]", "")].location]
-            # try:
-            #     extra_paths.append(ws.by_key['zc.buildout'].location)
-            # except KeyError:
-            #     # XXX Buildout installed with Pip?
-            #     pass
-            # extra_paths.append(ws.by_key['zc.recipe.egg'].location)
             for package_name in ("zc.buildout", "zc.recipe.egg"):
                 # This may fail if Buildout installed with Pip.  Or we may just need
                 # to query by a different name.
