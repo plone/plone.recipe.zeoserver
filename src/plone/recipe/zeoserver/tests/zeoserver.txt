@@ -350,6 +350,42 @@ Now check the values for `host`, `port` and `unix`::
     >>> 'unix = "/path/to/zeo.socket"' in zeopack
     True
 
+The recipe supports specifying a custom zeopack script::
+
+    >>> write('my_custom_zeopack.py',
+    ... '''
+    ... print('Hello World!')
+    ... ''')
+    >>> write('buildout.cfg',
+    ... '''
+    ... [buildout]
+    ... parts = zeo
+    ... find-links = %(sample_buildout)s/eggs
+    ...
+    ... [zeo]
+    ... recipe = plone.recipe.zeoserver
+    ... zeopack = %(sample_buildout)s/my_custom_zeopack.py
+    ...
+    ... ''' % globals())
+    >>> print(system(join('bin', 'buildout'))),
+    ...
+    Uninstalling zeo.
+    ...
+    Generated script '...zeopack'.
+    ...
+
+Now check the generated script::
+
+    >>> zeopack_path = os.path.join(sample_buildout, 'bin', 'zeopack')
+    >>> if WINDOWS:
+    ...     zeopack_path += '-script.py'
+    >>> with open(zeopack_path, 'r') as f:
+    ...     zeopack = f.read()
+    >>> 'import my_custom_zeopack' in zeopack
+    True
+    >>> 'my_custom_zeopack.main()' in zeopack
+    True
+
 The recipe supports specifying a custom script name for the zeopack script::
 
     >>> write('buildout.cfg',
