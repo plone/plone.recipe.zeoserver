@@ -330,20 +330,6 @@ class Recipe:
         zeopack_scripts = dict(zeopack=zeopack_script_name)
         if zeopack is not None:
             directory, filename = os.path.split(zeopack)
-            # Make sure the recipe itself and its dependencies are on the path
-            extra_paths = [ws.by_key[options["recipe"].replace("[zrs]", "")].location]
-            for package_name in ("zc.buildout", "zc.recipe.egg"):
-                # This may fail if Buildout installed with Pip.  Or we may just need
-                # to query by a different name.
-                try:
-                    extra_paths.append(ws.by_key[package_name].location)
-                except KeyError:
-                    package_name = package_name.replace(".", "-")
-                    try:
-                        extra_paths.append(ws.by_key[package_name].location)
-                    except KeyError:
-                        pass
-
             if zeopack and os.path.exists(zeopack):
                 zc.buildout.easy_install.scripts(
                     [("zeopack", os.path.splitext(filename)[0], "main")],
@@ -351,7 +337,7 @@ class Recipe:
                     options["executable"],
                     options["bin-directory"],
                     scripts=zeopack_scripts,
-                    extra_paths=extra_paths + [directory] + self.module_paths,
+                    extra_paths=[directory] + self.module_paths,
                     relative_paths=self._relative_paths,
                 )
         else:
