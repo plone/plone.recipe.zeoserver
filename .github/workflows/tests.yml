@@ -20,12 +20,12 @@ jobs:
           - ["macos", "macos-14"]
         config:
           # [Python version, tox env]
-          - ["3.9",   "test"]
+          - ["3.11",   "test"]
 
     runs-on: ${{ matrix.os[1] }}
     name: ${{ matrix.os[0] }}-${{ matrix.config[1] }}
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
 
     - name: Set up Python
       uses: actions/setup-python@v6
