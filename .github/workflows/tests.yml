@@ -20,7 +20,7 @@ jobs:
           - ["macos", "macos-14"]
         config:
           # [Python version, tox env]
-          - ["3.9",   "test"]
+          - ["3.11",   "test"]
 
     runs-on: ${{ matrix.os[1] }}
     name: ${{ matrix.os[0] }}-${{ matrix.config[1] }}
