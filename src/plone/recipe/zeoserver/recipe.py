@@ -337,7 +337,7 @@ class Recipe:
                     options["executable"],
                     options["bin-directory"],
                     scripts=zeopack_scripts,
-                    extra_paths=ws + [directory] + self.module_paths,
+                    extra_paths=[directory] + self.module_paths,
                     relative_paths=self._relative_paths,
                 )
         else:
