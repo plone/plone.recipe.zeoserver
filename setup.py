@@ -1,5 +1,4 @@
 from pathlib import Path
-from setuptools import find_packages
 from setuptools import setup
 
 
@@ -28,26 +27,19 @@ setup(
         "License :: OSI Approved :: Zope Public License",
         "Framework :: Buildout",
         "Framework :: Plone",
-        "Framework :: Plone :: 6.0",
-        "Framework :: Plone :: 6.1",
+        "Framework :: Plone :: 6.2",
         "Framework :: Zope",
         "Framework :: Zope :: 5",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: Implementation",
         "Programming Language :: Python :: Implementation :: CPython",
     ],
-    python_requires=">=3.8",
-    packages=find_packages("src"),
+    python_requires=">=3.10",
     include_package_data=True,
-    package_dir={"": "src"},
-    namespace_packages=["plone", "plone.recipe"],
     install_requires=[
-        "setuptools",
         "zc.buildout",
         "zc.recipe.egg",
         "zdaemon",
