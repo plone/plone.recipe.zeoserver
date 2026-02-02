@@ -16,7 +16,6 @@ from ZEO import zeoctl
 import os
 import sys
 
-
 if sys.platform[:3].lower() == "win":
     print("For win32 platforms, runzeo.bat or zeoservice.exe should be used")
     print("%s is based on zdaemon, which is Linux specific" % sys.argv[0])
