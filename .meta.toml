@@ -9,6 +9,7 @@ commit-id = "2.4.1.dev0"
 dependencies_ignores = "['ZODB', 'ZopeUndo', 'zc.zrs']"
 
 [tox]
+skip_test_extra = true
 test_extras = """
     zrs
 """
