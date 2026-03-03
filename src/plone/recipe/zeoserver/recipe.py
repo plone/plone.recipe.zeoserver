@@ -5,7 +5,6 @@ import sys
 import zc.buildout
 import zc.recipe.egg
 
-
 try:
     import zc.zrs
 
