@@ -3,12 +3,13 @@
 # See the inline comments on how to expand/tweak this configuration file
 [meta]
 template = "default"
-commit-id = "2.2.2"
+commit-id = "2.4.1.dev0"
 
 [pyproject]
 dependencies_ignores = "['ZODB', 'ZopeUndo', 'zc.zrs']"
 
 [tox]
+skip_test_extra = true
 test_extras = """
     zrs
 """
