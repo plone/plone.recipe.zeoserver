@@ -8,6 +8,28 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.0a2 (2026-03-04)
+--------------------
+
+New features:
+
+
+- Copy code from unmaintainted ``zope.mkzeoinstance`` instead of depending on it. (#91)
+
+
+Bug fixes:
+
+
+- Bugfix: Allow to specify a custom script for zeopack. [frapell] (#81)
+
+
+Internal:
+
+
+- Update configuration files.
+  [plone devs]
+
+
 4.0.0a1 (2025-12-09)
 --------------------
 
