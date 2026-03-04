@@ -44,10 +44,8 @@ import argparse
 import os
 import stat
 import sys
-
 import zdaemon
 import ZODB
-
 
 PROGRAM = os.path.basename(sys.argv[0])
 
@@ -138,7 +136,7 @@ export PYTHONPATH INSTANCE_HOME
 exec "$PYTHON" -m ZEO.runzeo -C "$CONFIG_FILE" ${1+"$@"}
 """
 
-ZEO_DEFAULT_BLOB_DIR = '$INSTANCE/var/blobs'
+ZEO_DEFAULT_BLOB_DIR = "$INSTANCE/var/blobs"
 
 
 def print_(msg, *args, **kw):
@@ -147,13 +145,15 @@ def print_(msg, *args, **kw):
     if kw:
         msg = msg % kw
     if not isinstance(msg, str):
-        msg = msg.decode('utf8')
-    sys.stdout.write('%s\n' % msg)
+        msg = msg.decode("utf8")
+    sys.stdout.write("%s\n" % msg)
 
 
-def usage(msg='', rc=1,
-          exit=sys.exit,  # testing hook
-          ):
+def usage(
+    msg="",
+    rc=1,
+    exit=sys.exit,  # testing hook
+):
     if not isinstance(msg, str):
         msg = str(msg)
     print_(__doc__, program=PROGRAM)
@@ -164,8 +164,7 @@ def usage(msg='', rc=1,
 
 class ZEOInstanceBuilder:
 
-    def get_params(self, zodb_home, zdaemon_home,
-                   instance_home, address, blob_dir):
+    def get_params(self, zodb_home, zdaemon_home, instance_home, address, blob_dir):
         return {
             "package": "zeo",
             "PACKAGE": "ZEO",
@@ -185,23 +184,31 @@ class ZEOInstanceBuilder:
         makedir(home, "bin")
 
         # Create dir only when default is selected
-        if ZEO_DEFAULT_BLOB_DIR in params.setdefault('blob_dir', ''):
+        if ZEO_DEFAULT_BLOB_DIR in params.setdefault("blob_dir", ""):
             makedir(home, "var/blobs")
 
         makefile(ZEO_CONF_TEMPLATE, home, "etc", "zeo.conf", **params)
         makexfile(ZEOCTL_TEMPLATE, home, "bin", "zeoctl", **params)
         makexfile(RUNZEO_TEMPLATE, home, "bin", "runzeo", **params)
 
-    def run(self, argv,
-            usage=usage,  # testing hook
-            ):
+    def run(
+        self,
+        argv,
+        usage=usage,  # testing hook
+    ):
 
         parser = argparse.ArgumentParser(add_help=False)
-        parser.add_argument('instance_home', nargs='?', default=None)
-        parser.add_argument('addr_string', nargs='?', default='9999')
-        parser.add_argument('-h', '--help', action='store_true')
-        parser.add_argument('-b', '--blobs', required=False, default=None,
-                            const=ZEO_DEFAULT_BLOB_DIR, nargs='?')
+        parser.add_argument("instance_home", nargs="?", default=None)
+        parser.add_argument("addr_string", nargs="?", default="9999")
+        parser.add_argument("-h", "--help", action="store_true")
+        parser.add_argument(
+            "-b",
+            "--blobs",
+            required=False,
+            default=None,
+            const=ZEO_DEFAULT_BLOB_DIR,
+            nargs="?",
+        )
 
         parsed_args, unknown_args = parser.parse_known_args(argv)
 
@@ -220,9 +227,9 @@ class ZEOInstanceBuilder:
 
         addr_string = parsed_args.addr_string
 
-        if ':' in addr_string:
-            host, port = addr_string.split(':', 1)
-            address = host + ':' + port
+        if ":" in addr_string:
+            host, port = addr_string.split(":", 1)
+            address = host + ":" + port
         elif addr_string.isdigit():
             address = int(addr_string)
         else:
@@ -231,7 +238,8 @@ class ZEOInstanceBuilder:
         blob_dir = parsed_args.blobs if parsed_args.blobs else None
 
         params = self.get_params(
-            zodb_home, zdaemon_home, instance_home, address, blob_dir)
+            zodb_home, zdaemon_home, instance_home, address, blob_dir
+        )
         self.create(instance_home, params)
 
 
