@@ -44,7 +44,6 @@ setup(
         "zdaemon",
         "ZEO",
         "ZODB >= 5",
-        "zope.mkzeoinstance >= 5.1.1",
         "ZopeUndo",
     ],
     extras_require={"zrs": ["zc.zrs"]},
