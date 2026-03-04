@@ -8,6 +8,22 @@ Changelog
 
 .. towncrier release notes start
 
+3.1.0 (2026-03-04)
+------------------
+
+New features:
+
+
+- Copy code from unmaintainted ``zope.mkzeoinstance`` instead of depending on it. (#91)
+
+
+Internal:
+
+
+- Update configuration files.
+  [plone devs]
+
+
 3.0.5 (2025-09-10)
 ------------------
 
