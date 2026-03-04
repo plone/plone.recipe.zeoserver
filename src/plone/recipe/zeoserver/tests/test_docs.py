@@ -12,7 +12,6 @@ def setUp(test):
     buildoutSetUp(test)
     install_develop("plone.recipe.zeoserver", test)
     install("zc.recipe.egg", test)
-    install("zope.mkzeoinstance", test)
     install("ZopeUndo", test)
     install("zc.zrs", test)
     install("Automat", test)

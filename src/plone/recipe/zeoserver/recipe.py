@@ -1,3 +1,5 @@
+from .mkzeoinstance import ZEOInstanceBuilder
+
 import logging
 import os
 import shutil
@@ -82,7 +84,6 @@ class Recipe:
             "address": "8100",  # will be overwritten later
             "python": options["executable"],
         }
-        from zope.mkzeoinstance import ZEOInstanceBuilder
 
         ZEOInstanceBuilder().create(location, params)
 
