@@ -1,0 +1,1 @@
+Copy code from unmaintainted ``zope.mkzeoinstance`` instead of depending on it.
