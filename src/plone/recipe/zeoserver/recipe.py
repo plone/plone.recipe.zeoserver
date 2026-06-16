@@ -410,8 +410,16 @@ class Recipe:
                 "opts['-D'] or days\n"
             )
 
-            # Make sure the recipe itself and its dependencies are on the path
-            extra_paths = [ws.by_key[options["recipe"].replace("[zrs]", "")].location]
+            if options["recipe"] not in ws.by_key:
+                # The recipe is not available in the working set
+                # this happens when the recipe is installed via pip and not via
+                # buildout.
+                extra_paths = []
+            else:
+                # Make sure the recipe itself and its dependencies are on the path
+                extra_paths = [
+                    ws.by_key[options["recipe"].replace("[zrs]", "")].location
+                ]
             for package_name in ("zc.buildout", "zc.recipe.egg"):
                 # This may fail if Buildout installed with Pip.  Or we may just need
                 # to query by a different name.
