@@ -1,1 +1,0 @@
-Fix using the recipe when it is installed via pip/uv. @ale-rt

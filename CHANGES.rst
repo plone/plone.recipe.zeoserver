@@ -8,6 +8,15 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.1 (2026-06-17)
+------------------
+
+Bug fixes:
+
+
+- Fix using the recipe when it is installed via pip/uv. @ale-rt (#101)
+
+
 4.0.0 (2026-05-16)
 ------------------
 
