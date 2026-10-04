@@ -4,7 +4,63 @@
 [build-system]
 requires = ["setuptools>=68.2,<83", "wheel"]
 
+# START-MARKER-MANUAL-CONFIG
+# Anything from here until END-MARKER-MANUAL-CONFIG
+# will be kept by plone.meta
 
+[project]
+name = "plone.recipe.zeoserver"
+version = "4.0.2.dev0"
+description = "ZC Buildout recipe for installing a ZEO server"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Buildout",
+    "Framework :: Plone",
+    "Framework :: Plone :: 6.2",
+    "Framework :: Zope",
+    "Framework :: Zope :: 5",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: Implementation",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+license = "ZPL-2.1"
+dynamic = ["readme"]
+requires-python = ">=3.10"
+authors = [
+    {name = "Hanno Schlichting",email = "hannosch@plone.org"},
+]
+maintainers = [
+    {name = "Plone Foundation and contributors",email = "plone-developers@lists.sourceforge.net"},
+]
+dependencies = [
+    "ZEO",
+    "ZODB >= 5",
+    "ZopeUndo",
+    "zc.buildout",
+    "zc.recipe.egg",
+    "zdaemon",
+]
+keywords = ["zope2", "zeo", "zodb", "buildout"]
+
+[project.entry-points."zc.buildout"]
+default = "plone.recipe.zeoserver.recipe:Recipe"
+
+[project.optional-dependencies]
+zrs = ["zc.zrs"]
+
+[project.urls]
+Source = "https://github.com/plone/plone.recipe.zeoserver"
+Issues = "https://github.com/plone/Products.CMFPlone/issues"
+Changelog = "https://github.com/plone/plone.recipe.zeoserver/blob/master/CHANGES.rst"
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.rst", "CHANGES.rst"]}
+# END-MARKER-MANUAL-CONFIG
 
 [tool.towncrier]
 directory = "news/"
