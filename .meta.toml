@@ -3,7 +3,7 @@
 # See the inline comments on how to expand/tweak this configuration file
 [meta]
 template = "default"
-commit-id = "2.8.0"
+commit-id = "2.13.1"
 
 [pyproject]
 dependencies_ignores = "['ZODB', 'ZopeUndo', 'zc.zrs']"
@@ -13,4 +13,4 @@ skip_test_extra = true
 test_extras = """
     zrs
 """
-test_matrix = {"6.2" = ["*"]}
+test_matrix = {"6.3" = ["*"], "6.2" = ["*"]}
